@@ -1,0 +1,185 @@
+%*****************************************
+\chapter{The $\lambda$-calculus}\label{ch:examples}
+%*****************************************
+The following definitions are standard and are adapted from \cite{terese_term_2003}.
+\begin{definition}
+	Assume a countable infinite set $\mathcal{V}$ of variables. The $\lambda$-\emph{calculus} is the language of the terms defined by the following BNF grammar.
+	$$
+	\termone,\termtwo\bnf\varone\in\mathcal{V}\midd\termone\termtwo\midd\abstr{\varone}{\termone}
+	$$
+	We denote by $\Lambda$ the set of all $\lambda$-terms.
+\end{definition}
+\ifthenelse {\boolean{verbose}}{\begin{definition}
+		The set of \emph{subterms} $\mathsf{Sub(\mathit{\termone})}$ of a term $\termone$ is defined inductively on the structure of $\termone$ as follows.
+		\begin{align*}
+		&\mathsf{Sub(\mathit{x})}=\{x\},\\
+		&\mathsf{Sub(\mathit{\termtwo\termthree})}=\mathsf{Sub(\mathit{\termtwo})}\cup \mathsf{Sub(\mathit{\termthree})}\cup\{\termtwo\termthree\},\\
+		&\mathsf{Sub(\mathit{\lambda x.\termtwo})}=\mathsf{Sub(\mathit{\termtwo})}\cup \{\lambda x.\termtwo\}.
+		\end{align*}
+\end{definition}}{}
+\ifthenelse {\boolean{lv}}{\begin{definition}
+		A variable $x$ occurs \emph{bound} in $\termone$, if \ifthenelse {\boolean{verbose}}{$\lambda x.\termtwo\in\mathsf{Sub(\mathit{\termone})}$}{$\lambda x.\termtwo$ is a subterm of $\termone$} for some term $\termtwo$. The set of \emph{free variables} $FV(\termone)$ of a term $\termone$ is defined inductively on the structure of $\termone$ as follows.
+		\begin{align*}
+		&FV(x)=\{x\},\\
+		&FV(\termtwo\termthree)=FV(\termtwo)\cup FV(\termthree),\\
+		&FV(\lambda x.\termtwo)=FV(\termtwo)\setminus\{x\}.
+		\end{align*}
+\end{definition}}{}
+\ifthenelse {\boolean{verbose}}{We define formally variable renaming for a $\lambda$-term.
+\begin{definition}
+	We denote by $\termone\{y/x\}$ the \emph{substitution} of variable $x$ by variable $y$ in a term $\termone$ performed in the following way.
+	\begin{align*}
+	&x\{y/x\}=y,\\
+	&z\{y/x\}=z,\\ %add condition
+	&(\termone\termtwo)\{y/x\}=(\termone\{y/x\}\termtwo\{y/x\}),\\
+	&(\lambda x.\termone)\{y/x\}=(\lambda y.\termone\{y/x\}),\\
+	&(\lambda z.\termone)\{y/x\}=(\lambda z.\termone\{y/x\}).   %add condition
+	\end{align*}
+\end{definition}
+We assume the \emph{Barendregt's variable convention} for which every term has all bound variables distinct from each other and from any free variable.}{We write $\termone\{\termtwo/x\}$ for the \emph{(capture-avoiding) substitution} of variable $x$ by term $\termtwo$ in term $\termone$.}
+\ifthenelse {\boolean{verbose}}{\begin{definition}
+	We denote by $\termone\{\termtwo/x\}$ the \emph{(capture-avoiding) substitution} of variable $x$ by term $\termtwo$ in term $\termone$ performed in the following way.
+	\begin{align*}
+	&x\{\termtwo/x\}=\termtwo,\\
+	&y\{\termtwo/x\}=y,\\ %add condition
+	&(\termone\termthree)\{\termtwo/x\}=(\termone\{\termtwo/x\}\termthree\{\termtwo/x\}),\\
+	&(\lambda x.\termone)\{\termtwo/x\}=(\lambda x.\termone),\\
+	&(\lambda y.\termone)\{\termtwo/x\}=(\lambda y.\termone\{\termtwo/x\}),\\ %add condition
+	&(\lambda y.\termone)\{\termtwo/x\}=(\lambda z.\termone\{z/y\}\{\termtwo/x\}).\\ %add condition
+	\end{align*}
+\end{definition}
+\begin{lemma}[Substitution Lemma]
+	For any $\termone,\termtwo,\termthree\in\Lambda$ if $x\neq y$ and $x\not\in FV(\termthree)$, then
+	$$
+	\termone\{\termtwo/x\}\{\termthree/y\}\equiv\termone\{\termthree/y\}\{\termtwo\{\termthree/y\}/x\}.
+	$$
+\end{lemma}}{}
+\begin{definition}
+	We define (one-hole) \emph{contexts} by the following BNF grammar.
+	$$
+	\contone,\conttwo\bnf\Box\midd\contone\termone\midd\termone\contone\midd\abstr{\varone}{\contone}
+	$$
+	We denote with $\Lambda_\Box$ the set of all contexts.
+\end{definition}
+Intuitively contexts are $\lambda$-terms with a hole that can be filled with another $\lambda$-term. We indicate with $\contone[\termone]$ the term obtained by replacing $\Box$ with $\termone$ in $\contone$.\\
+We call $\lambda$-terms in the form $(\lambda x.\termone)\termtwo$ $\beta$-reducible expressions or $\beta$-\emph{redexes} and $\termone\{\termtwo/x\}$ its \emph{contractum}. This is justified by the following definition.
+\begin{definition}
+	The relation of $\beta$-\emph{reduction}, $\redbeta\subseteq\Lambda\times\Lambda$, is defined by
+	$$
+	\redbeta = \{(\contone[(\lambda x.\termone)\termtwo],\, \contone[\termone\{\termtwo/x\}])\, |\, \termone, \termtwo\in\Lambda, \contone\in\Lambda_\Box\}.
+	$$
+	The relation of $\mathsf{ANF}$-$\beta$-\emph{reduction}, $\redbetaanf\subseteq\Lambda\times\Lambda$, is defined by
+	$$
+	\redbetaanf = \{(\contone[(\lambda x.\termone)\termtwo],\, \contone[\termone\{\termtwo/x\}])\, |\, \termone, \termtwo\in\Lambda,\,\termtwo\textnormal{ is in normal form},\, \contone\in\Lambda_\Box\}.
+	$$
+	We denote by $\redbetaclo$ the reflexive and transitive closure of $\redbeta$.
+\end{definition}
+\ifthenelse {\boolean{lv}}{\begin{definition}
+		An \emph{abstract reduction system} (ARS) is a pair $(A,\rightarrow)$ where $A$ is a set with cardinality at most countable and $\rightarrow\,\subseteq A\times A$.
+\end{definition}
+If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite $|\sigma|$ is the \emph{lenght} of $\sigma$. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalizing} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalizing} if every reduction sequence from $a$ is finite.\\}{}
+We can think the $\lambda$-calculus defined above as an \ifthenelse{\boolean{lv}}{ARS}{\emph{abstract reduction system} (ARS)}    $(\Lambda,\redbeta)$. We denote by $\Lambda_\mathsf{WN}$ the set of weakly normalizing terms of $\Lambda$.
+\section{Sub-$\lambda$-calculi}
+There are interesting subsets of the $\lambda$-calculus. In particular we focus our attention on subsystems where terms satisfy a predicate on the number of their free variables. These systems are meaningful because they are \emph{stable} w.r.t. $\beta$-reduction i.e. if $\termone\in S$ and $\termone\redbeta\termtwo$ then $\termtwo\in S$. \ifthenelse {\boolean{lv}}{We report only the results that will be useful in the following sections, a }{A }comprehensive treatment is in \cite{sinot_sub-$lambda$-calculi_2008}.
+\subsubsection{$\lambda I$-calculus.}
+$\lambda I$-calculus was the original calculus studied by Alonzo Church in the '30 \cite{church_unsolvable_1936}. \cite{barendregt_lambda_1984} contains a whole section dedicated to it. In $\lambda I$-calculus there is no \emph{cancellation}.
+\ifthenelse {\boolean{lv}}{\begin{definition}
+	We denote the set of all the terms of the $\lambda I$-calculus by $\Lambda_I$. $\lambda I$-terms are defined inductively in the following way.
+	\begin{align*}
+	&x\in\Lambda_I,\\
+	&\textnormal{If }\termone\in \Lambda_I, \textnormal{ and $x$ is free in }\termone,\,\lambda x.\termone\in\Lambda_I,\\
+	&\textnormal{If } \termone,\termtwo\in \Lambda_I,\, \termone\termtwo\in\Lambda_I.
+	\end{align*}
+\end{definition}
+\begin{proposition}
+	If $\termone,\termone_1,..,\termone_n\in\Lambda_I$, then $\termone\{\termone_1/x_1,..,\termone_n/x_n\} \in\Lambda_I$.
+\end{proposition}
+\begin{proposition}
+	If $\termone\in\Lambda_I$ and $\termone\redbeta\termtwo$, then $\termtwo\in\Lambda_I$. Moreover $\termtwo$ has \emph{the same} free variables of $\termone$.
+\end{proposition}
+\begin{theorem}
+	If $\termone\in\Lambda_I$ is weakly normalizing, then it is strongly normalizing.
+\end{theorem}}{}
+\subsubsection{$\lambda A$-calculus.}
+$\lambda A$-calculus is the dual of $\lambda I$-calculus and it is sometimes called \emph{affine} $\lambda$-calculus in the literature. It is a very weak calculus in which there is no \emph{copy}.
+\ifthenelse {\boolean{lv}}{\begin{definition}
+	We denote the set of all the terms of the $\lambda A$-calculus by $\Lambda_A$. $\lambda_A$-terms are defined inductively in the following way.
+	\begin{align*}
+	&x\in\Lambda_A,\\
+	&\textnormal{If }\termone\in \Lambda_A, \textnormal{ and there is at most one occurence of $x$ free in } \termone,\, \lambda x.\termone\in\Lambda_A,\\
+	&\textnormal{If }\termone,\termtwo\in \Lambda_A, \termone\termtwo\in\Lambda_A.
+	\end{align*}
+\end{definition}
+\begin{proposition}
+	If $\termone\in\Lambda_A$ and $\termone\redbeta\termtwo$, then $\termtwo\in\Lambda_A$.
+\end{proposition}
+\begin{proposition}
+	If $\termone\in\Lambda_A$, then $\termone$ is strongly normalizing.
+\end{proposition}}{}
+\section{Reduction Strategies}
+ARSs come with a relation, and thus are intrinsically nondeterministic. The notion of reduction strategy allows to fix a rule in the choice of the redex to reduce.
+\begin{definition}
+	Given an ARS $(A,\rightarrow)$, a \emph{deterministic reduction strategy} is a partial function $\mathsf{S}:A\rightharpoonup A$ such that $\mathsf{S}(a)$ is defined if and only if $a$ is not in normal form and $\mathsf{S}(a)\in\{b\,|\,a\rightarrow b\}$.
+\end{definition}
+If $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is a reduction sequence with strategy $\mathsf{S}$ and $a_n$ is in normal form we write $\nsteps{\mathsf{S}}(a_0)=n=|\sigma|$.\\
+\ifthenelse {\boolean{lv}}{Now we define and report some results for reduction strategies in the $\lambda$-calculus.}{We define two important reduction strategies for the $\lambda$-calculus that will be useful in the following sections.}
+\begin{definition}
+	\emph{Leftmost-outermost} $(\pslo)$ is a deterministic reduction strategy in which $\termone\redlo\termtwo$ if $\termone\redbeta\termtwo$ and the redex contracted in $\termone$ is the \emph{leftmost} among the ones in $\termone$ (measuring the position of a redex by its beginning).
+\end{definition}
+\begin{definition}
+	\emph{Rightmost-innermost} $(\psri)$ is a deterministic reduction strategy in which $\termone\redri\termtwo$ if $\termone\redbeta\termtwo$ and the redex contracted in $\termone$ is the \emph{rightmost} among the ones in $\termone$ (measuring the position of a redex by its beginning).
+\end{definition}
+\ifthenelse {\boolean{lv}}{\begin{definition}[Residuals \cite{xi_upper_1999}]
+	Let $\termone$ be a term and $\rdxone=(\lambda x.\termtwo)\termthree$ one of its redexes. If $\termone\redbetardx{\rdxone}\termfour$, then for each redex $\rdxtwo$ of $\termone$ the residuals are defined in the following way.
+	\begin{itemize}
+		\item $\rdxtwo$ is $\rdxone$. Then $\rdxtwo$ has no residuals in $\termfour$.
+		\item $\rdxtwo$ is in $\termtwo$. Then $\rdxtwo\{\termthree/x\}$ in $\termtwo\{\termthree/x\}$ is the only residual of $\rdxtwo$ in $\termfour$.
+		\item $\rdxtwo$ is in $\termthree$. All copies of $\rdxtwo$ in $\termtwo\{\termthree/x\}$ are residuals of $\rdxtwo$ in $\termfour$.
+		\item $\rdxtwo$ contains $\rdxone$. Then the residual of $\rdxtwo$ is the term obtained by replacing $\rdxone$ in $\rdxtwo$ with $\termtwo\{\termthree/x\}$.
+		\item Otherwise $\rdxtwo$ is not affected and is its own residual in $\termfour$.
+	\end{itemize}
+	The residual relation is transitive.
+\end{definition}
+\begin{definition}
+	A reduction sequence $\sigma:\termone\redbetardx{\rdxone_1}\termone_1\redbetardx{\rdxone_2}\cdots\termone_n=\termtwo$ is \emph{standard} if for all $1\leq i<j$ and for all $1\leq j\leq n$, $\rdxone_j$ is not the residual of some redex to the left of $\rdxone_i$.
+\end{definition}
+\begin{lemma}\label{lemma:stdislo}
+	If $\termone\redbetaclo\termtwo$ with a standard reduction sequence $\sigma$ and $\termtwo$ is in normal form, then all reductions in $\sigma$ are leftmost.
+\end{lemma}
+\begin{theorem}[Standardization \cite{xi_upper_1999}]
+	Every finite reduction sequence can be standardized.
+\end{theorem}
+\begin{corollary}
+	$\pslo$ is a normalising strategy. i.e. if a term $\termone$ has normal form $\termtwo$ then $\termone\redlosteps{n}\termtwo$ for some $n$.
+\end{corollary}}{}
+\begin{lemma}\label{lemma:derivationlenght}
+	If $\termone\in\Lambda_\mathsf{WN}$ and $\termone\redbeta\termtwo$, then $\nsteps{\pslo}(\termtwo) \leq \nsteps{\pslo}(\termone)$.
+\end{lemma}
+\ifthenelse {\boolean{lv}}{\begin{proof}
+	We argue by induction on $\nsteps{\pslo}(\termone)$. We call $\termthree$ the normal form of $\termone$, $\rdxone$ the redex contracted from $\termone$ to $\termtwo$ and $\rdxtwo$ the $\pslo$-redex of $\termone$. The base of the induction is $\nsteps{\pslo}(\termone)=1$. If $\rdxone$ and $\rdxtwo$ are the same redex we are done. Otherwise $\rdxone$ has no residuals in $\termthree$, since $\termthree$ is in normal form. Thus $\rdxone$ is in the argument of $\rdxtwo$ which is cancelled implying that $\nsteps{\pslo}(\termone)=\nsteps{\pslo}(\termtwo)$. Now suppose the Lemma true for each term $\termfour$ such that $\nsteps{\pslo}(\termfour)\leq k$. Let us consider a term $\termone$ with $\nsteps{\pslo}(\termone)=k+1$ and the reduction sequence $\termone\redlordx{\rdxtwo}\termfour\redlosteps{k}\termthree$. There are two cases to consider.
+	\begin{itemize}
+		\item $\rdxone$ has no residuals in $\termfour$. Like in the base case that implies that $\nsteps{\pslo}(\termone)=\nsteps{\pslo}(\termtwo)$.
+		\item $\rdxone$ has $m\geq 1$ residuals $\rdxone'_i$ in $\termfour$.
+	\end{itemize}
+\end{proof}
+We now prove that if we restrict $\beta$-reduction to $\beta\mathsf{ANF}$ all reductions from a term to its normal form have the same length, no matter the strategy adopted. We exploit a well-known result from rewriting theory.
+\begin{definition}
+	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} if and only if for each term $a\in A$ if $a\red b$ and $a\red c$ with $b\neq c$, then there exists a term $d$ such that $b\red d$ and $c\red d$. 
+\end{definition}
+\begin{lemma}[\cite{zantema_strategy_2012}]
+	If an ARS satisfies the weak diamond property then for each term $a$ that has a normal form all reduction sequences from $\termone$ to its normal form have the same length.
+\end{lemma}
+\begin{proposition}
+	The ARS $(\Lambda, \redbetaanf)$ satisfies the diamond property.
+\end{proposition}
+\begin{proof}
+	Let us consider a term $\termone$ such that $\termone\redbetaanf\termtwo$ reducing redex $\rdxone$ and $\termone\redbetaanf\termthree$ reducing redex $\rdxtwo$. There are two possible cases.
+	\begin{itemize}
+		\item $\rdxone$ and $\rdxtwo$ are independent. Then we can consider $\termone$ as a two-hole context filled with $\rdxone$ and $\rdxtwo$ i.e. $\termone\equiv\contone[\rdxone][\rdxtwo]$. Then $\termtwo\equiv\contone[\rdxone'][\rdxtwo]$ and $\termthree\equiv\contone[\rdxone][\rdxtwo']$ where $\rdxone'$ and $\rdxtwo'$ are the reducts of $\rdxone$ and $\rdxtwo$ respectively. Then if $\termfour\equiv\contone[\rdxone'][\rdxtwo']$, $\termtwo\redbetaanf\termfour$ contracting the only residual of $\rdxtwo$ and $\termthree\redbetaanf\termfour$ contracting the only residual of $\rdxone$.
+		\item $\rdxone$ is a subterm of $\rdxtwo=(\lambda x.\termfive)\termsix$, in particular of $\termfive$ since the argument $\termsix$ is in normal form. The thesis follows by the Substitution Lemma.
+	\end{itemize}
+\end{proof}
+\begin{corollary}\label{corollary:equiv}
+	If $\termone\redbetaanfsteps{n}\termtwo$, $\termone\redbetaanfsteps{m}\termtwo$ and $\termtwo$ is in normal form then $m=n$.
+\end{corollary}}{}
+%*****************************************
