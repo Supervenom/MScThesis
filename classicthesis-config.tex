@@ -336,6 +336,8 @@
 \newcommand{\redbetaanfsteps}[1]{\underset{\beta\mathsf{ANF}}{\longrightarrow^{#1}}}
 \newcommand{\redbetasteps}[1]{\longrightarrow^{#1}_\beta}
 \newcommand{\redbetaanfrdx}[1]{\overset{#1}{\underset{\beta\mathsf{ANF}}{\longrightarrow}}}
+\newcommand{\redbetaredanf}[1]{\underset{\beta\mathsf{ANF}}{\xtwoheadrightarrow{#1}}}
+\newcommand{\redbetaredlo}[1]{\underset{\beta\mathsf{LO}}{\xtwoheadrightarrow{#1}}}
 
 %%% STRATEGIES %%%
 \newcommand{\psone}{\mathsf{P}}
@@ -351,8 +353,9 @@
 \newcommand{\dist}[1]{\mathsf{Dist}\left(#1\right)}
 \newcommand{\supp}[1]{\mathbf{Supp}\left(#1\right)}
 \newcommand{\pdist}[1]{\mathsf{PDist}\left(#1\right)}
-\newcommand{\derlenght}[1]{\mathsf{dl_\mathcal{#1}}}
-\newcommand{\avglenght}[1]{\mathsf{adl_\mathcal{#1}}}
+\newcommand{\derlength}[1]{\mathsf{dl_\mathcal{#1}}}
+\newcommand{\avglength}[1]{\mathsf{adl_\mathcal{#1}}}
+\newcommand{\explen}[1]{\mathsf{ExpLen}_{#1}}
 
 %%% MISC %%%
 \newcommand{\depth}[2]{d_{#1}(#2)}
@@ -387,6 +390,10 @@
 \usepackage{rotating}
 \usetikzlibrary{automata,positioning}
 \renewcommand{\labelitemi}{$\bullet$}
+\usepackage{versions}
+\excludeversion{SHORT}
+\includeversion{LONG}
+\includeversion{THESIS}
 %%%  TREES %%%
 \tikzstyle{level 1}=[level distance=2.5cm, sibling distance=4.5cm]
 \tikzstyle{level 2}=[level distance=2.3cm, sibling distance=4.5cm]
@@ -417,6 +424,8 @@
 \newtheorem*{lemma*}{\protect\lemmaname}
 \newtheorem*{theorem*}{\protect\theoremname}
 \newtheorem*{remark*}{\protect\remarkname}
+\newtheorem{remark}{\protect\remarkname}
+\newtheorem{notation}{\protect\notationname}
 \newtheorem{strategy}[theorem]{\protect\strategyname}
 %\providecommand{\examplename}{Example}
 \providecommand{\strategyname}{Strategy}
@@ -427,6 +436,7 @@
 \providecommand{\theoremname}{Theorem}
 \providecommand{\definitionname}{Definition}
 \providecommand{\remarkname}{Remark}
+\providecommand{\notationname}{Notation}
 \newtheorem{examplex}[theorem]{Example}
 \newenvironment{example}
 {\pushQED{\qed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
