@@ -1,0 +1,300 @@
+%************************************************
+\chapter{Randomised Strategies in the $\lambda$-calculus}
+%************************************************
+We define here a randomised strategy $\mathsf{P}_\varepsilon$ for the ARS $(\Lambda,\redbeta)$. Given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
+$$
+\mu(\termtwo)=\begin{cases}
+\varepsilon & \text{if }\termone\redbeta\termtwo\text{ and the }\pslo\text{-redex is reduced,}\\
+1-\varepsilon & \text{if }\termone\redbeta\termtwo\text{ and the }\psri\text{-redex is reduced,}\\
+0 & \text{otherwise}.\\
+\end{cases}
+$$
+In this way we have defined an FPARS $(\Lambda,\mathsf{P}_\varepsilon)$.
+\begin{notation}
+	For the FPARS $(\Lambda,\mathsf{P}_\varepsilon)$ we define the function $\explen{\termone}:[0,1]\rightarrow\mathbb{R}$ where
+	$\explen{\termone}(\varepsilon)=\nsteps{\mathsf{P}_\varepsilon}(\termone)$.
+\end{notation}
+\begin{example}
+	Let us consider the term $\termone=(\lambda x.y)\bm{\Omega}$ where $\bm{\Omega}=\bm{\omega\omega}$  with $\bm{\omega}=\lambda x.xx$. There are two possible representations of the development of the strategy $\mathsf{P}_\varepsilon$ for this term, one as an infinite tree (Figure \ref{figure:trees}a) and another one as a cyclic graph (Figure \ref{figure:trees}b). According to the different representations, we can compute in different ways the probability of reaching normal form and the average derivation length. The results coincide yielding in both cases probability of termination equal to $1$ and average derivation length equal to $\frac{1}{\varepsilon}$. 
+	%Moreover the reader can note the analogy with the abstract setting of Example \ref{example:pars}.
+\end{example}
+\begin{figure}[t]
+	\begin{center}
+		\fbox{
+			\begin{minipage}{.96\textwidth}
+				\begin{center}
+					\tikzstyle{level 1}=[level distance=1.2cm, sibling distance=2.5cm]
+					\tikzstyle{level 2}=[level distance=1.2cm, sibling distance=2.5cm]
+					\subfloat[]{{\begin{tikzpicture}[grow=down]
+							
+						\node[term] {$(\lambda x.y)\bm{\Omega}$}
+						child {
+							node[term] {$y$}        
+							edge from parent         
+							node[left]  {$\varepsilon$}
+						}
+						child {
+							node[term] {$(\lambda x.y)\bm{\Omega}$}        
+							child {
+								node[term] {$y$}        
+								edge from parent         
+								node[left]  {$\varepsilon$}
+							}
+							child {
+								node[term,label=below:{\begin{rotate}{-90}{$\cdots$}\end{rotate}}] {$(\lambda x.y)\bm{\Omega}$}
+								edge from parent         
+								node[right]  {$1-\varepsilon$}
+							}
+							edge from parent         
+							node[right]  {$1-\varepsilon$}
+						};
+						\end{tikzpicture}}}
+				\qquad\qquad\qquad
+				\tikzstyle{level 1}=[level distance=2.1cm, sibling distance=2.5cm]
+				\subfloat[]{{\begin{tikzpicture}[grow=down]
+						\node[term]  (M) {$(\lambda x.y)\bm{\Omega}$}
+						child {
+							node[term] {$y$}        
+							edge from parent         
+							node[left]  {$\varepsilon$}
+						};
+						\path[-]
+						(M) edge [loop above] node {$1-\varepsilon$} ();
+						
+						\end{tikzpicture}}}
+			\end{center}
+		\end{minipage}}
+	\end{center}
+	\caption{The tree (a) and the cyclic graph (b) representing the reduction sequence of $\termone$.}
+	\label{figure:trees}
+\end{figure}
+\begin{itemize}
+	\item
+	In general we want to characterize $\nsteps{\varepsilon}\left(\termone\right)$ in some way. We start by showing that $\nsteps{\varepsilon}\left(\termone\right)$ can be written as a power series.
+	\item
+	$\poly{x}$ is the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
+	%\item
+	%	The set of power series $\pseries{x}$ in the unknown $x$ with coeficients in $\mathbb{R}$  can be defined coinductively as the largest set closed backward with respect to the following rules.
+	%	$$
+	%	\infer[A]
+	%	{(k\in\mathbb{R})\in\pseries{x}}
+	%	{}\qquad
+	%	\infer[M]
+	%	{f\cdot x\in\pseries{x}}
+	%	{f \in \pseries{x}}\qquad
+	%	\infer[S]
+	%	{f+g\in\pseries{x}}
+	%	{f,g \in \pseries{x}}
+	%	$$
+	%	If $\poly{x}$ is the set of polynomials in the unknown $x$ with coeficients in $\mathbb{R}$ it's easy to see that the following rule is implied by those above.
+	%	$$
+	%	\infer[SM]
+	%	{1+\sum_{i}p_i\cdot f_i\in\pseries{x}}
+	%	{f_i\in\pseries{x}\quad p_i\in\poly{x}}
+	%	$$
+\end{itemize}
+%\begin{theorem}
+%	The set $\nsteps{\varepsilon}=\{\nsteps{\varepsilon}\left(\termone\right) | \termone\in\Lambda \mbox{ is normalizing}\}\subseteq\pseries{\varepsilon}$
+%\end{theorem}
+%\begin{proof}
+%	By the coinduction proof principle we have to show that $\nsteps{\varepsilon}$ is closed backward with respect to the rules defining $\pseries{\varepsilon}$. If $\termone$ is in normal form, we are done since $\nsteps{\varepsilon}\left(\termone\right)=0$ and we can match it against the rule $A$. Otherwise $\termone$ is a reducible term, $\delta\left(\termone\right)=\mu$ and $k=\left|\supp{\mu}\right|$. In this case we can write $\nsteps{\varepsilon}\left(\termone\right)$ adding one to the average of the average derivation lenght of every term $\termtwo_i$ obtained contracting the redexes in $\supp{\mu}$.
+%	$$\nsteps{\varepsilon}\left(\termone\right)=1+\sum_{i=1}^{k}p_i\cdot \nsteps{\varepsilon}\left(\termtwo_i\right)
+%	$$
+%	where $p_i$ is the probability of obtaining $\termtwo_i$. From the definition of $\psparam{\varepsilon}$, $p_i$ is always in the form $\varepsilon^a(1-\varepsilon)^b$ with $a\in\{0,1\}$ and $0\leq b < k$. Thus $p_i\in \poly{\varepsilon}$. Now we can match the expression above against the rule $SM$
+%	$$
+%	\infer
+%	{1+\sum_{i=1}^{k}p_i\cdot \nsteps{\varepsilon}\left(\termtwo_i\right)\in\nsteps{\varepsilon}}
+%	{\nsteps{\varepsilon}\left(\termtwo_i\right)\in\nsteps{\varepsilon}\quad p_i\in\poly{\varepsilon}}
+%	$$
+%	proving that $\nsteps{\varepsilon}\subseteq\pseries{\varepsilon}$.
+%\end{proof}
+\begin{lemma}\label{lemma:poly}
+	Every configuration $\rho$ of the PARS $\left(\Lambda,\psparam{\varepsilon},\termone\right)$ is such that
+	$$
+	\rho(s)\in \poly{\varepsilon}
+	$$
+	for each $s\in\Lambda$, with $n,m\geq 0$.
+\end{lemma}
+\begin{proof}
+	We prove this by induction on the lenght $\ell$ of the chain $C=\left( \rho_0\rightsquigarrow\rho_1\rightsquigarrow\rho_2\rightsquigarrow\cdots\rho\right)$. If $\ell=1$, $\rho=\rho_0$, thus $\rho(s)=1$ if $s=s_0$, $0$ otherwise. Now let's suppose that for chains with $\ell\leq k$, $\rho(s)\in \poly{\varepsilon}$. Let's consider a chain $C=\left( \rho_0\rightsquigarrow\rho_1\rightsquigarrow \rho_2\rightsquigarrow\cdots\rho_{k-1}\rightsquigarrow\rho\right)$ of lenght $k+1$. $\rho(s)=\underset{t\in S}{\sum}\rho_{k-1}\left( t\right) \cdot\delta\left(t \rightarrow s\right)$. Polynomials are closed with respect to addition and multiplication, thus by induction hypothesis $\rho(s)\in\poly{\varepsilon}$ if $\delta(t\rightarrow s)\in\poly{\varepsilon}$. This is certainly true because $\delta(t\rightarrow s)$ is either $0$ or in the form $\varepsilon^a(1-\varepsilon)^b$ with $a\in\{0,1\}$ and $b\geq 0$ from the definition of $\psparam{\varepsilon}$.
+\end{proof}
+\begin{theorem}
+	The function $\nsteps{\varepsilon}\left(\termone\right)$ is a power series.
+\end{theorem}
+\begin{proof}
+	Let us consider the PARS $\mathcal{P}=\left(\Lambda,\psparam{\varepsilon},\termone\right)$. $\supp{\rho_i}$
+	is finite for every $i\geq 0$ since the number of redexes in a term is finite and thus $|\rho_i|\in\poly{\varepsilon}$ for every $i\geq 0$ by Lemma~\ref{lemma:poly}. Therefore $\nsteps{\varepsilon} \left(\termone\right)=$ %\avglenght{P}=  \sum\limits_{i=1}^{\infty} |\rho_i|$ is a series whose terms are polynomials, which, once the terms are reordered, is a power series.
+\end{proof}
+\begin{theorem}
+	The FPARS $(\Lambda_\mathsf{WN},\mathsf{P}_\varepsilon)$ is PAST whenever $\varepsilon>0$.
+\end{theorem}
+\begin{proof}
+	We use Foster's Theorem to prove the claim. Thus we have to find a suitable Lyapunov function $V$.
+	We consider $V=\nsteps{\pslo}$. Certainly condition (1) is verified since $\nsteps{\pslo}\left(\termone\right)\geq0$ for each $\termone\in\Lambda_\mathsf{WN}$. We have to verify (2). Suppose $\mathsf{P_\varepsilon}(\termone)=\mu$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, by Lemma~\ref{lemma:derivationlength} we can write:
+	\begin{equation*}
+	\begin{split}
+	\nsteps{\pslo}\left( \mu\right) & = \nsteps{\pslo}(\termtwo) \cdot \varepsilon+ \nsteps{\pslo}(\termthree)\cdot (1-\varepsilon)\\
+	& \leq \left( \nsteps{\pslo}\left( \termone\right)-1\right)  \cdot \varepsilon + \nsteps{\pslo}(\termone)\cdot (1-\varepsilon)\\
+	& = \varepsilon\cdot\nsteps{\pslo}\left( \termone\right)-\varepsilon + \nsteps{\pslo}\left( \termone\right)\cdot\left( 1-\varepsilon\right)\\
+	& = \nsteps{\pslo}\left( \termone\right)-\varepsilon.
+	\end{split}
+	\end{equation*}
+	Since $0\leq\varepsilon\leq 1$, $\nsteps{\pslo}\left(M\right)>_{\varepsilon}\nsteps{\pslo}\left(\mu\right)$ for each normalising term $\termone$.
+	Then, if $\varepsilon>0$, $(\Lambda_\mathsf{WN},\mathsf{P_\varepsilon})$ is PAST and the average number of steps to normal form of a term $\termone$ reduced with strategy $\mathsf{P}_\varepsilon$ is bounded by
+	$\frac{\nsteps{\pslo}\left( \termone\right)}{\varepsilon}$.
+\end{proof}
+The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is very loose and thus it does not give us any information on the actual nature of the function $\explen{\termone}(\varepsilon)$. We show, by means of an example, that the strategy $\mathsf{P}_\varepsilon$ is non-trivial i.e. there exists a term $\termone$ and $0<\varepsilon<1$, such that $\explen{\termone}(\varepsilon)<\explen{\termone}(1)=\nsteps{\pslo}(\termone)<\explen{\termone}(0)=\nsteps{\psri}(\termone)$.
+\begin{example}
+	Let us consider a family of terms $\termone_n=\termtwo\termthree_n$ where:
+	$$
+	\termtwo = \lambda x.\underbrace{((\lambda y.z)\bm{\Omega})}_\termfour x\qquad
+	\termthree_n = C_n\underbrace{((\lambda x.x)y)}_\termfive\qquad
+	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
+	$$
+	After quite simple computations one can derive $\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}$. Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon)<\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n)<\explen{\termone_n}(0)=\nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
+	\begin{figure}[t]
+		\fbox{
+			\begin{minipage}{.95\textwidth}
+				\centering
+				\scalebox{0.7}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot3.pgf}\end{adjustbox}}
+				\vspace{5pt}
+			\end{minipage}}
+		\caption{The function $\explen{\termone_9}(\varepsilon)$.}
+		\label{figure:plot}
+	\end{figure}
+\end{example}
+Studying the behaviour of $\explen{\termone}(\varepsilon)$ for \emph{an arbitrary} term $\termone$ is
+a difficult task, which goes outside the scope of this paper.
+
+As a first step in the direction of a full understanding of the nature
+of $\explen{\termone}(\varepsilon)$, we study it in the
+case $\termone$ is a term for subcalculi $\lambda A$ and
+$\lambda I$ we have previously introduced. In particular we show in the
+next two sections that $\explen{\termone}(\varepsilon)$ has minimum
+in $\varepsilon=1$ and $\varepsilon=0$, respectively.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Case of the $\lambda A$-calculus}\label{sec:lambdaA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The following lemma is an easy consequence of Xi's combinatorial
+analysis of the Standardisation Theorem~\cite{xi_upper_1999}:
+\begin{lemma}\label{lemma:redbound}
+	Given a term $\termone\in\Lambda_A$ and a reduction sequence $\termone\redbetared{\sigma}
+	\termtwo \redbeta \termthree$, where $\sigma$ is standard, we can construct
+	a standard reduction sequence
+	$\tau:\termone\redbetared{} \termthree$ such that $|\tau|\leq
+	1+|\sigma|$.
+\end{lemma}
+It is then easy to get the optimality of the leftmost-outermost
+strategy for $\lambda A$-terms:
+%We recall a quantitative result on standardization by Xi.
+%\begin{lemma}[\cite{xi_upper_1999}]\label{lemma:redbound}
+%	Given a reduction sequence $\termone \redbetared{\sigma_s} \termtwo \redbetardx{\rdxone} \termthree$, where $\sigma_s$ is standard, we can construct a standard $\beta$-reduction sequence $\termone\redbetared{\tau} \termthree$ with $|\tau|\leq 1+\max\{m(\rdxone),1\}\cdo%t|\sigma_s|$, where if $\rdxone=(\lambda x.\termfour)\termfive$, $m(\rdxone)$ is the number of free occurrences of $x$ in $\termfour$. 
+%\end{lemma}
+%\begin{remark}
+%In the case of the  $\lambda A$-calculus $\max\{m(\rdxone),1\}=1$, and thus the bound of the previous lemma becomes $|\tau|\leq 1+|\sigma_s|$.
+%\end{remark}
+\begin{theorem}\label{theorem:stdla}
+	Given a reduction sequence
+	$\sigma:\termone \redbetared{} \termtwo$
+	if $\termone\in\Lambda_A$ and $\termtwo$ is in normal form, then the
+	reduction sequence $\tau:\termone\redbetaredlo{} \termtwo$ is
+	such that $|\tau|\leq |\sigma|$.
+\end{theorem}
+\begin{proof}
+	By induction on $|\sigma|$. The case $|\sigma|=0$ is trivial. So now
+	let us suppose that the theorem holds for $|\sigma|\leq k$. Let us
+	prove it for $|\sigma|= k+1$. We can assume that:
+	$\sigma:\termone \redbetared{\xi} \termthree \redbetardx{\rdxone} \termtwo$.
+	By induction hypothesis we can construct a $\pslo$ reduction
+	sequence $\rho:\termone \redbetared{} \termthree$ such that
+	$|\rho|\leq |\xi|$. Then, since $\pslo$ reduction sequences are standard, by Lemma~\ref{lemma:redbound} we
+	can build a standard reduction sequence
+	$\tau:\termone\redbetared{} \termtwo$ such that $|\tau|\leq
+	1+|\rho|\leq 1+|\xi|=|\sigma|$. The claim follows from the fact
+	that standard reduction sequences to normal form are leftmost.
+\end{proof}
+Theorem~\ref{theorem:stdla} is a Theorem about a \emph{deterministic}
+strategy, while our purpose here is to show the optimality of a
+randomised strategy. Some preliminary lemmas are necessary in
+order to appropriately lift it.
+
+The following two lemmas tell us that the existence of a strictly partial
+probability distribution along a computation witnesses the existence
+of a \emph{deterministic} computation leading to normal form:
+\begin{lemma}\label{lemma:exseq}
+	Let $(S, \mathsf{P})$ an FPARS and $(\rho_i)_{i\in\mathbb{N}}$ a
+	computation, where $\rho_0=\mathbf{Dirac}(s_0)$. For each $s\in S$, if there
+	exists $k\geq 0$ such that $\rho_k(s)>0$, then there exists a
+	reduction sequence $s_0\rightarrow s_1\rightarrow\cdots\rightarrow
+	s_{k-1}\rightarrow s$.
+\end{lemma}
+\begin{proof}
+	We argue by induction on $k$. If $k=0$, then the reduction sequence is trivially $s_0\equiv s$. If $k=h$, $\rho_h(s)=\underset{t\in S}{\sum}\rho_{h-1}\left( t\right) \cdot\mathbb{P}\left(t \rightarrow s\right)$. Since $\rho_h(s)>0$, there exists $t\in S$ such that $\rho_{h-1}\left( t\right) \cdot\mathbb{P}\left(t \rightarrow s\right)\neq 0$, i.e. $\rho_{h-1}(t)>0$ and $\mathbb{P}\left(t \rightarrow s\right)>0$. Thus by induction hypothesis there exists a sequence $s_0\rightarrow s_1\rightarrow \cdots\rightarrow s_{h-2}\rightarrow t$, and $t \rightarrow s$. Hence there exists a reduction sequence $s_0\rightarrow s_1\rightarrow \cdots\rightarrow s_{h-2}\rightarrow t\rightarrow s$.
+\end{proof}
+\begin{lemma}\label{lemma:exseq2}
+	Let $(S, \mathsf{P})$ an FPARS and $(\rho_i)_{i\in\mathbb{N}}$ a computation, where $\rho_0=\mathbf{Dirac}(s_0)$. If there exists $k\geq 1$ such that $|\rho_k|<1$, then there exists a sequence $s_0\rightarrow s_1\rightarrow\cdots\rightarrow s_{j}$ such that $s_{j}$ is in normal form and $j\leq k-1$.
+\end{lemma}
+\begin{proof}
+	We argue by induction on $k$. If $k=1$, since $|\rho_0|$ is $\mathbf{Dirac}(s_0)$ then $\mathsf{P}(s_0)=\bot$ (otherwise $|\rho_1|=1$). Hence $s_0$ is in normal form. If $k=h$ and $|\rho_{h-1}|<1$ by induction hypothesis we are done. So let us consider the case in which $|\rho_{h-1}|=1$ and $|\rho_h|<1$. We claim that there exists $t\in \mathbf{NF}(S)$ such that $\rho_{h-1}(t)>0$.
+	\begin{align*}
+	|\rho_h|&=\underset{s\in S}{\sum}\,\underset{t\in S}{\sum}\rho_{h-1}(t) \cdot\mathbb{P}\left(t \rightarrow s\right)\\
+	&=\underset{t\in S}{\sum}\,\underset{s\in S}{\sum}\rho_{h-1}(t) \cdot\mathbb{P}\left(t \rightarrow s\right)=\underset{t\in S}{\sum}\left(\rho_{h-1}(t)\underset{s\in S}{\sum}\mathbb{P}\left(t \rightarrow s\right) \right)\\
+	&=\underset{t\not\in \mathbf{NF}(S)}{\sum}\left(\rho_{h-1}(t)\underset{s\in S}{\sum}\mathbb{P}\left(t \rightarrow s\right) \right)+\underset{t\in \mathbf{NF}(S)}{\sum}\left(\rho_{h-1}(t)\underset{s\in S}{\sum}\mathbb{P}\left(t \rightarrow s\right) \right).
+	\end{align*}
+	If there was not $t\in \mathbf{NF}(S)$ such that $\rho_{h-1}(t)>0$, then the second term in the sum would vanish and
+	$|\rho_h|=\underset{t\not\in \mathbf{NF}(S)}{\sum}\rho_{h-1}(t)=1$.
+	But $|\rho_h|<1$ by hypothesis. Hence there exists $t\in \mathbf{NF}(S)$ such that $\rho_{h-1}(t)>0$ and thus by Lemma \ref{lemma:exseq} there exist a sequence $s_0\rightarrow s_1\rightarrow\cdots\rightarrow s_{h-2}\rightarrow t$.
+\end{proof}
+We are almost done: the following lemma tells us that all
+configurations along a computation starting from a $\lambda A$-term $\termone$
+are proper until the $n$-th configuration, where
+$n=\nsteps{\pslo}(\termone)$.
+\begin{lemma}\label{lemma:min}
+	Given the FPARS $(\Lambda_A, \mathsf{P_\varepsilon})$, and a
+	computation $(\rho_i)_{i\in\mathbb{N}}$, where
+	$\rho_0=\mathbf{Dirac}(\termone_0)$, for each
+	$k\leq\nsteps{\pslo}(\termone_0)$, then $|\rho_k|=1$.
+\end{lemma}
+\begin{proof}
+	Let $n=\nsteps{\pslo}(\termone_0)$. By contradiction if there was $k\leq n$ such that $|\rho_k|<1$, then by Lemma \ref{lemma:exseq2} would exist a sequence $\termone_0\redbeta\termone_1\redbeta\cdots\redbeta\termone_j$ such that $j\leq k-1$ and $\termone_j$ is normal form. But this is impossible from Theorem \ref{theorem:stdla}.
+\end{proof}
+\begin{corollary}
+	For each term $\termone$ in $\Lambda_{A}$, $\explen{\termone}(\varepsilon)$ has minimum in $\varepsilon=1$.
+\end{corollary}
+\begin{proof}
+	Let $n=\nsteps{\pslo}(\termone)=\explen{\termone}(1)$.
+	\begin{align*}
+	\explen{\termone}(\varepsilon)&=\sum\limits_{i=1}^{\infty} |\rho_i|=\sum\limits_{i=1}^{n} |\rho_i|+\sum\limits_{i=n+1}^{\infty} |\rho_i|\overset{\textrm{Lemma \ref{lemma:min}}}{=}\sum\limits_{i=1}^{n}1+\sum\limits_{i=n+1}^{\infty} |\rho_i|\\
+	&=n+\sum\limits_{i=n+1}^{\infty}|\rho_i|=\explen{\termone}(1)+\sum\limits_{i=n+1}^{\infty}|\rho_i|\geq \explen{\termone}(1).
+	\end{align*}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Case of the $\lambda I$-calculus}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In $\lambda I$, $\pslo$ is certainly not optimal. On the other hand, $\psri$ seems to be
+quite efficient. Indeed, the argument in Section~\ref{sec:lambdaA} dualizes, and allows us to prove
+the optimality of the latter strategy.
+\begin{lemma}\label{lemma:insertion}
+	Given a term $\termone\in\Lambda_I$ and a reduction sequence $\termone\redbeta\termtwo\redbetaredanf{\sigma}\termthree$, if $\termthree$ is normal form, then for all $\beta$-$\mathsf{ANF}$-reduction sequences $\tau:\termone\redbetaredanf{}\termthree$ it holds that $|\tau|\leq |\sigma|+1$.
+\end{lemma}
+\begin{LONG}
+	\begin{proof}
+		We argue by induction on $n=|\sigma|$. If $n=0$, $\termthree\equiv\termtwo$ which is therefore in normal form. Since $\termone$ is in $\Lambda_I$ all its redexes but the one reduced have at least one residual in $\termtwo$. But $\termtwo$ has no redexes since it is in normal form, which implies that $\termone$ has only one redex (the one contracted). Hence every strategy is equivalent and in particular $\termone\redbetaanfsteps{}\termthree$. Now suppose that the statement holds for $n\leq k$. We prove it for $n=k+1$. Let us call $\rdxone$ the redex contracted in the reduction $\termone\redbeta\termtwo$. If $\rdxone$ has the argument in normal form, we are done. So consider the case in which the argument is not in normal form, i.e. it contains al least one redex, call it $\rdxtwo$. Since $\termone\in\Lambda_I$, $\rdxtwo$ has $h\geq 1$ residuals in $\termtwo$. The reduction sequence $\sigma: \termtwo\redbetaredanf{} \termthree$ contains only $\beta\mathsf{ANF}$-steps and thus by Corollary \ref{corollary:equiv} it can be permuted in a sequence $\sigma':\termtwo\redbetaredanf{} \termthree$ such that all the residuals of $\rdxtwo$ are reduced first and call $\termfour$ the term obtained from $\termtwo$ contracting all the residuals of $\rdxtwo$. Clearly $\termtwo\redbetaanfsteps{h}\termfour$. Now consider a reduction $\termone\redbetaredanf{\rdxtwo}\termfive\redbetardx{\rdxone'}\termsix$. By Lemma \ref{lemma:parallel}, $\termfour$ coincides with $\termsix$. The induction hypothesis can now be applied to the reduction $\eta:\termfive\redbetardx{\rdxone'}\termsix\redbetaanfsteps{k+1-h}\termthree$. Thus there exists a $\beta\mathsf{ANF}$-reduction sequence $\tau:\termone\redbetaredanf{}\termthree$ such that $|\tau|\leq 2+k+1-h\leq k+2=|\sigma|+1$. By Corollary \ref{corollary:equiv} every $\beta\mathsf{ANF}$-reduction sequence has this property. 
+	\end{proof}
+\end{LONG}
+\begin{theorem}\label{theorem:revstd}
+	Given a $\beta$-reduction sequence
+	$\sigma:\termone \redbetared{} \termtwo$, if $\termone\in \Lambda_I$ and $\termtwo$ is in normal form, then for all $\beta$-$\mathsf{ANF}$-reduction sequences $\tau:\termone\redbetaredanf{} \termtwo$ it holds that $|\tau|\leq |\sigma|$.
+\end{theorem}
+\begin{proof}
+	By induction on $|\sigma|$. The case $|\sigma|=0$ is trivial. So now let us suppose that the theorem holds for $|\sigma|\leq k$. Let us prove it for $|\sigma|= k+1$. We can assume that $\sigma:\termone \redbetardx{\rdxone}  \termthree \redbetared{\xi}   \termtwo$.
+	By induction hypothesis all $\beta$-$\mathsf{ANF}$-reduction sequences $\rho:\termthree \redbetaredanf{} \termtwo$ are such that $|\rho|\leq |\xi|$. Then by Lemma~\ref{lemma:insertion} all $\beta$-$\mathsf{ANF}$-reduction sequences $\tau:\termone\redbetaredanf{} \termtwo$ are such that $|\tau|\leq 1+|\rho|\leq 1+|\xi|=|\sigma|$.
+\end{proof}
+\begin{corollary}
+	For each term $\termone$ in $\Lambda_{I}$, $\explen{\termone}(\varepsilon)$ has minimum in $\varepsilon=0$.
+\end{corollary}
+\begin{LONG}
+	\begin{proof}
+		The proof is analogous to the $\lambda A$ case.
+	\end{proof}
+\end{LONG}
