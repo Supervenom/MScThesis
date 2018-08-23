@@ -1,6 +1,14 @@
 %************************************************
 \chapter{Randomised Strategies in the $\lambda$-calculus}
 %************************************************
+In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to give such probabilities. Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the first randomised strategy thought by Prakash Panangaden, who is ispired our work,, through some conversations with Prof. Dal Lago. More formally, $\mathsf{U}$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, $\mathsf{U}=\mu\in\dist{\Lambda}$ such that for each $\termtwo\in\Lambda$:
+$$
+\mu(\termtwo)=\begin{cases}
+\frac{1}{|\rdxs{\termone}|} & \text{if }\termone\redbeta\termtwo ,\\
+0 & \text{otherwise}.\\
+\end{cases}
+$$
+where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|$ its cardinality.\\
 We define here a randomised strategy $\mathsf{P}_\varepsilon$ for the ARS $(\Lambda,\redbeta)$. Given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
