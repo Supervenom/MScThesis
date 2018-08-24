@@ -46,7 +46,7 @@ where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|
 \end{figure}
 Although very easy to define, the uniform strategy is not easy at all to study. In fact the number of redexes of terms along a reduction sequence can behave in a very complicated way. As we have seen in the previous Chapter, we study randomised strategies as FPARSs. In the case of the $\lambda$-calculus, the FPARS will be always in the form $(\Lambda_\mathsf{WN},\cdot)$. In fact it does not make any sense to consider terms which do not have normal form. Whether $(\Lambda_\mathsf{WN},\psuni)$ is AST is still an open problem, but for sure $(\Lambda_\mathsf{WN},\psuni)$ is not PAST, as we are going to prove showing a counterexample. 
 \begin{example}
-	Let us  consider the term $\termone=(\lambda x.\lambda y.y)(\bm{\Delta_2\Delta_2})$ where $\bm{\Delta_2}= \lambda x.(xx)(xx)$. We observe that $\bm{\Delta_2\Delta_2}$ reduces to $(\bm{\Delta_2\Delta_2})(\bm{\Delta_2\Delta_2})$. Thus, if we do not reduce leftmost, the number of redexes grows linearly with the length of the reduction sequence. Instead, reducing leftmost, we reach the normal form immediately. Considering the computation $|(\rho_i)|_{i\in\mathbb{N}}$ starting from $\rho_0=\textbf{Dirac}(\termone)$ (in Figure \ref{figure:delta2}) we can compute the sequence $|\rho_i|$.
+	Let us  consider the combinator $\termone=(\lambda x.\lambda y.y)\bm{\Delta_4}$, where $\Delta_4=\bm{\Delta_2\Delta_2}$ and $\bm{\Delta_2}= \lambda x.(xx)(xx)$. We observe that $\bm{\Delta_4}$ reduces to $\bm{\Delta_4\Delta_4}$. Thus, if we do not reduce leftmost, the number of redexes grows linearly with the length of the reduction sequence. Instead, reducing leftmost, we reach the normal form immediately. Considering the computation $|(\rho_i)|_{i\in\mathbb{N}}$ starting from $\rho_0=\textbf{Dirac}(\termone)$ (in Figure \ref{figure:delta2}) we can compute the sequence $|\rho_i|$.
 	\begin{equation*}
 	\begin{split}
 	|\rho_0|&=1\,,\\
@@ -61,6 +61,43 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 	\nsteps{\psuni}(\termone)=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\sum\limits_{i=1}^{\infty} \frac{1}{i}=+\infty.
 	$$
 \end{example}
+\begin{figure}
+	\begin{center}
+		\fbox{
+			\begin{minipage}{.96\textwidth}
+				\begin{tikzpicture}[grow=down]
+				\node[term] {$(\lambda x.\lambda y.y)\bm{\Delta_4}$}
+				child {
+					node[term] {$\lambda y.y$}        
+					edge from parent         
+					node[above]  {$\frac{1}{2}$}
+				}
+				child {
+					node[term] {$(\lambda x.\lambda y.y)(\bm{\Delta_4\Delta_4})$}        
+					child {
+						node[term] {$\lambda y.y$}        
+						edge from parent         
+						node[above]  {$\frac{1}{3}$}
+					}
+					child {
+						node[term] {$(\lambda x.\lambda y.y)((\bm{\Delta_4}\bm{\Delta_4})\bm{\Delta_4})$}
+						edge from parent         
+						node[right]  {$\frac{1}{3}$}
+					}
+					child {
+						node[term] {$(\lambda x.\lambda y.y)(\bm{\Delta_4}(\bm{\Delta_4\Delta_4}))$}
+						edge from parent         
+						node[above]  {$\frac{1}{3}$}
+					}
+					edge from parent         
+					node[above]  {$\frac{1}{2}$}
+				};
+				\end{tikzpicture}
+			\end{minipage}}
+		\end{center}
+		\caption{The tree (truncated after two steps) representing the reduction of term $\termone = (\lambda x.\lambda y.y)\bm{\Delta_4}$ under randomised strategy $\psuni$.}
+		\label{figure:delta2}
+	\end{figure}
 \section{The Strategy $P_\varepsilon$}
 In real programming languages we would like to have a normalising strategy, or at least, since we are in probabilistic context, a positive almost-surely normalising one. For this reason we devised a new strategy for the $\lambda$-calculus $(\Lambda,\redbeta)$, more simple and traditional, since it mixes leftmost-outermost and rightmost-innermost strategies. If $\varepsilon\in[0,1]$, call $\mathsf{P}_\varepsilon$ the strategy in which the leftmost redex is reduced with probability $\varepsilon$ and the rightmost one with probability $1-\varepsilon$. Formally, given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
 $$
@@ -156,22 +193,19 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
 	$$
 	After quite simple computations one can derive $\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}$. Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon)<\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n)<\explen{\termone_n}(0)=\nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
-	\begin{figure}[t]
+	\begin{figure}
 		\fbox{
-			\begin{minipage}{.95\textwidth}
+			\begin{minipage}{.96\textwidth}
 				\centering
-				\scalebox{0.7}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot3.pgf}\end{adjustbox}}
+				\scalebox{1}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot3.pgf}\end{adjustbox}}
 				\vspace{5pt}
 			\end{minipage}}
 		\caption{The function $\explen{\termone_9}(\varepsilon)$.}
 		\label{figure:plot}
 	\end{figure}
 \end{example}
-\begin{itemize}
-	\item
-	In general we want to characterize $\nsteps{\varepsilon}\left(\termone\right)$ in some way. We start by showing that $\nsteps{\varepsilon}\left(\termone\right)$ can be written as a power series.
-	\item
-	$\poly{x}$ is the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
+Last two results showed that strategy $\mathsf{P}_\varepsilon$ is worth studying. It is positive almost-surely normalising and there exists at least a family of terms for which it performs better, in average, than both rightmost-innermost and leftmost-outermost. In particular, several questions arise. Reductions of which terms can benefit from the use of this strategy? Then, how could we tune the parameter $\varepsilon$ in order to minimise $\explen{\mathsf{P}}(\varepsilon)$? Answering in the general case to these questions seems impossible, given classical undecidability results about the $\lambda$-calculus. However in next Sections we try to give some answers in some restricted cases. Since one of the problems is an optimisation problem, we characterise here the nature of the function $\explen{\cdot}(\varepsilon)$. Since it is an analytic function, it can be differentiated (infinite times).\\
+Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
 	%\item
 	%	The set of power series $\pseries{x}$ in the unknown $x$ with coeficients in $\mathbb{R}$  can be defined coinductively as the largest set closed backward with respect to the following rules.
 	%	$$
@@ -191,7 +225,6 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	%	{1+\sum_{i}p_i\cdot f_i\in\pseries{x}}
 	%	{f_i\in\pseries{x}\quad p_i\in\poly{x}}
 	%	$$
-\end{itemize}
 %\begin{theorem}
 %	The set $\nsteps{\varepsilon}=\{\nsteps{\varepsilon}\left(\termone\right) | \termone\in\Lambda \mbox{ is normalizing}\}\subseteq\pseries{\varepsilon}$
 %\end{theorem}
@@ -208,24 +241,22 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 %	proving that $\nsteps{\varepsilon}\subseteq\pseries{\varepsilon}$.
 %\end{proof}
 \begin{lemma}\label{lemma:poly}
-	Every configuration $\rho$ of the PARS $\left(\Lambda,\psparam{\varepsilon},\termone\right)$ is such that
+	Every configuration $\rho$ of the FPARS $\left(\Lambda,\mathsf{P}_{\varepsilon}\right)$ is such that
 	$$
-	\rho(s)\in \poly{\varepsilon}
+	\rho(\termone)\in \poly{\varepsilon}
 	$$
-	for each $s\in\Lambda$, with $n,m\geq 0$.
+	for each $\termone\in\Lambda$.
 \end{lemma}
 \begin{proof}
-	We prove this by induction on the lenght $\ell$ of the chain $C=\left( \rho_0\rightsquigarrow\rho_1\rightsquigarrow\rho_2\rightsquigarrow\cdots\rho\right)$. If $\ell=1$, $\rho=\rho_0$, thus $\rho(s)=1$ if $s=s_0$, $0$ otherwise. Now let's suppose that for chains with $\ell\leq k$, $\rho(s)\in \poly{\varepsilon}$. Let's consider a chain $C=\left( \rho_0\rightsquigarrow\rho_1\rightsquigarrow \rho_2\rightsquigarrow\cdots\rho_{k-1}\rightsquigarrow\rho\right)$ of lenght $k+1$. $\rho(s)=\underset{t\in S}{\sum}\rho_{k-1}\left( t\right) \cdot\delta\left(t \rightarrow s\right)$. Polynomials are closed with respect to addition and multiplication, thus by induction hypothesis $\rho(s)\in\poly{\varepsilon}$ if $\delta(t\rightarrow s)\in\poly{\varepsilon}$. This is certainly true because $\delta(t\rightarrow s)$ is either $0$ or in the form $\varepsilon^a(1-\varepsilon)^b$ with $a\in\{0,1\}$ and $b\geq 0$ from the definition of $\psparam{\varepsilon}$.
+	We prove this by induction on the lenght $\ell$ of the computation $\rho_0\rightsquigarrow\rho_1\rightsquigarrow\rho_2\rightsquigarrow\cdots\rho$. If $\ell=0$, $\rho=\rho_0$, thus $\rho(\termone)=1$ if $\rho_0=\textbf{Dirac}(\termone)$, $0$ otherwise. Now let us suppose that for computations with $\ell\leq k$, $\rho(\termone)\in \poly{\varepsilon}$. Let us consider a computation $ \rho_0\rightsquigarrow\rho_1\rightsquigarrow \rho_2\rightsquigarrow\cdots\rho_{k}\rightsquigarrow\rho$ of lenght $k+1$. $\rho(\termone)=\underset{\termtwo\in\Lambda}{\sum}\rho_{k}\left( \termtwo\right) \cdot\mathbb{P}\left(\termtwo \rightarrow \termone\right)$. Polynomials are closed with respect to addition and multiplication, thus by induction hypothesis $\rho(\termone)\in\poly{\varepsilon}$ if $\mathbb{P}(\termtwo \rightarrow \termone)\in\poly{\varepsilon}$. This is certainly true because $\mathbb{P}(\termtwo \rightarrow \termone)$ is either $0,\varepsilon,\textrm{ or }(1-\varepsilon)$ from the definition of $\mathsf{P}_{\varepsilon}$.
 \end{proof}
 \begin{theorem}
-	The function $\nsteps{\varepsilon}\left(\termone\right)$ is a power series.
+	The function $\explen{\cdot}(\varepsilon)$ is a power series.
 \end{theorem}
 \begin{proof}
-	Let us consider the PARS $\mathcal{P}=\left(\Lambda,\psparam{\varepsilon},\termone\right)$. $\supp{\rho_i}$
-	is finite for every $i\geq 0$ since the number of redexes in a term is finite and thus $|\rho_i|\in\poly{\varepsilon}$ for every $i\geq 0$ by Lemma~\ref{lemma:poly}. Therefore $\nsteps{\varepsilon} \left(\termone\right)=$ %\avglenght{P}=  \sum\limits_{i=1}^{\infty} |\rho_i|$ is a series whose terms are polynomials, which, once the terms are reordered, is a power series.
+	Let us consider the FPARS $\mathcal{P}=\left(\Lambda,\mathsf{P}_{\varepsilon}\right)$ and a computation $(\rho_i)_{i\in\mathbb{N}}$ starting from $\rho_0=\textbf{Dirac}(\termone)$. $\supp{\rho_i}$
+	is finite for every $i\geq 0$, since the number of redexes in a term is finite and thus $|\rho_i|\in\poly{\varepsilon}$ for every $i\geq 0$, since it is a sum of polynomials by Lemma~\ref{lemma:poly}. Therefore $\explen{\termone}(\varepsilon)=\sum\limits_{i=1}^{\infty} |\rho_i|$ is a series whose terms are polynomials, which, once the terms are reordered, is a power series.
 \end{proof}
-Studying the behaviour of $\explen{\termone}(\varepsilon)$ for \emph{an arbitrary} term $\termone$ is
-a difficult task, which goes outside the scope of this paper.
 \section{Optimality of $P_\varepsilon$}
 As a first step in the direction of a full understanding of the nature
 of $\explen{\termone}(\varepsilon)$, we study it in the
