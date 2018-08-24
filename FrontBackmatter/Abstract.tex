@@ -9,20 +9,170 @@
 \let\cleardoublepage\relax
 
 \chapter*{Abstract}
-Short summary of the contents in English\dots a great guide by
-Kent Beck how to write good abstracts can be found here:
-\begin{center}
-\url{https://plg.uwaterloo.ca/~migod/research/beckOOPSLA.html}
-\end{center}
+There are different possible \emph{strategies} you can follow to
+evaluate expressions. Some are better than others, and bring you to
+the result in a lower number of steps. Since programs in pure
+functional languages are essentially expressions, the problem of
+defining good strategies is particularly interesting. Finding
+\emph{minimal} strategies, i.e. strategies that minimise the number of
+steps to normal form, seems even more interesting. However, the problem
+of picking the redex leading to the reduction sequence of minimal length
+has been proven undecidable for the $\lambda$-calculus
+\cite[Section~13.5]{barendregt_lambda_1984}, \emph{the} paradigmatic
+pure functional language. In the last decades several reduction
+strategies have been developed. Their importance is crucial in the
+study of evaluation orders in functional programming languages, which
+is one of their main characteristics and defines an important part of
+their semantics. The reader can think about the differences between
+\texttt{Haskell} (\emph{call-by-need}) and \texttt{Caml}
+(\emph{call-by-value}). The $\lambda$-calculus is a good abstraction
+to study reduction mechanisms because of its very simple
+structure. In fact, although \emph{Turing-complete}, it can be seen as
+a rewriting system \cite{terese_term_2003}, where terms can be formed
+in only two ways, by abstraction and application, and only one
+rewriting rule, the $\beta$-rule, is present. Reduction strategies for
+the $\lambda$-calculus are typically defined according to the position
+of the contracted \emph{redex} e.g. \emph{leftmost-outermost} ($\pslo$),
+\emph{leftmost-innermost}, \emph{rightmost-innermost} ($\psri$).
+In general, innermost strategies are considered more efficient, because
+programs often need to copy their arguments. However, rightmost-innermost is not normalising: there
+exist terms which have a normal form which, however, can be missed by
+innermost strategies. Instead, a classical result by Curry and Feys
+\cite{curry_combinatory_1958}, states that the leftmost-outermost strategy is
+\emph{normalising}, i.e., it always rewrites terms to their normal
+norm, if it exists. Thus, leftmost-outermost is slower, but
+safer. Could we get, in a sense, the best of both worlds?  All
+reduction strategies for the $\lambda$-calculus in the literature up
+to now are \emph{deterministic}, i.e. they are (partial) functions on
+(possibly shared representations of) terms. There is however some work on probabilistic term
+rewriting systems
+\cite{bournez_proving_2005,ferrer_fioriti_probabilistic_2015,avanzini_probabilistic_2018},
+in particular regarding termination, and about randomised strategies
+in the abstract~\cite{bournez_probabilistic_2002}. What would
+happen if the redexes to reduce were picked according to some
+probability distribution? How many steps would a term need to reach a
+normal form \emph{on the average}?
 
-\vfill
+In this thesis we consider a simple \emph{randomised}
+reduction strategy $\mathsf{P}_\varepsilon$, where the $\pslo$-redex
+is reduced with probability $\varepsilon$ and the $\psri$-redex is
+reduced with probability $1-\varepsilon$. The following are our main results:
+\begin{varitemize}
+	\item
+	For every, $0<\varepsilon\leq 1$, the strategy
+	$\mathsf{P}_\varepsilon$ is positive almost-surely normalising on
+	weakly normalising terms. That means that if a term $\termone$ is
+	weakly normalising, then the expected number of reduction steps from
+	$\termone$ to its normal form with strategy $\mathsf{P}_\varepsilon$
+	is finite. This is in contrast to the rightmost-innermost strategy. Rightmost-innermost, in other
+	words, is the only non normalising strategy in the family
+	$\{\mathsf{P}_\varepsilon\}_{0\leq\varepsilon\leq 1}$, namely $\mathsf{P}_0$.
+	\item
+	The family of strategies
+	$\{\mathsf{P}_\varepsilon\}_{0<\varepsilon<1}$ is shown to be
+	non-trivial. In other words, there exists a class of terms and
+	$0<\mu<1$ for which $\mathsf{P}_\mu$ outperforms, on average, both
+	$\pslo$ and $\psri$. This shows that randomisation can
+	indeed be useful in this context. This is not surprising:
+	in computer science there are a lot of examples where adding a random factor
+	improves performances, e.g. in randomised algorithms, which are
+	often faster (in average) than their deterministic counterparts
+	\cite{motwani_randomized_1995}.
+	\item
+	The expected number of reduction steps to
+	normal form with strategy $\mathsf{P}_\varepsilon$, seen as a function
+	on $\varepsilon$, has minimum in $0$ (respectively, at $1$) for terms
+	in the sub-calculus $\lambda I$ (respectively, in $\lambda A$).
+	%  Moreover in $\lambda I$
+	%              [$\lambda A]$, $\mathsf{P}_0$ (i.e. rightmost-innermost)
+	%              [$\mathsf{P}_1$ (i.e. leftmost-outermost)] minimizes the
+	%              number of steps to normal form among \emph{all} the
+	%              possible strategies.
+\end{varitemize}
 
-\begin{otherlanguage}{ngerman}
-\pdfbookmark[1]{Zusammenfassung}{Zusammenfassung}
-\chapter*{Zusammenfassung}
-Kurze Zusammenfassung des Inhaltes in deutscher Sprache\dots
-\end{otherlanguage}
+\pagebreak
+
+\pdfbookmark[1]{Sommario}{Sommario}
+\chapter*{Sommario}
+Quando si devono valutare delle espressioni, si possono seguire diverse \emph{strategie}.
+Alcune sono migliori di altre e portano al risultato in un numero
+minore di passi. Dal momento che i programmi scritti in linguaggi di
+programmazione funzionali puri sono essenzialmente espressioni, il problema
+di definire buone strategie è particolarmente interessante. Trovare le
+strategie \emph{minime}, cioè che minimizzino il numero di passi a forma
+normale sembra ancora più interessante. Tuttavia, il problema di scegliere il
+redex che porti alla sequenza di riduzioni di lunghezza minima è stato dimostrato
+indecidibile per il $\lambda$-calcolo
+\cite[Section~13.5]{barendregt_lambda_1984}, il
+linguaggio funzionale puro paradigmatico. Diverse sono state le strategie di riduzione proposte
+negli anni. La loro importanza è cruciale nello studio dell'ordine di valutazione
+nei linguaggi di programmazione funzionali, che è una delle loro principali
+caratteristiche e definisce una parte importante della loro semantica.
+Si pensi alle differenze tra
+\texttt{Haskell} (\emph{call-by-need}) e \texttt{Caml}
+(\emph{call-by-value}). Il $\lambda$-calcolo è una buona astrazione per
+studiare i meccanismi di riduzione a causa della sua struttura molto
+semplice. Infatti, nonostante sia \emph{Turing-completo}, può essere visto
+come un sistema di riscrittura \cite{terese_term_2003}, dove i termini
+possono essere formati solo in due modi, per astrazione e applicazione, e
+solo una regola di riscrittura, la $\beta$-riduzione, è presente. Le strategie
+di riduzione per il $\lambda$-calcolo sono tipicamente definite sulla base della
+posizione del \emph{redex} da ridurre, per esempio \emph{leftmost-outermost} ($\pslo$),
+\emph{leftmost-innermost}, \emph{rightmost-innermost} ($\psri$).
+In generale, le strategie innermost sono considerate più efficienti, perché
+spesso i programmi hanno bisogno di copiare i loro argomenti. Tuttavia,
+righmost-innermost non è normalizzante: esistono infatti termini che hanno
+una forma normale che può essere mancata dalle strategie innermost. Al 
+contrario, un risultato classico dovuto a Curry e Feys
+\cite{curry_combinatory_1958}, afferma che la strategia leftmost-outermost è
+\emph{normalizzante}, cioè riscrive sempre i termini fino alla loro forma normale,
+se questa esiste. Perciò, leftmost-outermost è più lenta, ma più sicura.
+Possiamo ottenere il meglio da entrambi i mondi?  Tutte le strategie di 
+riduzione per il $\lambda$-calcolo presenti in letteratura fino ad ora sono
+\emph{deterministiche}, sono cioè funzioni (parziali) su
+(possibilmente rappresentazioni condivise di) termini. Ci sono tuttavia
+dei lavori su sistemi di riscrittura probabilistici
+\cite{bournez_proving_2005,ferrer_fioriti_probabilistic_2015,avanzini_probabilistic_2018},
+in particolare riguardo la terminazione, e su strategie randomizzate in astratto~\cite{bournez_probabilistic_2002}. Cosa accadrebbe se il redex da ridurre fosse estratto in maniera casuale da una
+distribuzione di probabilità? In quanti passi raggiungerebbe la sua forma
+normale \emph{in media}?
+
+In questa tesi consideriamo una semplice strategia di riduzione \emph{randomizzata}
+$\mathsf{P}_\varepsilon$, dove il $\pslo$-redex
+viene ridotto con probabilità $\varepsilon$ e il $\psri$-redex viene
+ridotto con probabilità $1-\varepsilon$. Questi sono i nostri principali risultati:
+\begin{varitemize}
+	\item
+	Per ogni $0<\varepsilon\leq 1$, la strategia
+	$\mathsf{P}_\varepsilon$ è quasi certamente normalizzante positiva per i
+	termini debolmente normalizzanti. Questo significa che se $\termone$ è
+	debolmente normalizzante, allora il numero medio di passi di riduzione da
+	$\termone$ alla sua forma normale con strategia $\mathsf{P}_\varepsilon$
+	è finito, al contrario di ciò che succede con la strategia rightmost-innermost.
+	Rightmost-innermost, in altre parole è l'unica strategia non normalizzante nella famiglia
+	$\{\mathsf{P}_\varepsilon\}_{0\leq\varepsilon\leq 1}$, in particolare $\mathsf{P}_0$.
+	\item
+	Mostriamo che la famiglia di strategie
+	$\{\mathsf{P}_\varepsilon\}_{0<\varepsilon<1}$ è non banale.
+	Esiste cioè una classe di termine e
+	$0<\mu<1$ per cui $\mathsf{P}_\mu$ è migliore, in media, sia di
+	$\pslo$, sia di $\psri$. Questo mostra che l'introduzione di un fattore casuale può essere
+	utile. La cosa non stupisce:
+	sono numerosi gli esempi in informatica in cui l'aggiunta di un fattore casuale aumenta
+	le performance, per esempio negli algoritmi randomizzati, che sono spesso più veloci
+	(in media) delle loro controparti deterministiche
+	\cite{motwani_randomized_1995}.
+	\item
+	Il numero medio di passi di riduzione a forma normale con strategia
+	$\mathsf{P}_\varepsilon$, visto come una funzione di
+	$\varepsilon$, ha minimo in $0$ (rispettivamente, in $1$) per i termini nel sub-calcolo
+	$\lambda I$ (rispettivamente, in $\lambda A$).
+	%  Moreover in $\lambda I$
+	%              [$\lambda A]$, $\mathsf{P}_0$ (i.e. rightmost-innermost)
+	%              [$\mathsf{P}_1$ (i.e. leftmost-outermost)] minimizes the
+	%              number of steps to normal form among \emph{all} the
+	%              possible strategies.
+\end{varitemize}
 
 \endgroup
 
-\vfill
