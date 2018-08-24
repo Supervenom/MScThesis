@@ -1,15 +1,68 @@
 %************************************************
 \chapter{Randomised Strategies in the $\lambda$-calculus}
 %************************************************
-In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to give such probabilities. Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the first randomised strategy thought by Prakash Panangaden, who is ispired our work,, through some conversations with Prof. Dal Lago. More formally, $\mathsf{U}$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, $\mathsf{U}=\mu\in\dist{\Lambda}$ such that for each $\termtwo\in\Lambda$:
+In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to give such probabilities. 
+\section{The Uniform Strategy}
+Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the first randomised strategy thought by Prof. Prakash Panangaden, who is ispired our work, through some conversations with Prof. Dal Lago. More formally, $\psuni$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, ${\psuni=\mu\in\dist{\Lambda}}$. For each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
 \frac{1}{|\rdxs{\termone}|} & \text{if }\termone\redbeta\termtwo ,\\
 0 & \text{otherwise}.\\
 \end{cases}
 $$
-where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|$ its cardinality.\\
-We define here a randomised strategy $\mathsf{P}_\varepsilon$ for the ARS $(\Lambda,\redbeta)$. Given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
+where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|$ its cardinality.
+\begin{example}
+	Let us consider a term $\termone = (\lambda x.\rdxone)\rdxtwo$
+	where $\rdxone$ and $\rdxtwo$ are innermost redexes,
+	$\rdxone\redbeta\rdxone'$ and
+	$\rdxtwo\redbeta\rdxtwo'$. The stochastic process of reduction under strategy $\psuni$ can be represented by the tree in Figure \ref{figure:unitree}. Nodes are terms and two nodes are connected by an edge if and only if there is a strictly positive probability (written in the label) of reducing the father node into the child node.
+\end{example}
+\begin{figure}
+	\begin{center}
+		\fbox{
+			\begin{minipage}{.96\textwidth}
+				\begin{tikzpicture}[grow=down]
+				\node[term] {$(\lambda x.\rdxone)\rdxtwo$}
+				child {
+					node[term] {$\rdxone\{\rdxtwo/x\}$}        
+					edge from parent 
+					node[below]  {$\frac{1}{3}$}
+				}
+				child {
+					node[term] {$(\lambda x.\rdxone')\rdxtwo$}        
+					edge from parent         
+					node[left]  {$\frac{1}{3}$}
+				}
+				child {
+					node[term] {$(\lambda x.\rdxone)\rdxtwo'$}        
+					edge from parent         
+					node[below]  {$\frac{1}{3}$}
+				};
+				\end{tikzpicture}
+			\end{minipage}}
+		\end{center}
+	\caption{The tree (truncated after one step) representing the reduction of term $\termone = (\lambda x.\rdxone)\rdxtwo$ under randomised strategy $\psuni$.}
+	\label{figure:unitree}
+\end{figure}
+Although very easy to define, the uniform strategy is not easy at all to study. In fact the number of redexes of terms along a reduction sequence can behave in a very complicated way. As we have seen in the previous Chapter, we study randomised strategies as FPARSs. In the case of the $\lambda$-calculus, the FPARS will be always in the form $(\Lambda_\mathsf{WN},\cdot)$. In fact it does not make any sense to consider terms which do not have normal form. Whether $(\Lambda_\mathsf{WN},\psuni)$ is AST is still an open problem, but for sure $(\Lambda_\mathsf{WN},\psuni)$ is not PAST, as we are going to prove showing a counterexample. 
+\begin{example}
+	Let us  consider the term $\termone=(\lambda x.\lambda y.y)(\bm{\Delta_2\Delta_2})$ where $\bm{\Delta_2}= \lambda x.(xx)(xx)$. We observe that $\bm{\Delta_2\Delta_2}$ reduces to $(\bm{\Delta_2\Delta_2})(\bm{\Delta_2\Delta_2})$. Thus, if we do not reduce leftmost, the number of redexes grows linearly with the length of the reduction sequence. Instead, reducing leftmost, we reach the normal form immediately. Considering the computation $|(\rho_i)|_{i\in\mathbb{N}}$ starting from $\rho_0=\textbf{Dirac}(\termone)$ (in Figure \ref{figure:delta2}) we can compute the sequence $|\rho_i|$.
+	\begin{equation*}
+	\begin{split}
+	|\rho_0|&=1\,,\\
+	|\rho_1|&=1\,,\\
+	|\rho_2|&=|\rho_1|-|\rho_1|\frac{1}{2}\,,\\
+	|\rho_3|&=|\rho_2|-|\rho_2|\frac{1}{3}\,,\\
+	|\rho_i|&=|\rho_{i-1}|-|\rho_{i-1}|\frac{1}{i}=|\rho_{i-1}|\left( 1-\frac{1}{i}\right).
+	\end{split}
+	\end{equation*}
+	The recurrence relation in the last line can be solved analytically and yields $|\rho_i|=\frac{1}{i}$ for each $i\geq 1$. Thus $(\Lambda_\mathsf{WN},\psuni)$ is not PAST since 
+	$$
+	\nsteps{\psuni}(\termone)=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\sum\limits_{i=1}^{\infty} \frac{1}{i}=+\infty.
+	$$
+\end{example}
+\section{The Strategy $P_\varepsilon$}
+In real programming languages we would like to have a normalising strategy, or at least, since we are in probabilistic context, a positive almost-surely normalising one. For this reason we devised a new strategy for the $\lambda$-calculus $(\Lambda,\redbeta)$, more simple and traditional, since it mixes leftmost-outermost and rightmost-innermost strategies. If $\varepsilon\in[0,1]$, call $\mathsf{P}_\varepsilon$ the strategy in which the leftmost redex is reduced with probability $\varepsilon$ and the rightmost one with probability $1-\varepsilon$. Formally, given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
 \varepsilon & \text{if }\termone\redbeta\termtwo\text{ and the }\pslo\text{-redex is reduced,}\\
@@ -17,22 +70,21 @@ $$
 0 & \text{otherwise}.\\
 \end{cases}
 $$
-In this way we have defined an FPARS $(\Lambda,\mathsf{P}_\varepsilon)$.
 \begin{notation}
-	For the FPARS $(\Lambda,\mathsf{P}_\varepsilon)$ we define the function $\explen{\termone}:[0,1]\rightarrow\mathbb{R}$ where
+	For the FPARS $(\Lambda,\mathsf{P}_\varepsilon)$ and $\termone\in\Lambda$, we define the function $\explen{\termone}:[0,1]\rightarrow\mathbb{R}\cup\{+\infty\}$, where
 	$\explen{\termone}(\varepsilon)=\nsteps{\mathsf{P}_\varepsilon}(\termone)$.
 \end{notation}
 \begin{example}
 	Let us consider the term $\termone=(\lambda x.y)\bm{\Omega}$ where $\bm{\Omega}=\bm{\omega\omega}$  with $\bm{\omega}=\lambda x.xx$. There are two possible representations of the development of the strategy $\mathsf{P}_\varepsilon$ for this term, one as an infinite tree (Figure \ref{figure:trees}a) and another one as a cyclic graph (Figure \ref{figure:trees}b). According to the different representations, we can compute in different ways the probability of reaching normal form and the average derivation length. The results coincide yielding in both cases probability of termination equal to $1$ and average derivation length equal to $\frac{1}{\varepsilon}$. 
 	%Moreover the reader can note the analogy with the abstract setting of Example \ref{example:pars}.
 \end{example}
-\begin{figure}[t]
+\begin{figure}
 	\begin{center}
 		\fbox{
 			\begin{minipage}{.96\textwidth}
 				\begin{center}
-					\tikzstyle{level 1}=[level distance=1.2cm, sibling distance=2.5cm]
-					\tikzstyle{level 2}=[level distance=1.2cm, sibling distance=2.5cm]
+					\tikzstyle{level 1}=[level distance=1.8cm, sibling distance=2.5cm]
+					\tikzstyle{level 2}=[level distance=1.8cm, sibling distance=2.5cm]
 					\subfloat[]{{\begin{tikzpicture}[grow=down]
 							
 						\node[term] {$(\lambda x.y)\bm{\Omega}$}
@@ -58,7 +110,7 @@ In this way we have defined an FPARS $(\Lambda,\mathsf{P}_\varepsilon)$.
 						};
 						\end{tikzpicture}}}
 				\qquad\qquad\qquad
-				\tikzstyle{level 1}=[level distance=2.1cm, sibling distance=2.5cm]
+				\tikzstyle{level 1}=[level distance=3cm, sibling distance=2.5cm]
 				\subfloat[]{{\begin{tikzpicture}[grow=down]
 						\node[term]  (M) {$(\lambda x.y)\bm{\Omega}$}
 						child {
@@ -76,6 +128,45 @@ In this way we have defined an FPARS $(\Lambda,\mathsf{P}_\varepsilon)$.
 	\caption{The tree (a) and the cyclic graph (b) representing the reduction sequence of $\termone$.}
 	\label{figure:trees}
 \end{figure}
+The first Theorem we are going to prove around $\mathsf{P}_\varepsilon$ states that $\mathsf{P}_\varepsilon$ is an almost-surely normalising strategy. The key aspect of this proof is that the $\pslo$-redex has always the \emph{same} probability $\varepsilon$ of being reduced, along the whole reduction sequence.
+\begin{theorem}
+	The FPARS $(\Lambda_\mathsf{WN},\mathsf{P}_\varepsilon)$ is PAST whenever $\varepsilon>0$.
+\end{theorem}
+\begin{proof}
+	We use Foster's Theorem to prove the claim. Thus we have to find a suitable Lyapunov function $V$.
+	We consider $V=\nsteps{\pslo}$. Certainly condition (1) is verified since $\nsteps{\pslo}\left(\termone\right)\geq0$ for each $\termone\in\Lambda_\mathsf{WN}$. We have to verify (2). Suppose $\mathsf{P}_\varepsilon(\termone)=\mu$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, by Lemma~\ref{lemma:derivationlength} we can write:
+	\begin{equation*}
+	\begin{split}
+	\nsteps{\pslo}\left( \mu\right) & = \nsteps{\pslo}(\termtwo) \cdot \varepsilon+ \nsteps{\pslo}(\termthree)\cdot (1-\varepsilon)\\
+	& \leq \left( \nsteps{\pslo}\left( \termone\right)-1\right)  \cdot \varepsilon + \nsteps{\pslo}(\termone)\cdot (1-\varepsilon)\\
+	& = \varepsilon\cdot\nsteps{\pslo}\left( \termone\right)-\varepsilon + \nsteps{\pslo}\left( \termone\right)\cdot\left( 1-\varepsilon\right)\\
+	& = \nsteps{\pslo}\left( \termone\right)-\varepsilon.
+	\end{split}
+	\end{equation*}
+	Since $0\leq\varepsilon\leq 1$, $\nsteps{\pslo}\left(M\right)>_{\varepsilon}\nsteps{\pslo}\left(\mu\right)$ for each normalising term $\termone$.
+	Then, if $\varepsilon>0$, $(\Lambda_\mathsf{WN},\mathsf{P}_\varepsilon)$ is PAST and the average number of steps to normal form of a term $\termone$ reduced with strategy $\mathsf{P}_\varepsilon$ is bounded by
+	$\frac{\nsteps{\pslo}\left( \termone\right)}{\varepsilon}$.
+\end{proof}
+The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is very loose and thus it does not give us any information on the actual nature of the function $\explen{\termone}(\varepsilon)$. We show, by means of an example, that the strategy $\mathsf{P}_\varepsilon$ is non-trivial i.e. there exists a term $\termone$ and $0<\varepsilon<1$, such that $\explen{\termone}(\varepsilon)<\explen{\termone}(1)=\nsteps{\pslo}(\termone)<\explen{\termone}(0)=\nsteps{\psri}(\termone)$.
+\begin{example}
+	Let us consider a family of terms $\termone_n=\termtwo\termthree_n$ where:
+	$$
+	\termtwo = \lambda x.\underbrace{((\lambda y.z)\bm{\Omega})}_\termfour x\qquad
+	\termthree_n = C_n\underbrace{((\lambda x.x)y)}_\termfive\qquad
+	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
+	$$
+	After quite simple computations one can derive $\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}$. Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon)<\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n)<\explen{\termone_n}(0)=\nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
+	\begin{figure}[t]
+		\fbox{
+			\begin{minipage}{.95\textwidth}
+				\centering
+				\scalebox{0.7}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot3.pgf}\end{adjustbox}}
+				\vspace{5pt}
+			\end{minipage}}
+		\caption{The function $\explen{\termone_9}(\varepsilon)$.}
+		\label{figure:plot}
+	\end{figure}
+\end{example}
 \begin{itemize}
 	\item
 	In general we want to characterize $\nsteps{\varepsilon}\left(\termone\right)$ in some way. We start by showing that $\nsteps{\varepsilon}\left(\termone\right)$ can be written as a power series.
@@ -133,47 +224,9 @@ In this way we have defined an FPARS $(\Lambda,\mathsf{P}_\varepsilon)$.
 	Let us consider the PARS $\mathcal{P}=\left(\Lambda,\psparam{\varepsilon},\termone\right)$. $\supp{\rho_i}$
 	is finite for every $i\geq 0$ since the number of redexes in a term is finite and thus $|\rho_i|\in\poly{\varepsilon}$ for every $i\geq 0$ by Lemma~\ref{lemma:poly}. Therefore $\nsteps{\varepsilon} \left(\termone\right)=$ %\avglenght{P}=  \sum\limits_{i=1}^{\infty} |\rho_i|$ is a series whose terms are polynomials, which, once the terms are reordered, is a power series.
 \end{proof}
-\begin{theorem}
-	The FPARS $(\Lambda_\mathsf{WN},\mathsf{P}_\varepsilon)$ is PAST whenever $\varepsilon>0$.
-\end{theorem}
-\begin{proof}
-	We use Foster's Theorem to prove the claim. Thus we have to find a suitable Lyapunov function $V$.
-	We consider $V=\nsteps{\pslo}$. Certainly condition (1) is verified since $\nsteps{\pslo}\left(\termone\right)\geq0$ for each $\termone\in\Lambda_\mathsf{WN}$. We have to verify (2). Suppose $\mathsf{P_\varepsilon}(\termone)=\mu$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, by Lemma~\ref{lemma:derivationlength} we can write:
-	\begin{equation*}
-	\begin{split}
-	\nsteps{\pslo}\left( \mu\right) & = \nsteps{\pslo}(\termtwo) \cdot \varepsilon+ \nsteps{\pslo}(\termthree)\cdot (1-\varepsilon)\\
-	& \leq \left( \nsteps{\pslo}\left( \termone\right)-1\right)  \cdot \varepsilon + \nsteps{\pslo}(\termone)\cdot (1-\varepsilon)\\
-	& = \varepsilon\cdot\nsteps{\pslo}\left( \termone\right)-\varepsilon + \nsteps{\pslo}\left( \termone\right)\cdot\left( 1-\varepsilon\right)\\
-	& = \nsteps{\pslo}\left( \termone\right)-\varepsilon.
-	\end{split}
-	\end{equation*}
-	Since $0\leq\varepsilon\leq 1$, $\nsteps{\pslo}\left(M\right)>_{\varepsilon}\nsteps{\pslo}\left(\mu\right)$ for each normalising term $\termone$.
-	Then, if $\varepsilon>0$, $(\Lambda_\mathsf{WN},\mathsf{P_\varepsilon})$ is PAST and the average number of steps to normal form of a term $\termone$ reduced with strategy $\mathsf{P}_\varepsilon$ is bounded by
-	$\frac{\nsteps{\pslo}\left( \termone\right)}{\varepsilon}$.
-\end{proof}
-The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is very loose and thus it does not give us any information on the actual nature of the function $\explen{\termone}(\varepsilon)$. We show, by means of an example, that the strategy $\mathsf{P}_\varepsilon$ is non-trivial i.e. there exists a term $\termone$ and $0<\varepsilon<1$, such that $\explen{\termone}(\varepsilon)<\explen{\termone}(1)=\nsteps{\pslo}(\termone)<\explen{\termone}(0)=\nsteps{\psri}(\termone)$.
-\begin{example}
-	Let us consider a family of terms $\termone_n=\termtwo\termthree_n$ where:
-	$$
-	\termtwo = \lambda x.\underbrace{((\lambda y.z)\bm{\Omega})}_\termfour x\qquad
-	\termthree_n = C_n\underbrace{((\lambda x.x)y)}_\termfive\qquad
-	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
-	$$
-	After quite simple computations one can derive $\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}$. Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon)<\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n)<\explen{\termone_n}(0)=\nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
-	\begin{figure}[t]
-		\fbox{
-			\begin{minipage}{.95\textwidth}
-				\centering
-				\scalebox{0.7}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot3.pgf}\end{adjustbox}}
-				\vspace{5pt}
-			\end{minipage}}
-		\caption{The function $\explen{\termone_9}(\varepsilon)$.}
-		\label{figure:plot}
-	\end{figure}
-\end{example}
 Studying the behaviour of $\explen{\termone}(\varepsilon)$ for \emph{an arbitrary} term $\termone$ is
 a difficult task, which goes outside the scope of this paper.
-
+\section{Optimality of $P_\varepsilon$}
 As a first step in the direction of a full understanding of the nature
 of $\explen{\termone}(\varepsilon)$, we study it in the
 case $\termone$ is a term for subcalculi $\lambda A$ and
@@ -258,7 +311,7 @@ configurations along a computation starting from a $\lambda A$-term $\termone$
 are proper until the $n$-th configuration, where
 $n=\nsteps{\pslo}(\termone)$.
 \begin{lemma}\label{lemma:min}
-	Given the FPARS $(\Lambda_A, \mathsf{P_\varepsilon})$, and a
+	Given the FPARS $(\Lambda_A, \mathsf{P}_\varepsilon)$, and a
 	computation $(\rho_i)_{i\in\mathbb{N}}$, where
 	$\rho_0=\mathbf{Dirac}(\termone_0)$, for each
 	$k\leq\nsteps{\pslo}(\termone_0)$, then $|\rho_k|=1$.
@@ -306,3 +359,4 @@ the optimality of the latter strategy.
 		The proof is analogous to the $\lambda A$ case.
 	\end{proof}
 \end{LONG}
+\section{Monotonicity results for $P_\varepsilon$}
