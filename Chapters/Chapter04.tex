@@ -213,7 +213,11 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	\termthree_n = C_n\underbrace{((\lambda x.x)y)}_\termfive\qquad
 	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
 	$$
-	After quite simple computations one can derive $\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}$. Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon)<\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n)<\explen{\termone_n}(0)=\nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
+	In Figure \ref{figure:probtree} the labeled graph representing all possible traces of the stochastic reduction process is sketched. After quite simple computations, i.e. taking the weighted mean of the legths of all possible paths from the root to the normal form, one can derive the following expression: 
+	$$
+	\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}.
+	$$
+	Clearly for $\varepsilon=0$ the expression diverges. If $n\geq 2$ there is a minimum for $0<\varepsilon<1$, and thus $\explen{\termone_n}(\varepsilon) <\explen{\termone_n}(1)=\nsteps{\pslo}(\termone_n) <\explen{\termone_n}(0)= \nsteps{\psri}(\termone_n)=+\infty$. $\explen{\termone_9}(\varepsilon)$ is plotted in Figure \ref{figure:plot}.
 	\begin{figure}
 		\fbox{
 			\begin{minipage}{.96\textwidth}
@@ -225,6 +229,114 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 		\label{figure:plot}
 	\end{figure}
 \end{example}
+\begin{figure}
+	\resizebox{12cm}{!}{
+		\tikzstyle{level 2}=[level distance=2.5cm, sibling distance=3.6cm]
+		\tikzstyle{level 3}=[level distance=2.5cm, sibling distance=3cm]
+		\begin{tikzpicture}[grow=down]
+		\node[term] {$\termone_n$}
+		child {
+			node[term] {$\termfour\termthree_n$}
+			child {
+				node[term,right] {$z\termthree_n$}
+				child {
+					node[term] {$z\underbrace{\termfive\termfive\cdots \termfive}_{n\text{ times}}$}
+					child {
+						node[term] {$z\underbrace{yy\cdots y}_{n\text{ times}}$}
+						edge from parent[dashed]
+						node[right]  {after $n$ steps}
+					}
+					edge from parent
+					node[right]  {$\varepsilon$}
+				}
+				child {
+					node[term] {$z(C_ny)$}
+					child {
+						node[term] {$z\underbrace{yy\cdots y}_{n\text{ times}}$}
+						edge from parent
+						node[right]  {$1$}
+					}
+					edge from parent
+					node[right]  {$1-\varepsilon$}
+				}
+				edge from parent
+				node[right]  {$\varepsilon$}
+			}
+			child {
+				node[term] {$\termfour(C_ny)$ (1)}
+				child {
+					node[term] {}
+					edge from parent[draw=none]
+					node[right]  {}
+				}
+				child {
+					node[term] {$z(C_ny)$}
+					child {
+						node[term] {$z\underbrace{yy\cdots y}_{n\text{ times}}$}
+						edge from parent
+						node[right]  {$1$}
+					}
+					edge from parent
+					node[right]  {$\varepsilon$}
+				}
+				child {
+					node[term] (mm) {$\termfour\underbrace{yy\cdots y}_{n\text{ times}}$} 
+					child {
+						node[term] {$z\underbrace{yy\cdots y}_{n\text{ times}}$}
+						edge from parent
+						node[right]  {$\varepsilon$}
+					}
+					edge from parent
+					node[right]  {$1-\varepsilon$}
+				}
+				edge from parent
+				node[right]  {$1-\varepsilon$}
+			}
+			child {
+				node[term] {}
+				edge from parent[draw=none]
+				node[right]  {}
+			}    
+			edge from parent         
+			node[left]  {$\varepsilon$}
+		}
+		child {
+			node[term] {$\termtwo(C_ny)$}
+			child {
+				node[term] {}
+				edge from parent[draw=none]
+				node[right]  {}
+			}  
+			child {
+				node[term] {$\termfour(C_ny)\termfour$ (1)}
+				edge from parent         
+				node[right]  {$\varepsilon$}
+			}
+			child {
+				node[term] (f) {$\termtwo(\underbrace{yy\cdots y}_{n\text{ times}})$}
+				child {
+					node[term] (g) {$\termfour(\underbrace{yy\cdots y}_{n\text{ times}})$}
+					child {
+						node[term] {$z\underbrace{yy\cdots y}_{n\text{ times}}$}
+						edge from parent         
+						node[right]  {$\varepsilon$}
+					}
+					edge from parent         
+					node[right]  {$\varepsilon$}
+				}
+				edge from parent         
+				node[right]  {$1-\varepsilon$}
+			}
+			edge from parent         
+			node[right]  {$1-\varepsilon$}
+		};
+		\path[-] (mm) edge [loop right] node[left] {$1-\varepsilon$} ();
+		\path[-] (f) edge [loop right] node[left] {$1-\varepsilon$} ();
+		\path[-] (g) edge [loop right] node[left] {$1-\varepsilon$} ();
+		\end{tikzpicture}}
+	\caption{The tree representing the reduction sequence of $\termone_n$.}
+	\label{figure:probtree}
+\end{figure}
 Last two results showed that strategy $\mathsf{P}_\varepsilon$ is worth studying. It is positive almost-surely normalising and there exists at least a family of terms for which it performs better, in average, than both rightmost-innermost and leftmost-outermost. In particular, several questions arise. Reductions of which terms can benefit from the use of this strategy? Then, how could we tune the parameter $\varepsilon$ in order to minimise $\explen{\mathsf{P}}(\varepsilon)$? Answering in the general case to these questions seems impossible, given classical undecidability results about the $\lambda$-calculus. However, in next Sections we try to give some answers, although in some restricted cases.\\
 Since one of the problems is an optimisation problem, we characterise here the nature of the function $\explen{\cdot}(\varepsilon)$. Since it is an analytic function, it can be differentiated (infinite times). Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
 	%\item
