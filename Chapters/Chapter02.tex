@@ -3,14 +3,54 @@
 %*****************************************
 \section{History and overview}
 \section{The Abstract Setting: Rewriting Theory}
-The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus in a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science since basically any computation can be seen as a process of rewriting. In fact digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic but now it has an independent status as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields. The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
+The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus in a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science since basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields. The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
 
 \begin{definition}
 	An \emph{abstract reduction system} (ARS) is a pair $(A,\rightarrow)$ where $A$ is a set with cardinality at most countable and $\rightarrow\,\subseteq A\times A$.
 \end{definition}
-$A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation}. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them.\\
+$A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation}. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them. However, it is worth mentioning here a very important property, confluence.
+\begin{definition}
+	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ is \emph{confluent} or \emph{Church-Rosser} (CR), if for each $a\in A$ such that $a\twoheadrightarrow b$ and $a\twoheadrightarrow c$, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$.
+\end{definition}
+Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reach the very same term, possibly going further with the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
+\begin{figure}
+	\centering
+	\subfloat[]{{	
+			\begin{tikzpicture}
+			[node distance=20mm, auto, transform shape]
+			\node (m) at (0,0) {$a$};
+			\node (n) at (-1,-1) {$b$};
+			\node (l) at (1,-1) {$c$};
+			\draw (m) edge[->>] node[left=5pt] {} (n);
+			\draw (m) edge[->>] node[right=5pt] {} (l);
+			\end{tikzpicture}}}
+	\qquad
+	\subfloat[]{{	
+			\begin{tikzpicture}
+			[node distance=20mm, auto, transform shape]
+			\node (m) at (0,0) {$a$};
+			\node (n) at (-1,-1) {$b$};
+			\node (l) at (1,-1) {$c$};
+			\node (p) at (0,-2) {$d$};
+			\draw (m) edge[->>] node[left=5pt] {} (n);
+			\draw (m) edge[->>] node[right=5pt] {} (l);
+			\draw (n) edge[->>] node[left=5pt] {} (p);
+			\draw (l) edge[->>] node[right=5pt] {} (p);
+			\end{tikzpicture}}}
+	\caption{CR holds if (a) implies (b)}
+	\label{figure:confluence}
+\end{figure}
+\begin{definition}
+	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ has the \emph{unique normal form property} (UN) if for each $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, and $b,c\in\mathbf{NF}(A)$, then $b\equiv c$.
+\end{definition}
+\begin{proposition}
+	Let $(A,\rightarrow)$ be an ARS. If $\rightarrow$ is confluent then $\rightarrow$ has the unique normal form property.
+\end{proposition}
+\begin{proof}
+	By contradiction, let us consider an ARS $(A,\rightarrow)$ such that $\rightarrow$ is confluent but does not satisfy UN. Then there exist $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, $b,c\in\mathbf{NF}(A)$ and $b\not\equiv c$. Since $\rightarrow$ is confluent, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$. Since both $b$ and $c$ are in normal form this would imply $d\equiv b\equiv c$ but this is impossible since $b$ and $c$ are different normal forms.
+\end{proof}
 ARSs are sets endowed with a relation, and are thus
-inherently nondeterministic, if we consider rewriting as a computation. The notion of reduction strategy allows us to turn reduction into a deterministic process.
+inherently nondeterministic, if we consider rewriting as a model of a computation. The notion of reduction strategy allows us to turn reduction into a deterministic process.
 \begin{definition}[Deterministic Strategies]\label{def:determstrat}
 	Given an ARS $(A,\rightarrow)$, a \emph{deterministic reduction
 		strategy for $A$} is a partial function $\mathsf{S}:A\rightharpoonup A$
@@ -23,11 +63,11 @@ If $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is a
 reduction sequence under strategy $\mathsf{S}$ and $a_n$ is in normal
 form, we write $\nsteps{\mathsf{S}}(a_0)=n=|\sigma|$. If
 $\sigma:a_0\rightarrow a_1\rightarrow\cdots$ is infinite, we say that
-$\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is normalising if for each weakly normalising term $a$, $\nsteps{\mathsf{S}}(a)<+\infty$. Reductions to normal form of the same term under different strategies can be of different lengths, and in particular some of them can be infinite. However, under particular conditions, all strategies are equivalent.
+$\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is \emph{normalising} if for each weakly normalising term $a$, $\nsteps{\mathsf{S}}(a)<+\infty$. Reductions to normal form of the same term under different strategies can be of different lengths, and in particular some of them can be infinite. However, under particular conditions, all strategies are equivalent.
 \begin{definition}
 	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} (WDP) if and only if for each term $a\in A$, if $a\red b$ and $a\red c$ with $b\neq c$, then there exists a term $d\in A$ such that $b\red d$ and $c\red d$. 
 \end{definition}
-Intuitively an ARS satisfies the WDP if we can close every diagram in one step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state the equivalence of reduction sequences under every strategy.
+Intuitively an ARS satisfies the WDP if we can close every diagram in one step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from a term to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
 \begin{figure}
 	\centering
 	\subfloat[]{{	
@@ -57,7 +97,7 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in one step, 
 	\label{figure:diam}
 \end{figure}
 \begin{lemma}[]\label{lemma:weak}
-	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form all reduction sequences from $a$ to its normal form have the \emph{same} length.
+	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form all reduction sequences from $a$ to its normal form have the same length.
 \end{lemma}
 \begin{proof}
 	The proof by induction is given with all details in \cite{lago_invariant_2005}.
@@ -224,11 +264,11 @@ We have already defined what a reduction strategy is, in the abstract. Now we ar
 		For every reduction sequence $\sigma:\termone\redbetaclo\termtwo$, it is possible to build a standard reduction sequence $\tau:\termone\redbetaclo\termtwo$.
 	\end{theorem}
 	As immediate consequence of the Standardisation Theorem, thanks to Lemma \ref{lemma:stdislo}, we have the following Corollary.
-	\begin{corollary}
+	\begin{corollary}[Normalisation]
 		Leftmost-outermost is a normalising strategy. i.e. if a term $\termone$ has normal form $\termtwo$ then $\termone\redlosteps{n}\termtwo$ for some $n$.
 	\end{corollary}
 \end{THESIS}
-We conclude the analysis of leftmost-outermost strategy stating and proving a quantitative Lemma not already present in the literature, at least to our knowledge. The result is interesting in itself because sets the number of $\pslo$-steps to normal form of a term as a non-decreasing measure under reduction. We need a preliminary Lemma asserting formally commutativity of reductions.
+We conclude the analysis of leftmost-outermost strategy stating and proving a quantitative Lemma not already present in the literature, at least to our knowledge. The result is interesting in itself because sets the number of $\pslo$-steps to normal form of a term as a non-increasing measure under reduction. We need a preliminary Lemma asserting formally commutativity of reductions.
 \begin{LONG}
 	\begin{notation}
 		Given two distinct redexes $\rdxone$ and $\rdxtwo$ of a term $\termone$, the reduction $\rdxone\sqcup\rdxtwo$ is defined as the reduction of $\rdxone$ followed by the reduction of all the residuals of $\rdxtwo$, denoted by $\rdxtwo/\rdxone$.
