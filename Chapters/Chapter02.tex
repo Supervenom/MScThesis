@@ -43,6 +43,7 @@ Confluence is a desirable property because intuitively it states that no matter 
 \begin{definition}
 	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ has the \emph{unique normal form property} (UN) if for each $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, and $b,c\in\mathbf{NF}(A)$, then $b\equiv c$.
 \end{definition}
+Uniqueness of normal form is a key aspect when we are dealing with ARSs. In fact, typically, we want that a given term always terminates in the same result, although possibly following different paths.
 \begin{proposition}
 	Let $(A,\rightarrow)$ be an ARS. If $\rightarrow$ is confluent then $\rightarrow$ has the unique normal form property.
 \end{proposition}
@@ -217,8 +218,50 @@ abstractions occur \emph{at most once} free in the abstraction's body,
 thus forbidding \emph{duplication}. The $\lambda A$-calculus is strongly
 normalising, in a very strong sense: every reduction sequence from a term
 $\termone$ has length bounded by the size of $\termone$.
-\section{Strategies in the $\lambda$-calculus}
-We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. We start defining two classical strategies.
+\section{Fundamental Meta-Theory}
+In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus.
+\begin{theorem}
+	The relation $\redbeta$ on $\Lambda$ is confluent.
+\end{theorem}
+\begin{corollary}
+	Let $\termone\in\Lambda$ be a $\lambda$-term. If $\termone\redbeta\termtwo$ and $\termone\redbeta\termthree$, where $\termtwo,\termthree\in\textbf{NF}(\Lambda)$, then $\termtwo\equiv\termthree$.
+\end{corollary}
+\subsection{Expressiveness}
+The $\lambda$-calculus, as we have defined it, in the previous section, turns out to be a Turing-complete formalism. This means that we should be able to use it as a programming language. We are not going to discuss in detail all the encodings, we just limit to a few illuminating examples. For a complete treatment, the interested reader can refer to \cite{barendregt_lambda_1984}.
+\paragraph{Integers}
+Integer numbers can be encoded as $\lambda$ terms in the following way. They are named Church numerals because this was the original encoding provided by Church.
+\begin{itemize}
+	\item $\lceil zero\rceil=\lambda f.\lambda x.x$
+	\item $\lceil one\rceil=\lambda f.\lambda x.(fx)$
+	\item $\lceil two\rceil=\lambda f.\lambda x.(f(fx))$
+	\item $\lceil n\rceil=\lambda f.\lambda x.(f^nx)$
+\end{itemize}
+where $f^nx$ is inductively defined by
+$$
+f^0x=x\,,\qquad f^kx=f(f^{k-1}x)\,.
+$$
+\paragraph{Arithmetics}
+Once defined numerals, one wants to use them. We give here combinators for addition, multiplication and exponentiation:
+\begin{itemize}
+	\item $\mathbf{A}=\lambda x.\lambda y.\lambda p.\lambda q.(xp(ypq))$,
+	\item $\mathbf{M}=\lambda x.\lambda y.\lambda z.(x(yz))$,
+	\item $\mathbf{E}=\lambda x.\lambda y.yx$.
+\end{itemize}
+\begin{proposition}
+	$\mathbf{A}$, $\mathbf{M}$ and $\mathbf{E}$ perform, respectively, addition, multiplication and exponentiation when applied to Church numerals, i.e.
+	\begin{itemize}
+		\item $\mathbf{A}\lceil n\rceil\lceil m\rceil=\lceil n+m\rceil$,
+		\item $\mathbf{M}\lceil n\rceil\lceil m\rceil=\lceil n*m\rceil$,
+		\item $\mathbf{E}\lceil n\rceil\lceil m\rceil=\lceil n^m\rceil$, except for $m=0$.
+	\end{itemize}
+\end{proposition}
+The reader can note how easy the whole process is w.r.t other Turing-complete formalisms, such as Turing machines. Sketching a single-tape Turing machine performing multiplication would not be in fact an easy task at all. Besides basic arithmetical operations one could show how to encode all partial recursive functions. In fact it is possible  to encode in the $\lambda$-calculus the so-called initial functions, together with composition, projection, minimisation and primitive recursion operators.
+\begin{theorem}
+	A function is $\lambda$-definable if and only if it is partial recursive.
+\end{theorem}
+Actually, one does not need full $\lambda$-calculus to have a Turing-complete language, because also the $\lambda I$-calculus has the same characteristic.
+\section{Strategies}
+We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. We start defining two classical strategies.
 \begin{definition}
 	\emph{Leftmost-outermost} $(\pslo)$ is a deterministic reduction
 	strategy in which $\pslo(\termone)=\termtwo$ if and only if
@@ -235,6 +278,39 @@ We have already defined what a reduction strategy is, in the abstract. Now we ar
 	position of a redex by its beginning). Again, if
 	$\psri(\termone)=\termtwo$, we write $\termtwo\redri\termtwo$.
 \end{definition}
+\begin{example}\label{example:canc}
+	Let $\bm{\omega}=\lambda x.xx$ and
+	$\bm{\Omega}=\bm{\omega\omega}$. We now consider the reduction of
+	the term $(\lambda x.y)\bm{\Omega}$ according to leftmost-outermost and
+	rightmost-innermost stratgies.
+	\begin{align*}
+		(\lambda x.y)\bm{\Omega}&\redlo y\\
+		(\lambda x.y)\bm{\Omega}&\redri(\lambda x.y)\bm{\Omega}\redri(\lambda x.y)\bm{\Omega}\redri\cdots
+	\end{align*}
+	The term $\bm{\Omega}$ is a looping combinator i.e. it reduces to
+	itself. However, in $(\lambda x.y)\bm{\Omega}$ the argument
+	$\bm{\Omega}$ is discarded since the function returns the constant
+	$y$. Thus leftmost-outermost (akin to call-by-name in functional
+	programming languages) yields a normal form in one step. Conversely,
+	rightmost-innermost (akin to call-by-value) continues to evaluate
+	the argument $(\lambda x.y)\bm{\Omega}$, though it is useless, and
+	rewrites always the same term, yielding to a non-terminating
+	process.
+\end{example}
+\begin{example}\label{example:copy}
+	Let $\bm{I}=\lambda x.x$. We now consider the reduction of the term
+	$(\lambda x.xx)(\bm{II})$, according to $\pslo$ and $\psri$
+	strategies, as above.
+	\begin{align*}
+		(\lambda x.xx)(\bm{II})&\redlo (\bm{II})(\bm{II}) \redlo
+		\bm{I}(\bm{II}) \redlo \bm{II} \redlo \bm{I}\\
+		(\lambda x.xx)(\bm{II})&\redri (\lambda x.xx)\bm{I} \redri \bm{II} \redri \bm{I}
+	\end{align*}
+	Here the argument $\bm{II}$ is duplicated and thus it is much more convenient
+	to reduce it before it is copied, as in
+	rightmost-innermost. Leftmost-outermost does, indeed, some useless
+	work.
+\end{example}
 \begin{THESIS}
 	In the study of strategies, it is interesting to see what happens to all the redexes that are not reduced. After a reduction step, are they cancelled, are they duplicated? The concept of residual of a redex in a term formalises this idea.
 	\begin{definition}[Residuals \cite{xi_upper_1999}]
