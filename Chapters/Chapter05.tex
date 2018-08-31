@@ -41,7 +41,7 @@ Since the reduction process depends on the reduction strategy, \texttt{reduce} i
 &\qquad\texttt{|(eval term) == term = term}\\
 &\qquad\texttt{|otherwise = reduce eval (eval term)}
 \end{align*}
-Leftmost-outermost strategy is implemented in the following way (rightmost-innermost is symmetrical):
+Leftmost-outermost strategy reduces always the leftmost redex, if any, and is implemented in the following way (rightmost-innermost is symmetrical):
 \begin{align*}
 &\texttt{evalLO :: Term -> Term}\\
 &\texttt{evalLO (Var x) = Var x}\\
@@ -51,4 +51,21 @@ Leftmost-outermost strategy is implemented in the following way (rightmost-inner
 &\qquad\texttt{|(hasRedexes x) = (App (evalLO x) y)}\\
 &\qquad\texttt{|(hasRedexes y) = (App x (evalLO y))}\\
 &\qquad\texttt{|otherwise = (App x y)}
+\end{align*}
+The blocked tree for each term is represented by the following data type:
+\begin{align*}
+	\texttt{data PTree = }&\texttt{PLeaf | NodeOne PTree |}\\
+	&\texttt{NodeOneCycle PTree | NodeTwo PTree PTree}
+\end{align*}
+The blocked tree is built simply considering the reduction of the term $\termone$ according to $\pslo$ and $\psri$ strategy. A \texttt{PLeaf} is created if the term is in normal form, a \texttt{NodeOne} if $\pslo$-reduct and $\psri$-reduct coincide, a \texttt{NodeTwo} if they are distinct and a \texttt{NodeCycle} if the $\psri$-reduct rewrites to itself.
+\begin{align*}
+&\texttt{buildPTree :: Term -> PTree}\\
+&\texttt{buildPTree term}\\
+&\qquad\texttt{|not (hasRedexes term) = PLeaf}\\
+&\qquad\texttt{|(evalLO term) == (evalRI term)}\\
+&\quad\qquad\texttt{= NodeOne (buildPTree (evalLO term))}\\
+&\qquad\texttt{|(evalRI term) == term}\\
+&\qquad\quad\texttt{= NodeOneCycle (buildPTree (evalLO term))}\\
+&\qquad\texttt{|otherwise = NodeTwo (buildPTree (evalLO term))}\\
+&\qquad\quad\texttt{(buildPTree (evalRI term))}
 \end{align*}
