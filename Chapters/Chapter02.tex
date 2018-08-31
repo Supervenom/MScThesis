@@ -101,7 +101,7 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in one step, 
 	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form all reduction sequences from $a$ to its normal form have the same length.
 \end{lemma}
 \begin{proof}
-	The proof by induction is given with all details in \cite{lago_invariant_2005}.
+	The proof by induction is given with all details in \cite{dal_lago_invariant_2005}.
 \end{proof}
 \section{The Syntax}
 We now define a specific ARS, the $\lambda$-calculus. We start defining the set of its terms. As usual in theoretical computer science terms are inductively defined by a context-free grammar \cite{backus_syntax_1959}.
@@ -231,7 +231,7 @@ thus forbidding \emph{duplication}. The $\lambda A$-calculus is strongly
 normalising, in a very strong sense: every reduction sequence from a term
 $\termone$ has length bounded by the size of $\termone$.
 \section{Fundamental Meta-Theory}
-In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus.
+In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus. From the variety of results developed in more than 80 years, we have chosen two seminal theorems, published in the mid-30s.
 \subsection{Confluence}
 Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a normal form, then it is unique, independently from the reduction path followed. As we have seen in the Section devoted to Abstract Rewriting, uniqueness of normal form is an easy corollary of confluence. The first proof of confluence is due to Church and Rosser \cite{} in the early days of the $\lambda$-calculus, but many others appeared later. The standard proof of this result is due to Tait and Martin-Löf \cite[Section~3.2]{barendregt_lambda_1984}, based on the notion of parallel reduction. Barendregt in his monograph presents also three other proofs, one more direct \cite[Section~11.1]{barendregt_lambda_1984}, one based on the notion of development \cite[Section~11.2]{barendregt_lambda_1984} and one based on the labeled $\lambda$-calculus \cite[Section~14.2]{barendregt_lambda_1984} (originally presented in \cite{}). Because of the importance of this result, the above proofs were further simplified in \cite{}. Church-Rosser theorem was also object of interest for people interested in formalised mathematics and interactive theorem provers as witnessed by various papers containing different formalisations written for different theorem provers, \cite{} in COQ, \cite{} in HOL.
 \begin{theorem}[Church-Rosser]
