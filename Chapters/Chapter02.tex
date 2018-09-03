@@ -288,7 +288,19 @@ Actually, one does not need full $\lambda$-calculus to have a Turing-complete la
 	The set $\{\termone\in\Lambda\,|\,\termone\textrm{ has normal form}\}$ is recursively enumerable but not recursive.
 \end{theorem}
 \section{Strategies}
-We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. We start defining two classical strategies.
+We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. A we have already pointed out, one could ask if a minimal reduction strategy exists, and in that case if it is computable. With minimal we intend leading to normal form, if there is one, in the minimum number of $\beta$-steps.
+\begin{proposition}[\cite{barendregt_1976}]
+	There exists a minimal strategy for the $\lambda$-calculus.
+\end{proposition}
+This is a trivial result. A less trivial one is the following.
+\begin{theorem}[\cite{barendregt_1976}]
+	There exists no recursive minimal strategy for the $\lambda$-calculus.
+\end{theorem}
+This latter negative result can be strengthened in the following sense.
+\begin{theorem}[\cite{kathail}]
+	For any $k>0$, there is no recursive reduction strategy that can reduce any $\lambda$-term to normal form (if any) in no more than $k\cdot m$ steps, where $m$ is the minimum number of $\beta$-steps needed to reduce the term.
+\end{theorem}
+Since there is no hope to devise strategies that are good in any context, we start defining two classical strategies and then reporting some results about them.
 \begin{definition}
 	\emph{Leftmost-outermost} $(\pslo)$ is a deterministic reduction
 	strategy in which $\pslo(\termone)=\termtwo$ if and only if

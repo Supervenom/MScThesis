@@ -69,3 +69,58 @@ The blocked tree is built simply considering the reduction of the term $\termone
 &\qquad\texttt{|otherwise = NodeTwo (buildPTree (evalLO term))}\\
 &\qquad\quad\texttt{(buildPTree (evalRI term))}
 \end{align*}
+Once one has built the blocked tree for a term $\termone$, it is easy to compute $\explen{\termone}$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, then
+$$
+\explen{\termone}=1+\varepsilon\cdot\explen{\termtwo}+(1-\varepsilon)\cdot\explen{\termthree}.
+$$
+We have already proved in Example \ref{example:omega} that if $\termone\redri\termone$ and $\explen{\termtwo}(\varepsilon)=0$, then $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}$. The construction can be gereralised to arbitrary values of $\explen{\termtwo}$, yielding $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}+\explen{\termtwo}$. Clearly if $\termone$ is in normal form, then $\explen{\termone}=0$. All this ingredients allow to compute $\explen{\termone}$ inductively on the structure of the blocked tree. This is a pseudo-algorithm in that it is not assured to terminate. Diverging terms different from $\bm{\Omega}$ in fact yield to non-terminating computations. We report the code in \texttt{pseudo-Haskell}.
+\begin{align*}
+&\texttt{bExpr :: PTree -> Expression}\\
+&\texttt{bExpr PLeaf = 0}\\
+&\texttt{bExpr (NodeOne t) = 1 + (bExpr t)}\\
+&\texttt{bExpr (NodeOneCycle t) = 1/}\varepsilon\texttt{ + (bExpr t)}\\
+&\texttt{bExpr (NodeTwo t1 t2) = 1 + }\varepsilon\texttt{*(bExpr t1) + (1-}\varepsilon\texttt{)*(bExpr t2)}
+\end{align*}
+\section{Experimental Results}
+Once the tool is set, it is easy to test different terms. Our goal is to try to find a subset of the class $\mathcal{C}$ of terms for which strategy $\mathsf{P}_\varepsilon$, $\varepsilon\not\in\{0,1\}$, is more convenient than $\pslo$ and $\psri$. We already know that $\mathcal{C}\subseteq\Lambda\setminus(\Lambda_A\cup\Lambda_I)$. First we give an answer to the following trivial question: is $\mathcal{C}$ a proper subset of $\Lambda\setminus(\Lambda_A\cup\Lambda_I)$?
+\begin{proposition}\label{prop:strict}
+	$\mathcal{C}\subset\Lambda\setminus(\Lambda_A\cup\Lambda_I)$.
+\end{proposition}
+\begin{proof}
+	We provide a family of terms $\termone_n\in\Lambda\setminus(\Lambda_A\cup\Lambda_I)$ such that $\nsteps{\pslo}(\termone)=\explen{\termone}(1)<\explen{\termone}(\varepsilon)$ if $0<\varepsilon<1$.
+	$$
+	\termone_n=\termthree_n((\lambda y.z)\bm{\Omega})
+	$$
+	where:
+	$$
+	\termthree_n = C_n((\lambda x.x)y)\qquad
+	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
+	$$
+	It is then easy to compute the average number of steps to normal form that is
+	$$
+	\explen{\termone_n}(\varepsilon)=\frac{n+2}{\varepsilon}.
+	$$ 
+	The function is strictly decreasing. This proves the claim.
+\end{proof}
+We have at this point examples of terms in and out of $\mathcal{C}$. What differences there are between them? Can they be spotted \emph{algorithmically} with \emph{low} complexity? Some considerations can be done about the different phenomena that arise in the reduction of a $\lambda$-term: namely \emph{copy} and \emph{cancellation}. In general we want that copy is done after having reduced the argument to normal form, while cancellation should anticipated as much as possible. We define in an informal manner a set of operations $\mathcal{O}$ performed by $\lambda$-terms. We attach an operation $\mathsf{O}\in\mathcal{O}$ to each term formalised with the map $\mathsf{Op}:\Lambda\rightarrow\mathcal{O}$.
+\begin{definition} Let $n\geq 0$, then $\mathcal{O}=\{\textsf{CP},\textsf{CA},\textsf{W}_n\}$ where:
+	\begin{itemize}
+		\item $\textsf{CP}$ is a copy operation exemplified by a term $\termone=\lambda x.\termtwo$ where $x$ is free more than once in $\termtwo$. We write $\textsf{CP(O)}$ if $\mathsf{O}$ is the operation copied, i.e. if it is the case $\termone\termthree$ with $\mathsf{Op}(\termthree)=\mathsf{O}$.
+		\item $\textsf{CA}$ is a cancellation operation exemplified by a term $\termone=\lambda x.\termtwo$ where $x$ is not free in $\termtwo$. We write $\textsf{CA(O)}$ if $\mathsf{O}$ is the operation cancelled, i.e. if it is the case $\termone\termthree$ with $\mathsf{Op}(\termthree)=\mathsf{O}$.
+		\item $\mathsf{W_n}$ is strategy independent reduction work that takes $n$ steps to reach normal form. It is exemplified by a term $\underbrace{\textbf{II...I}}_{n+1\text{ times}}$.
+	\end{itemize}
+\end{definition}
+What is interesting is the order in which these operations are executed. Copying some work before it was executed brings to multiplication of work. In the same way doing some reduction work that later will be cancelled is useless. Let us consider the term $\termone_n$ provided in the Proof of Proposition~\ref{prop:strict}. In Table~\ref{table:op1} the different operations are related to the different subterms of $\termone_n$. The order is left-to-right in the sense that $\textsf{O}_1\prec\mathsf{O}_2$ if the corresponding subterms are ordered that way in the linear representation of the term. We note that both leftmost and rightmost operations are not the best choice. In fact leftmost we have a copy before some work and rightmost we do some useless work.
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	$ \textsf{CP} $ & $ \textsf{W}_1 $ & $ \textsf{CA} $ & $ \textsf{W}_\infty $\tabularnewline
+	\hline 
+	$C_n$ & $(\lambda x.x)y$ & $\lambda y.z$ & $\bm{\Omega}$\tabularnewline
+	\hline 
+\end{tabular}
+\end{center}
+\caption{Different operations in term $\termone_n$ from Proposition~\ref{prop:strict}}
+\label{table:op1}
+\end{table}

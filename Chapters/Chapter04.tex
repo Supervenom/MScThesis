@@ -111,7 +111,7 @@ $$
 	For the FPARS $(\Lambda,\mathsf{P}_\varepsilon)$ and $\termone\in\Lambda$, we define the function $\explen{\termone}:[0,1]\rightarrow\mathbb{R}\cup\{+\infty\}$, where
 	$\explen{\termone}(\varepsilon)=\nsteps{\mathsf{P}_\varepsilon}(\termone)$.
 \end{notation}
-\begin{example}
+\begin{example}\label{example:omega}
 	Let us consider the term $\termone=(\lambda x.y)\bm{\Omega}$ where $\bm{\Omega}=\bm{\omega\omega}$  with $\bm{\omega}=\lambda x.xx$. There are two possible representations of the development of the strategy $\mathsf{P}_\varepsilon$ for this term, one as an infinite tree (Figure \ref{figure:trees}a) and another one as a cyclic graph (Figure \ref{figure:trees}b). According to the different representations, we can compute in different ways the probability of reaching normal form and the average derivation length.
 	\begin{itemize}
 		\item
@@ -206,7 +206,7 @@ The first Theorem we are going to prove around $\mathsf{P}_\varepsilon$ states t
 	$\frac{\nsteps{\pslo}\left( \termone\right)}{\varepsilon}$.
 \end{proof}
 The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is very loose and thus it does not give us any information on the actual nature of the function $\explen{\termone}(\varepsilon)$. We show, by means of an example, that the strategy $\mathsf{P}_\varepsilon$ is non-trivial, i.e. there exists a term $\termone$ and $0<\varepsilon<1$, such that $\explen{\termone}(\varepsilon)<\explen{\termone}(1)=\nsteps{\pslo}(\termone)<\explen{\termone}(0)=\nsteps{\psri}(\termone)$.
-\begin{example}
+\begin{example}\label{example:nontr}
 	Let us consider a family of terms $\termone_n=\termtwo\termthree_n$ where:
 	$$
 	\termtwo = \lambda x.\underbrace{((\lambda y.z)\bm{\Omega})}_\termfour x\qquad
