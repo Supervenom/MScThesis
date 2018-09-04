@@ -2,6 +2,27 @@
 \chapter{The $\lambda$-calculus}\label{ch:lambda}
 %*****************************************
 \section{History and overview}
+$\lambda$-calculus has attracted from its birth in the thirties some of the best minds of the century. Its elegance and simplicity, together with its power have fascinated thousands of people in Logic, Computer Science, Math and Philosophy.
+\subsection{The Birth of Computer Science}
+Alonzo Church invented the $\lambda$-calculus with the aim of providing a
+foundation for logic which would be more natural than Russell’s type theory or
+Zermelo’s set theory \cite{}. Church's system was a type-free logic with
+unrestricted quantification but without the law of excluded middle. However very soon his system was proved inconsistent by Kleene and Rosser \cite{}. Abandoned the foundational aspects, the system restricted to the functional part, i.e. without logic, turned out to be very interesting. It allowed the very first proof of non-decidability of a problem (the convertibility problem) \cite{} and soon after the negative answer to the \textit{Entscheidungsproblem} \cite{}. After the proofs of equivalence between the $\lambda$-calculus and Turing machines \cite{}, and between the $\lambda$-calculus and the partial recursive functions \cite{}, Church's Thesis could be stated: $\lambda$-definability captures the intuitive notion of effective calculability.
+\subsection{Functions As Rules}
+In $\lambda$-calculus, unlike set theory, functions are first-class citizens. Moreover, unlike set theory, functions are defined intentionally, i.e. through the rule that allows to pass from the argument to the result. This way computing a function becomes a rewriting process. $\lambda$-notation serves to this goal. Computing a function means to substitute the argument in the body where there are occurrences of the binded variable. In a $\lambda$-calculus extended with the $+$ operator and natural numbers one could write the following:
+$$
+\lambda x. x+x+x
+$$
+that is a function that takes an argument $x$ and returns as result $x+x+x$. Functions are applied to arguments, for example:
+$$
+(\lambda x. x+x+x)3\red3+3+3\red 9.
+$$
+$\lambda$-abstraction binds a single variable. However we are interested in writing functions like $x+y$ which have more than one argument. Frege in \cite{} and then Schönfinkel (the father of Combinatory Logic) in \cite{} proposed a method, now called curryfication, to overcome this problem. The trick consists in the partial application of a function.  We illustrate it with an example. If we want to compute $x+y$ on two arguments, say $a$ and $b$, first we compute a one-argument function that sums $a$ to its argument and then we apply it to $b$.
+$$
+((\lambda x.(\lambda y.x+y))a)b\red(\lambda y.a+y)b\red a+b.
+$$
+This is possible in the $\lambda$-calculus because functions can return other functions (and taking functions as parameters). That means that the $\lambda$-calculus is a higher-order formalism.
+\subsection{A Programming Languages Foundation}
 \section{The Abstract Setting: Rewriting Theory}
 The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus in a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science since basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields. The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
 
