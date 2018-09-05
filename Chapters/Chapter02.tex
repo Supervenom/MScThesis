@@ -1,40 +1,17 @@
-%*****************************************
-\chapter{The $\lambda$-calculus}\label{ch:lambda}
-%*****************************************
-\section{History and overview}
-$\lambda$-calculus has attracted from its birth in the thirties some of the best minds of the century. Its elegance and simplicity, together with its power have fascinated thousands of people in Logic, Computer Science, Math and Philosophy.
-\subsection{The Birth of Computer Science}
-Alonzo Church invented the $\lambda$-calculus with the aim of providing a
-foundation for logic which would be more natural than Russell’s type theory or
-Zermelo’s set theory \cite{}. Church's system was a type-free logic with
-unrestricted quantification but without the law of excluded middle. However very soon his system was proved inconsistent by Kleene and Rosser \cite{}. Abandoned the foundational aspects, the system restricted to the functional part, i.e. without logic, turned out to be very interesting. It allowed the very first proof of non-decidability of a problem (the convertibility problem) \cite{} and soon after the negative answer to the \textit{Entscheidungsproblem} \cite{}. After the proofs of equivalence between the $\lambda$-calculus and Turing machines \cite{}, and between the $\lambda$-calculus and the partial recursive functions \cite{}, Church's Thesis could be stated: $\lambda$-definability captures the intuitive notion of effective calculability.
-\subsection{Functions as Rules}
-In $\lambda$-calculus, unlike set theory, functions are first-class citizens. Moreover, unlike set theory, functions are defined intentionally, i.e. through the rule that allows to pass from the argument to the result. This way computing a function becomes a rewriting process. $\lambda$-notation serves to this goal. Computing a function means to substitute the argument in the body where there are occurrences of the binded variable. In a $\lambda$-calculus extended with the $+$ operator and natural numbers one could write the following:
-$$
-\lambda x. x+x+x
-$$
-that is a function that takes an argument $x$ and returns as result $x+x+x$. Functions are applied to arguments, for example:
-$$
-(\lambda x. x+x+x)3\red3+3+3\red 9.
-$$
-$\lambda$-abstraction binds a single variable. However we are interested in writing functions like $x+y$ which have more than one argument. Frege in \cite{} and then Schönfinkel (the father of Combinatory Logic) in \cite{} proposed a method, now called curryfication, to overcome this problem. The trick consists in the partial application of a function.  We illustrate it with an example. If we want to compute $x+y$ on two arguments, say $a$ and $b$, first we compute a one-argument function that sums $a$ to its argument and then we apply it to $b$.
-$$
-((\lambda x.(\lambda y.x+y))a)b\red(\lambda y.a+y)b\red a+b.
-$$
-This is possible in the $\lambda$-calculus because functions can return other functions (and taking functions as parameters). That means that the $\lambda$-calculus is a higher-order formalism.
-\subsection{A Programming Languages Foundation}
-The main difference between high level programming languages and low level ones is that the former are machine independent. For this reason models of high level languages should be machine-independent too. Turing machines, for example, are not suitable to describe many of the main mechanisms of programming languages, such as function calls or type systems. $\lambda$-calculus turns out to be very useful in this sense. In fact, already in the sixties, a translation between Algol 60 and the $\lambda$-calculus was given \cite{landin1, landinII}. This way, $\lambda$-calculus provided a formal semantics to a real programming language, Algol 60, the ancestor of languages such as \texttt{C} or \texttt{Pascal}. 
-\section{The Abstract Setting: Rewriting Theory}
-The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus in a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science since basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields. The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
+%************************************************
+\chapter{Abstract Probabilistic Rewriting}\label{ch:mathtest} % $\mathbb{ZNR}$
+%************************************************
+The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus into a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science: basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields.\\
+The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
 
 \begin{definition}
 	An \emph{abstract reduction system} (ARS) is a pair $(A,\rightarrow)$ where $A$ is a set with cardinality at most countable and $\rightarrow\,\subseteq A\times A$.
 \end{definition}
-$A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation}. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them. However, it is worth mentioning here a very important property, confluence.
+$A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation}. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. An important characteristic of ARSs is that $\red$ is not in general a (partial) function. This means that a term can be rewritten to more than one term, i.e. the rewriting process is not deterministic. We call an ARS $(A,\rightarrow)$ \emph{deterministic} (DARS) if $\red$ is a partial function. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite, then $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them. However, it is worth mentioning here a very important property, namely confluence.
 \begin{definition}
 	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ is \emph{confluent} or \emph{Church-Rosser} (CR), if for each $a\in A$ such that $a\twoheadrightarrow b$ and $a\twoheadrightarrow c$, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$.
 \end{definition}
-Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reach the very same term, possibly going further with the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
+Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reconcile those paths, possibly going further with the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
 \begin{figure}
 	\centering
 	\subfloat[]{{	
@@ -63,7 +40,7 @@ Confluence is a desirable property because intuitively it states that no matter 
 	\label{figure:confluence}
 \end{figure}
 \begin{definition}
-	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ has the \emph{unique normal form property} (UN) if for each $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, and $b,c\in\mathbf{NF}(A)$, then $b\equiv c$.
+	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ has the \emph{unique normal form property} (UN) if for each $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, and $b,c\in\mathbf{NF}(A)$, then $b= c$.
 \end{definition}
 Uniqueness of normal form is a key aspect when we are dealing with ARSs. In fact, typically, we want that a given term always terminates in the same result, although possibly following different paths.
 \begin{proposition}
@@ -76,11 +53,13 @@ ARSs are sets endowed with a relation, and are thus
 inherently nondeterministic, if we consider rewriting as a model of a computation. The notion of reduction strategy allows us to turn reduction into a deterministic process.
 \begin{definition}[Deterministic Strategies]\label{def:determstrat}
 	Given an ARS $(A,\rightarrow)$, a \emph{deterministic reduction
-		strategy for $A$} is a partial function $\mathsf{S}:A\rightharpoonup A$
-	such that $\mathsf{S}(a)$ is defined if and only if $a$ is not in
-	normal form and $a\rightarrow\mathsf{S}(a)$ whenever $\mathsf{S}(a)$
-	is defined.
+		strategy for $A$} is a function $\mathsf{S}:A\rightharpoonup A$
+	such that $\mathsf{S}(a)=a$ if $a$ is in
+	normal form and $a\rightarrow\mathsf{S}(a)$ otherwise.
 	%$\mathsf{S}(a)\in\{b\,|\,a\rightarrow b\}$.
+\end{definition}
+\begin{definition}
+	A reduction sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is \emph{under strategy} $\mathsf{S}$ if $\mathsf{S}(a_i)=a_{i+1}$ for each $0\leq i<n$.
 \end{definition}
 If $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is a
 reduction sequence under strategy $\mathsf{S}$ and $a_n$ is in normal
@@ -88,9 +67,9 @@ form, we write $\nsteps{\mathsf{S}}(a_0)=n=|\sigma|$. If
 $\sigma:a_0\rightarrow a_1\rightarrow\cdots$ is infinite, we say that
 $\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is \emph{normalising} if for each weakly normalising term $a$, $\nsteps{\mathsf{S}}(a)<+\infty$. Reductions to normal form of the same term under different strategies can be of different lengths, and in particular some of them can be infinite. However, under particular conditions, all strategies are equivalent.
 \begin{definition}
-	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} (WDP) if and only if for each term $a\in A$, if $a\red b$ and $a\red c$ with $b\neq c$, then there exists a term $d\in A$ such that $b\red d$ and $c\red d$. 
+	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} (WDP) if and only if for each term $a\in A$, if $a\red b$ and $a\red c$, then either $b=c$ or there exists a term $d\in A$ such that $b\red d$ and $c\red d$. 
 \end{definition}
-Intuitively an ARS satisfies the WDP if we can close every diagram in one step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from a term to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
+Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just one} step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from a term to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
 \begin{figure}
 	\centering
 	\subfloat[]{{	
@@ -120,333 +99,329 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in one step, 
 	\label{figure:diam}
 \end{figure}
 \begin{lemma}[]\label{lemma:weak}
-	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form all reduction sequences from $a$ to its normal form have the same length.
+	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form, all reduction sequences from $a$ to its normal form have the same length.
 \end{lemma}
 \begin{proof}
 	The proof by induction is given with all details in \cite{dal_lago_invariant_2005}.
 \end{proof}
-\section{The Syntax}
-We now define a specific ARS, the $\lambda$-calculus. We start defining the set of its terms. As usual in theoretical computer science terms are inductively defined by a context-free grammar \cite{backus_syntax_1959}.
-\begin{definition}
-	Assume a countable infinite set $\mathcal{V}$ of variables. The
-	$\lambda$-\emph{calculus} is the language of terms defined by
-	the following grammar:
-	$$
-	\termone,\termtwo\bnf\varone\in\mathcal{V}\midd\termone\termtwo\midd\abstr{\varone}{\termone}
-	$$
-	We denote by $\Lambda$ the set of all $\lambda$-terms.
+\section{Probabilistic Rewriting}
+As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that allows a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, even the definition of termination is not obvious in a probabilistic setting. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{avanzini_probabilistic_2018}. However, our work exploits probabilistic rewriting in a different and novel sense and in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map terms to \emph{distributions} on terms. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
+\subsection{Probabilistic Abstract Reduction Systems as Strategies}
+We introduce now the framework we are going to define randomised
+strategies within. In particular, we shift the notion of ARS to the fully
+probabilistic case. With respect to standard Markov chain theory, our
+construction is simpler and allows to reason better in an infinite
+state context. The first preliminary concept we need is that of a distribution.
+\begin{definition}[Distribution]
+	A \emph{partial probability distribution} over a countable set $A$
+	is a mapping $\rho:A\rightarrow\left[0,1\right]$ such that
+	$\left|\rho\right|\leq 1$ where
+	$\left|\rho\right|=\underset{a\in A}{\sum}\rho\left(a\right)$. We denote the set of partial probability distributions over $A$
+	by $\pdist{A}$. The \emph{support} of a partial distribution
+	$\rho\in\pdist{A}$ is the set $\supp{\rho}=\left\lbrace a \in A \, |
+	\, \rho\left( a\right) >0\right\rbrace $.  A \emph{probability
+		distribution} over a countable set $A$ is a partial probability
+	distribution $\mu$ such that $\left|\mu\right|=1$. $\dist{A}$ denotes the set
+	of probability distributions over $A$.
 \end{definition}
-Since $\lambda$-terms are defined inductively from other $\lambda$-terms via application and abstraction, it is natural to define a function that maps each term to the set of its subterms. We will often use a pattern-matching-like syntax to define properties of $\lambda$-terms. In this case the match is against the rule of the grammar used to form the term (akin to sum types in functional programming languages).
-\begin{THESIS}
-	\begin{definition}
-		The set of \emph{subterms} $\mathsf{Sub(\mathit{\termone})}$ of a term $\termone$ is defined inductively on the structure of $\termone$ as follows.
-		\begin{align*}
-		&\mathsf{Sub}(x)=\{x\},\\
-		&\mathsf{Sub}(\termtwo\termthree)=\mathsf{Sub}(\termtwo)\cup \mathsf{Sub}(\termthree)\cup\{\termtwo\termthree\},\\
-		&\mathsf{Sub}(\lambda x.\termtwo)=\mathsf{Sub}(\termtwo)\cup \{\lambda x.\termtwo\}.
-		\end{align*}
-	\end{definition}
-\end{THESIS}
-\begin{THESIS}
-	The concept of bound and free variables is ubiquitous in logic. Informally, names of bounded occurrences of variables are meaningless, in the sense that they can be renamed without changing the semantics of a term, provided that new names are \emph{fresh}, i.e. they do not occur anywhere in the term. This observation leads to the definition of $\alpha$-conversion.
-	\begin{definition}
-		A variable $x$ occurs \emph{bound} in $\termone$, if $\lambda x.\termtwo\in\mathsf{Sub(\mathit{\termone})}$ for some term $\termtwo$. The set of \emph{free variables} $FV(\termone)$ of a term $\termone$ is defined inductively on the structure of $\termone$ as follows.
-		\begin{align*}
-		&FV(x)=\{x\},\\
-		&FV(\termtwo\termthree)=FV(\termtwo)\cup FV(\termthree),\\
-		&FV(\lambda x.\termtwo)=FV(\termtwo)\setminus\{x\}.
-		\end{align*}
-	\end{definition}
-	\begin{definition}
-		Two terms $\termone$ and $\termtwo$ are said to be \emph{$\alpha$-convertible} if one can derive the same term from both purely by renaming bound occurrences of variables to fresh variables.
-	\end{definition}
-	Since $\alpha$-conversion is an equivalence relation, from now on we consider $\lambda$-terms modulo $\alpha$-equivalence. Indeed if two terms $\termone$ and $\termtwo$ are $\alpha$-convertible we consider them equivalent at syntactic level and we write $\termone\equiv\termtwo$. Moreover it is worth mentioning that there exist different representations of $\lambda$-terms in which there are not bound variables at all. The most famous is the use of De Brujin indexes, used in most compilers and interpreters of functional programming languages \cite{de_bruijn_lambda_1972}.
-	
-\end{THESIS}
-\begin{THESIS}
-	In order to define $\beta$-reduction, the reduction relation of the $\lambda$-calculus, we need to formally define the concept of substitution. 
-	We assume from now the \emph{Barendregt's variable convention} for which every term has all bound variables distinct from each other and from any free variable. This can be done since we are considering terms modulo $\alpha$-equivalence.
-	\begin{definition}
-		We denote by $\termone\{\termtwo/x\}$ the \emph{(capture-avoiding) substitution} of variable $x$ by term $\termtwo$ in term $\termone$ performed in the following way.
-		\begin{align*}
-		&x\{\termtwo/x\}=\termtwo,\\
-		&y\{\termtwo/x\}=y\qquad\textrm{if $x\not\equiv y$},\\
-		&(\termone\termthree)\{\termtwo/x\}=(\termone\{\termtwo/x\}\termthree\{\termtwo/x\}),\\
-		&(\lambda y.\termone)\{\termtwo/x\}=(\lambda y.\termone\{\termtwo/x\}).
-		\end{align*}
-	\end{definition}
-	The following Lemma asserts formally commutativity of substitutions.
-	\begin{lemma}[Substitution Lemma]
-		For any $\termone,\termtwo,\termthree\in\Lambda$ if $x\neq y$ and $x\not\in FV(\termthree)$, then
-		$$
-		\termone\{\termtwo/x\}\{\termthree/y\}\equiv\termone\{\termthree/y\}\{\termtwo\{\termthree/y\}/x\}.
-		$$
-	\end{lemma}
-\end{THESIS}
-Reduction will be defined based on the notion of a context, which
-needs to be given a formal status.
-\begin{definition}
-	We define (one-hole) \emph{contexts} by the following grammar:
-	$$
-	\contone,\conttwo\bnf\Box\midd\contone\termone\midd\termone\contone\midd\abstr{\varone}{\contone}
-	$$
-	We denote with $\Lambda_\Box$ the set of all contexts.
+Strategies as from Definition~\ref{def:determstrat} are inherently
+deterministic: the process of picking a reduct among the many possible
+ones can only have \emph{one} outcome. But what if this process becomes
+\emph{probabilistic}? This is captured by the following notion:
+\begin{definition}[Randomised Strategies]
+	Given an ARS $(S,\rightarrow)$, a
+	\emph{randomised reduction strategy $\mathsf{P}$ for $(S,\rightarrow)$}
+	is a partial function such that if $s\in S$ is in normal form, then
+	$\mathsf{P}(s)=\bot$, otherwise $\mathsf{P}(s)=\mu\in\dist{S}$, and
+	$\supp{\mu}\subseteq\{t\,|\,s\rightarrow t\}$.
+	%\emph{fully probabilistic abstract
+	%  reduction system (FPARS) for $(S,\rightarrow)$} is a pair $\left(
+	%S,\mathsf{P}\right)$ where $\mathsf{P}:S\rightharpoonup\dist{S}$ is
+	% We call $\mathsf{P}$
+	%a \emph{randomised reduction strategy for $(S,\rightarrow)$}.
 \end{definition}
-Intuitively, contexts are $\lambda$-terms with a hole that can be
-filled with another $\lambda$-term. We indicate with
-$\contone[\termone]$ the term obtained by replacing $\Box$ with
-$\termone$ in $\contone$. Those $\lambda$-terms in the form
-$\rdxone=(\lambda x.\termone)\termtwo$ are called \emph{$\beta$-reducible expressions} or
-$\beta$-\emph{redexes} and $\termone\{\termtwo/x\}$ is said to be
-the \emph{contractum} of $\rdxone$. This is justified by the following definition.
-\begin{definition}
-	The relation of $\beta$-\emph{reduction}, $\redbeta\subseteq\Lambda\times\Lambda$, is defined as th contextual clojure of the $\beta$-rule
+Please notice that if $(S,\rightarrow)$ is an ARS and 
+$\mathsf{P}$ is a randomised reduction strategy for it,
+then $(S,\mathsf{P})$ can be seen as a \emph{fully} probabilistic abstract
+reduction system (FPARS), namely a probabilistic abstract reduction
+system~\cite{avanzini_probabilistic_2018} whose dynamics is purely
+probabilistic, without any nondeterminism. In the following, we will
+study randomised strategies as FPARS.
+
+The dynamics of an FPARS can be handled by way of an appropriate
+notion of a configuration, on which an evolution function can be
+defined:
+\begin{definition}[Configurations, Computations]
+	Let $\left( S,\mathsf{P}\right)$ be an FPARS and $s,t\in S$ be two
+	\emph{states}. We define the probability $\mathbb{P}\left(s
+	\rightarrow t\right)$ of a \emph{transition} from $s$ to $t$:
 	$$
-	(\lambda x.\termone)\termtwo\rightarrow_\beta\termone\{\termtwo/x\}
+	\mathbb{P}\left(s \rightarrow t\right)=
+	\begin{cases}
+	\mu\left(t\right)&\mbox{if $\mathsf{P}\left(s\right)=\mu$},\\
+	0&\mbox{if $\mathsf{P}\left(s\right)=\bot$}.
+	\end{cases}
 	$$
-	i.e.
+	A \emph{configuration} of an FPARS $\left( S,\mathsf{P}\right)$ is a partial probability distribution $\rho\in\pdist{S}$.
+	The \emph{evolution} of an FPARS $\left( S,\mathsf{P}\right)$ from a configuration $\rho$ is a function $\mathsf{E}:\pdist{S}{\rightarrow\pdist{S}}$ defined in the following way:
 	$$
-	\redbeta = \{(\contone[(\lambda x.\termone)\termtwo],\, \contone[\termone\{\termtwo/x\}])\, |\, \termone, \termtwo\in\Lambda, \contone\in\Lambda_\Box\}.
+	\mathsf{E}\left( \rho\right) = \sigma \textnormal{ where } \sigma\left(s\right)=\underset{t\in S}{\sum}\rho\left( t\right) \cdot\mathbb{P}\left(t \rightarrow s\right)\;\textnormal{for every }s \in S.
 	$$
+	If  $\mathsf{E}\left( \rho\right) = \sigma$ we write $\rho\rightsquigarrow\sigma$.
+	A \emph{computation} is any sequence
+	$(\rho_i)_{i\in\mathbb{N}}$, such that $\rho_i\rightsquigarrow\rho_{i+1}$.
 \end{definition}
-This way we have defined the $\lambda$-calculus as the ARS $(\Lambda,\redbeta)$. We denote by $\Lambda_\mathsf{WN}$ the set of weakly normalising terms of $\Lambda$. In the following sections a restriction of the $\beta$-reduction will be useful.
-\begin{definition}
-	The relation of $\mathsf{ANF}$-$\beta$-\emph{reduction}, $\redbetaanf\subseteq\Lambda\times\Lambda$, is defined as
+\begin{remark}
+	Those computations $(\rho_i)_{i\in\mathbb{N}}$ where
+	$\rho_0$ is $\mathbf{Dirac}$ (i.e. there exists $s\in S$ such that
+	$\rho_0 (s)=1$) are particularly interesting: they model
+	the evolution of an FPARS starting from one state. We write in this case
+	$\rho_0=\mathbf{Dirac}(s)$.
+\end{remark}
+\begin{example}\label{example:pars}
+	Consider an ARS $(S,\rightarrow)$, where $S=\{a,b\}$ and $\rightarrow\,=\{(a,a),(a,b)\}$. We define a randomised strategy $\mathsf{P}$ on top of $(S,\rightarrow)$. $\mathsf{P}(a)=\mu$ such that $\mu(a)=\mu(b)=\frac{1}{2}$, while $\mathsf{P}(b)=\bot$ since $b$ is in normal form. A computation $(\rho_i)_{i\in\mathbb{N}}$ starting from $\rho_0=\mathbf{Dirac}(a)$ has the following form.
 	$$
-	\redbetaanf = \{(\contone[(\lambda x.\termone)\termtwo],\, \contone[\termone\{\termtwo/x\}])\, |\, \termone, \termtwo\in\Lambda,\,\termtwo\in\textbf{NF}(\Lambda),\, \contone\in\Lambda_\Box\}.
+	\underset{\rho_{0}}{\begin{cases}
+		1 & a\\
+		0 & b
+		\end{cases}}\rightsquigarrow\underset{\rho_{1}}{\begin{cases}
+		\frac{1}{2} & a\\
+		\frac{1}{2} & b
+		\end{cases}}\rightsquigarrow\underset{\rho_{2}}{\begin{cases}
+		\frac{1}{4} & a\\
+		\frac{1}{4} & b
+		\end{cases}}\rightsquigarrow\cdots\rightsquigarrow\underset{\rho_{k}}{\begin{cases}
+		\frac{1}{2^{k}} & a\\
+		\frac{1}{2^{k}} & b
+		\end{cases}}\rightsquigarrow\cdots
 	$$
-\end{definition}
-The congruence $=_\beta$ generated by $\beta$-reduction has the intuitive meaning ``two terms are $\beta$-convertible if and only if they are the \emph{same} program''. Sometimes this is too strict. If we want to consider equal two terms when they return the same results on the same arguments, we have to add a new axiom, called the $\eta$-rule. This way a new equational theory $=_{\beta\eta}$ is generated.
-\begin{definition}
-	Two $\lambda$-terms $\termone$ and $\termtwo$ are \emph{extensionally equal} if for each $\lambda$-term $\termthree$, $\termone\termthree=_{\beta\eta}\termtwo\termthree$. This is equivalent to the following rule:
-	$$
-	\lambda x.\termone x=_\eta\termone \qquad\textrm{if }x\not\in FV(\termone).
-	$$
-\end{definition}
-This latter formulation highlights that $\eta$-rule is not derivable from $\beta$-rule. In fact $\lambda x.yx=_\eta y$ while $\lambda x.yx\not=_\beta y$, since they are different normal forms.
-\subsection{Two Subcalculi of $\Lambda$}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Full $\lambda$-calculus is very powerful and flexible but it is very hard to study in its full generality. Sometimes it is useful to restrict ourselves to a subset of terms. In particular we focus our attention on two subsystems where terms satisfy a predicate on the number of occurrences of free variables. These systems are meaningful because they are \emph{stable} w.r.t. $\beta$-reduction i.e. if $\termone\in S$ and $\termone\redbeta\termtwo$ then $\termtwo\in S$. A comprehensive treatment is in \cite{sinot_sub-$lambda$-calculi_2008}.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{The $\lambda I$-calculus.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The $\lambda I$-calculus was the original calculus studied by Alonzo
-Church in the '30 \cite{church_unsolvable_1936}, while
-\cite{barendregt_lambda_1984} contains a whole section dedicated to
-it. In $\lambda I$-calculus there is no \emph{cancellation}, in that
-variables have to occur free \emph{at least once} when forming
-abstractions. Terms of the $\lambda I$-calculus are not strongly
-normalising in general. As an example, $\bm{\Omega}$ is a $\lambda I$-term.
-One can prove, however, the following important result.
-\begin{theorem}
-	For each term $\termone\in\Lambda_I$, if $\termone$ is weakly normalising, then it is strongly normalising.
-\end{theorem}
-In other words, all strategies are qualitatively equivalent. This does \emph{not} mean, however, that they are quantitatively equivalent.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{The $\lambda A$-calculus.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The $\lambda A$-calculus is the dual of $\lambda I$-calculus and it is
-sometimes called \emph{affine} $\lambda$-calculus in the
-literature. It is a very weak calculus in which variables bound by
-abstractions occur \emph{at most once} free in the abstraction's body,
-thus forbidding \emph{duplication}. The $\lambda A$-calculus is strongly
-normalising, in a very strong sense: every reduction sequence from a term
-$\termone$ has length bounded by the size of $\termone$.
-\section{Fundamental Meta-Theory}
-In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus. From the variety of results developed in more than 80 years, we have chosen two seminal theorems, published in the mid-30s.
-\subsection{Confluence}
-Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a normal form, then it is unique, independently from the reduction path followed. As we have seen in the Section devoted to Abstract Rewriting, uniqueness of normal form is an easy corollary of confluence. The first proof of confluence is due to Church and Rosser \cite{} in the early days of the $\lambda$-calculus, but many others appeared later. The standard proof of this result is due to Tait and Martin-Löf \cite[Section~3.2]{barendregt_lambda_1984}, based on the notion of parallel reduction. Barendregt in his monograph presents also three other proofs, one more direct \cite[Section~11.1]{barendregt_lambda_1984}, one based on the notion of development \cite[Section~11.2]{barendregt_lambda_1984} and one based on the labeled $\lambda$-calculus \cite[Section~14.2]{barendregt_lambda_1984} (originally presented in \cite{}). Because of the importance of this result, the above proofs were further simplified in \cite{}. Church-Rosser theorem was also object of interest for people interested in formalised mathematics and interactive theorem provers as witnessed by various papers containing different formalisations written for different theorem provers, \cite{} in COQ, \cite{} in HOL.
-\begin{theorem}[Church-Rosser]
-	The relation $\redbeta$ on $\Lambda$ is confluent.
-\end{theorem}
-\begin{corollary}
-	Let $\termone\in\Lambda$ be a $\lambda$-term. If $\termone\redbeta\termtwo$ and $\termone\redbeta\termthree$, where $\termtwo,\termthree\in\textbf{NF}(\Lambda)$, then $\termtwo\equiv\termthree$.
-\end{corollary}
-\subsection{Expressiveness}
-The $\lambda$-calculus, as we have defined it, in the previous section, turns out to be a Turing-complete formalism. This means that we should be able to use it as a programming language. We are not going to discuss in detail all the encodings, we just limit to a few illuminating examples. For a complete treatment, the interested reader can refer to \cite{barendregt_lambda_1984}.
-\paragraph{Integers}
-Integer numbers can be encoded as $\lambda$ terms in the following way. They are named Church numerals because this was the original encoding provided by Church.
-\begin{itemize}
-	\item $\lceil zero\rceil=\lambda f.\lambda x.x$
-	\item $\lceil one\rceil=\lambda f.\lambda x.(fx)$
-	\item $\lceil two\rceil=\lambda f.\lambda x.(f(fx))$
-	\item $\lceil n\rceil=\lambda f.\lambda x.(f^nx)$
-\end{itemize}
-where $f^nx$ is inductively defined by
-$$
-f^0x=x\,,\qquad f^kx=f(f^{k-1}x)\,.
-$$
-\paragraph{Arithmetics}
-Once defined numerals, one wants to use them. We give here combinators for addition, multiplication and exponentiation:
-\begin{itemize}
-	\item $\mathbf{A}=\lambda x.\lambda y.\lambda p.\lambda q.(xp(ypq))$,
-	\item $\mathbf{M}=\lambda x.\lambda y.\lambda z.(x(yz))$,
-	\item $\mathbf{E}=\lambda x.\lambda y.yx$.
-\end{itemize}
-\begin{proposition}
-	$\mathbf{A}$, $\mathbf{M}$ and $\mathbf{E}$ perform, respectively, addition, multiplication and exponentiation when applied to Church numerals, i.e.
-	\begin{itemize}
-		\item $\mathbf{A}\lceil n\rceil\lceil m\rceil=\lceil n+m\rceil$,
-		\item $\mathbf{M}\lceil n\rceil\lceil m\rceil=\lceil n*m\rceil$,
-		\item $\mathbf{E}\lceil n\rceil\lceil m\rceil=\lceil n^m\rceil$, except for $m=0$.
-	\end{itemize}
-\end{proposition}
-The reader can note how easy the whole process is w.r.t other Turing-complete formalisms, such as Turing machines. Sketching a single-tape Turing machine performing multiplication would not be in fact an easy task at all.
-\paragraph{$\lambda$-definability}
-Besides basic arithmetical operations one could show how to encode in the $\lambda$-calculus all partial recursive functions. 
-\begin{definition}
-	A partial function $f:\mathbb{N}^m\rightarrow\mathbb{N}$ is \emph{$\lambda$-definable} if there exists a $\lambda$-term $\mathbf{F}$ such that for each $n_1\cdots n_m\in\mathbb{N}$,
-	\begin{enumerate}
-		\item If $f(n_1\cdots n_m)=n$, then $\mathbf{F}\lceil n_1\rceil\cdots\lceil n_m\rceil\twoheadrightarrow \lceil n\rceil$.
-		\item If $f(n_1\cdots n_m)$ is undefined, then $\mathbf{F}$  has no normal form.
-	\end{enumerate}
-\end{definition}
-Since one can prove that it is possible to encode in the $\lambda$-calculus the so-called initial functions, together with composition, projection, minimisation and primitive recursion operators, the $\lambda$-calculus is a Turing-complete language, characterising our intuitive notion of computability.
-\begin{theorem}
-	A function is $\lambda$-definable if and only if it is partial recursive.
-\end{theorem}
-Actually, one does not need full $\lambda$-calculus to have a Turing-complete language, because also the $\lambda I$-calculus has the same characteristic. In this framework Church gave the first example of a recursively enumerable set which is not recursive.
-\begin{theorem}
-	The set $\{\termone\in\Lambda\,|\,\termone\textrm{ has normal form}\}$ is recursively enumerable but not recursive.
-\end{theorem}
-\section{Strategies}
-We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. A we have already pointed out, one could ask if a minimal reduction strategy exists, and in that case if it is computable. With minimal we intend leading to normal form, if there is one, in the minimum number of $\beta$-steps.
-\begin{proposition}[\cite{barendregt_1976}]
-	There exists a minimal strategy for the $\lambda$-calculus.
-\end{proposition}
-This is a trivial result. A less trivial one is the following.
-\begin{theorem}[\cite{barendregt_1976}]
-	There exists no recursive minimal strategy for the $\lambda$-calculus.
-\end{theorem}
-This latter negative result can be strengthened in the following sense.
-\begin{theorem}[\cite{kathail}]
-	For any $k>0$, there is no recursive reduction strategy that can reduce any $\lambda$-term to normal form (if any) in no more than $k\cdot m$ steps, where $m$ is the minimum number of $\beta$-steps needed to reduce the term.
-\end{theorem}
-Since there is no hope to devise strategies that are good in any context, we start defining two classical strategies and then reporting some results about them.
-\begin{definition}
-	\emph{Leftmost-outermost} $(\pslo)$ is a deterministic reduction
-	strategy in which $\pslo(\termone)=\termtwo$ if and only if
-	$\termone\redbeta\termtwo$ and the redex contracted in $\termone$ is
-	the \emph{leftmost} among the ones in $\termone$ (measuring the
-	position of a redex by its beginning). If $\pslo(\termone)=\termtwo$,
-	we write $\termone\redlo\termtwo$.
-\end{definition}
-\begin{definition}
-	\emph{Rightmost-innermost} $(\psri)$ is a deterministic reduction
-	strategy in which $\psri(\termone)=\termtwo$ if and only if
-	$\termone\redbeta\termtwo$ and the redex contracted in $\termone$ is
-	the \emph{rightmost} among the ones in $\termone$ (measuring the
-	position of a redex by its beginning). Again, if
-	$\psri(\termone)=\termtwo$, we write $\termtwo\redri\termtwo$.
-\end{definition}
-\begin{example}\label{example:canc}
-	Let $\bm{\omega}=\lambda x.xx$ and
-	$\bm{\Omega}=\bm{\omega\omega}$. We now consider the reduction of
-	the term $(\lambda x.y)\bm{\Omega}$ according to leftmost-outermost and
-	rightmost-innermost stratgies.
-	\begin{align*}
-		(\lambda x.y)\bm{\Omega}&\redlo y\\
-		(\lambda x.y)\bm{\Omega}&\redri(\lambda x.y)\bm{\Omega}\redri(\lambda x.y)\bm{\Omega}\redri\cdots
-	\end{align*}
-	The term $\bm{\Omega}$ is a looping combinator i.e. it reduces to
-	itself. However, in $(\lambda x.y)\bm{\Omega}$ the argument
-	$\bm{\Omega}$ is discarded since the function returns the constant
-	$y$. Thus leftmost-outermost (akin to call-by-name in functional
-	programming languages) yields a normal form in one step. Conversely,
-	rightmost-innermost (akin to call-by-value) continues to evaluate
-	the argument $(\lambda x.y)\bm{\Omega}$, though it is useless, and
-	rewrites always the same term, yielding to a non-terminating
-	process.
 \end{example}
-\begin{example}\label{example:copy}
-	Let $\bm{I}=\lambda x.x$. We now consider the reduction of the term
-	$(\lambda x.xx)(\bm{II})$, according to $\pslo$ and $\psri$
-	strategies, as above.
-	\begin{align*}
-		(\lambda x.xx)(\bm{II})&\redlo (\bm{II})(\bm{II}) \redlo
-		\bm{I}(\bm{II}) \redlo \bm{II} \redlo \bm{I}\\
-		(\lambda x.xx)(\bm{II})&\redri (\lambda x.xx)\bm{I} \redri \bm{II} \redri \bm{I}
-	\end{align*}
-	Here the argument $\bm{II}$ is duplicated and thus it is much more convenient
-	to reduce it before it is copied, as in
-	rightmost-innermost. Leftmost-outermost does, indeed, some useless
-	work.
+How could we measure the \emph{length} of a computation starting from $s$? Since the setting is probabilistic, it is natural
+to look for a definition capturing the \emph{average} derivation length from
+$s$ to its normal form. 
+\begin{definition}
+	Let $(S,\mathsf{P})$ be an FPARS and $\rho_0=\mathbf{Dirac}(s)$,
+	where $s\in S$. Given the computation $(\rho_i)_{i\in\mathbb{N}}$,
+	$\nsteps{\mathsf{P}}(s)=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|$.
+\end{definition}
+In the next section we will show that $\nsteps{}$ is actually the expected value of a properly defined random variable. Observe that the definition above collapses to the one given for the
+deterministic case when $\mathsf{P}$ is deterministic. 
+\begin{SHORT}
+	That it is the expected value of a random variable capturing the number of reduction
+	steps to normal form from $s$ can be proved by standard arguments
+	from the theory of Markov Chains, see~\cite{EV} for details.
+\end{SHORT}
+Termination is a crucial problem in rewriting theory. Since we are in
+a probabilistic context, distinct such notions are
+possible. We define in our setting two classical termination
+properties.  
+\begin{definition}
+	An FPARS is \emph{almost-surely terminating} (AST) if for each initial configuration $\rho_0$, the computation $(\rho_i)_{i\in\mathbb{N}}$, is such that $\underset{n\rightarrow +\infty}{\lim}\left|\rho_{n}\right|=0$.
+\end{definition}
+\begin{definition}
+	An FPARS $(S,\mathsf{P})$ is \emph{positive almost-surely terminating} (PAST) if for each $s \in S$,
+	$\nsteps{\mathsf{P}}(s)< +\infty$.
+	In this case we say that $\mathsf{P}$ is a \emph{positive almost-surely normalising} strategy.
+\end{definition}
+\begin{example}
+	Consider the same setting of Example \ref{example:pars}. It is easy to see that $(S,\mathsf{P})$ is AST since $\underset{n\rightarrow +\infty}{\lim}\left|\rho_{n}\right|=\underset{n\rightarrow +\infty}{\lim}\frac{1}{2^{n-1}}=0$. Moreover $(S,\mathsf{P})$ is PAST since $\nsteps{\mathsf{P}}(a)=\sum\limits_{n=1}^{\infty} \left|\rho_n\right|=\sum\limits_{n=1}^{\infty}\frac{1}{2^{n-1}}=2$ and $\nsteps{\mathsf{P}}(b)=0$.
 \end{example}
-\begin{THESIS}
-	In the study of strategies, it is interesting to see what happens to all the redexes that are not reduced. After a reduction step, are they cancelled, are they duplicated? The concept of residual of a redex in a term formalises this idea.
-	\begin{definition}[Residuals \cite{xi_upper_1999}]
-		Let $\termone$ be a term and $\rdxone=(\lambda x.\termtwo)\termthree$ one of its redexes. If $\termone\redbetardx{\rdxone}\termfour$, then for each redex $\rdxtwo$ of $\termone$ the residuals are defined in the following way.
-		\begin{itemize}
-			\item $\rdxtwo$ is $\rdxone$. Then $\rdxtwo$ has no residuals in $\termfour$.
-			\item $\rdxtwo$ is in $\termtwo$. Then $\rdxtwo\{\termthree/x\}$ in $\termtwo\{\termthree/x\}$ is the only residual of $\rdxtwo$ in $\termfour$.
-			\item $\rdxtwo$ is in $\termthree$. All copies of $\rdxtwo$ in $\termtwo\{\termthree/x\}$ are residuals of $\rdxtwo$ in $\termfour$.
-			\item $\rdxtwo$ contains $\rdxone$. Then the residual of $\rdxtwo$ is the term obtained by replacing $\rdxone$ in $\rdxtwo$ with $\termtwo\{\termthree/x\}$.
-			\item Otherwise $\rdxtwo$ is not affected and is its own residual in $\termfour$.
-		\end{itemize}
-		The residual relation is transitive.
-	\end{definition}
-	\subsection{Standard Sequences and Leftmost Strategies}
-	Through the concept of residual it is possible to define what a standard reduction sequence is. Standard reduction sequences are important because a fundamental theorem in the theory of the $\lambda$-calculus, the Standardisation Theorem, states that every reduction sequence can be standardised, yielding as a corollary that leftmost-outermost strategy is normalising. We show step-by-step how to derive this result, although omitting the proofs, that however can be found in the references.  
-	\begin{definition}
-		A reduction sequence $\sigma:\termone\redbetardx{\rdxone_1}\termone_1\redbetardx{\rdxone_2}\cdots\termone_n=\termtwo$ is \emph{standard} if for all $1\leq i<j$ and for all $1\leq j\leq n$, $\rdxone_j$ is not the residual of some redex to the left of $\rdxone_i$.
-	\end{definition}
-	\begin{remark}
-		Note that being \emph{standard} is a property of a reduction sequence and not of the strategy adopted. However it is easy to prove that all reduction sequences obtained using a leftmost-outermost strategy are standard. In general the converse is not true. However, it holds in the case the standard reduction sequence ends in a normal form.
-	\end{remark}
-	\begin{lemma}\label{lemma:stdislo}
-		If $\sigma:\termone\redbetaclo\termtwo$ is a standard reduction sequence and $\termtwo$ is in normal form, then all reductions in $\sigma$ are leftmost.
-	\end{lemma}
-	We are ready to state the Stardisation Theorem. It was first proved by Curry and Feys in 1958 \cite{curry_combinatory_1958}. Many other authors however published alternative proofs, simplifying the original one \cite{mitschke_standardization_1979}, adopting different techniques \cite{klop_combinatory_1980} or strengthening the result, possibly in a quantitative way \cite{xi_upper_1999}.
-	\begin{theorem}[Standardisation]
-		For every reduction sequence $\sigma:\termone\redbetaclo\termtwo$, it is possible to build a standard reduction sequence $\tau:\termone\redbetaclo\termtwo$.
-	\end{theorem}
-	As immediate consequence of the Standardisation Theorem, thanks to Lemma \ref{lemma:stdislo}, we have the following Corollary.
-	\begin{corollary}[Normalisation]
-		Leftmost-outermost is a normalising strategy. i.e. if a term $\termone$ has normal form $\termtwo$ then $\termone\redlosteps{n}\termtwo$ for some $n$.
-	\end{corollary}
-\end{THESIS}
-We conclude the analysis of leftmost-outermost strategy stating and proving a quantitative Lemma not already present in the literature, at least to our knowledge. The result is interesting in itself because sets the number of $\pslo$-steps to normal form of a term as a non-increasing measure under reduction. We need a preliminary Lemma asserting formally commutativity of reductions.
-\begin{LONG}
-	\begin{notation}
-		Given two distinct redexes $\rdxone$ and $\rdxtwo$ of a term $\termone$, the reduction $\rdxone\sqcup\rdxtwo$ is defined as the reduction of $\rdxone$ followed by the reduction of all the residuals of $\rdxtwo$, denoted by $\rdxtwo/\rdxone$.
-	\end{notation}
-	\begin{lemma}[Parallel moves]\label{lemma:parallel}
-		For every $\lambda$-term $\termone$, if $\rdxone$ and $\rdxtwo$ are two redexes of $\termone$, then $\rdxone\sqcup\rdxtwo$ and $\rdxtwo\sqcup\rdxone$ terminate in the same $\lambda$-term.
-	\end{lemma}
-\end{LONG}
-\begin{lemma}\label{lemma:derivationlength}
-	If $\termone\redbeta\termtwo$, then $\nsteps{\pslo}(\termtwo) \leq \nsteps{\pslo}(\termone)$.
-\end{lemma}
+It is well-known from Markov chain literature that AST does not imply PAST e.g. in the symmetric random walk on $\mathbb{Z}$. We prove in our framework a classical result in Markov chain theory that gives a sufficient condition for PAST and a bound on the average number of steps to normal form.
+\begin{notation}
+	For $\varepsilon>0$ we write $x>_{\varepsilon}y$ if and only if $x\geq y+\varepsilon$. This order is well-founded on real numbers with a lower bound.
+\end{notation}
+\begin{definition}
+	Given an FPARS $\left( S,\mathsf{P}\right)$, we define a function $V:S\rightarrow\mathbb{R}$ as Lyapunov if:
+	\begin{varitemize}
+		\item
+		There exists $b\in\mathbb{R}$ such that $V\left(s\right)\geq b$ for each $s\in S$.
+		\item
+		There exists $\varepsilon>0$ such that for every $s\in S$ if $\mathsf{P}\left(s\right) = \mu$, then $V\left(s\right) >_{\varepsilon} V\left(\mu\right)$, where $V$ is extended to partial distributions as follows:
+		$$
+		V\left(\mu\right)=\sum_{t\in S}V\left(t\right)\cdot\mu\left(t\right).
+		$$
+	\end{varitemize}
+\end{definition}
+\begin{remark}
+	Without loss of generality, given a Lyapunov function $V$ we can always consider a new Lyapunov function $W(s)\geq 0$ for each $s\in S$ simply adding a constant to $V$.
+\end{remark}
+\begin{theorem}
+	If we can define for an FPARS $\mathcal{P}=\left(S,\mathsf{P}\right)$ a Lyapunov function $V$, then $\mathcal{P}$ is PAST and the average derivation length $\nsteps{\mathsf{P}}(s)$ of any sequence $(\rho_i)_{i\in\mathbb{N}}$ starting from any $s\in S$ is bounded by
+	$\frac{V\left(s\right)}{\varepsilon}$.
+\end{theorem}
 \begin{LONG}
 	\begin{proof}
-		We argue by induction on $\nsteps{\pslo}(\termone)$. We call $\termthree$ the normal form of $\termone$, $\rdxone$ the redex contracted from $\termone$ to $\termtwo$ and $\rdxtwo$ the $\pslo$-redex of $\termone$. The base of the induction is $\nsteps{\pslo}(\termone)=1$. If $\rdxone$ and $\rdxtwo$ are the same redex we are done. Otherwise $\rdxone$ has no residuals in $\termthree$, since $\termthree$ is in normal form. Thus $\rdxone$ is in the argument of $\rdxtwo$ which is cancelled implying that $\nsteps{\pslo}(\termone)=\nsteps{\pslo}(\termtwo)$. Now suppose the Lemma true for each term $\termfour$ such that $\nsteps{\pslo}(\termfour)\leq k$. Let us consider a term $\termone$ with $\nsteps{\pslo}(\termone)=k+1$. The case in which $\rdxone$ and $\rdxtwo$ coincide is trivial, so let us consider distinct $\rdxone$ and $\rdxtwo$. Let us consider these two reduction sequences:
+		This proof partly was inspired by the one of Foster Theorem in \cite{bremaud_markov_1999}. Let us consider a generic transition $\rho_{i-1}\rightsquigarrow\rho_i$ of $\mathcal{P}$.
+		\begin{equation*}
+		\begin{split}
+		0&\leq V(\rho_i)=\sum_{k\in S}V(k)\rho_i(k)=\sum_{k\in S}V(k)\sum_{j\in S}\rho_{i-1}(j)\cdot\delta(j\rightarrow k)\\
+		&\overset{\delta(j)=\mu}{=}\sum_{k\in S}V(k)\sum_{j\in S\setminus \mathbf{NF}(S)}\rho_{i-1}(j)\cdot\mu(k)=\sum_{j\in S\setminus \mathbf{NF}(S)}\rho_{i-1}(j)\sum_{k\in S}V(k)\mu(k)\\
+		&=\sum_{j\in S\setminus \mathbf{NF}(S)}\rho_{i-1}(j)\cdot V(\mu)\leq \sum_{j\in S\setminus \mathbf{NF}(S)}\rho_{i-1}(j)\cdot (V(j)-\varepsilon)\\
+		&\leq \sum_{j\in S}\rho_{i-1}(j)\cdot V(j) - \sum_{j\in S\setminus \mathbf{NF}(S)}\rho_{i-1}(j)\cdot \varepsilon=V(\rho_{i-1})-\varepsilon\cdot|\rho_i|.
+		\end{split}
+		\end{equation*}
+		Iterating the above inequality we have
+		\begin{align*}
+		0&\leq V(\rho_i)\leq V(\rho_{i-1})-\varepsilon\cdot|\rho_i|\leq V(\rho_{i-2})-\varepsilon\cdot(|\rho_i| + |\rho_{i-1}|)\\
+		&\leq \cdots\leq V(\rho_0)-\varepsilon\cdot\sum_{n=1}^i |\rho_n|.
+		\end{align*}
+		Taking the limit for $n\rightarrow +\infty$ this yields to
 		$$
-		\termone\redbetardx{\rdxone}\termtwo\redlordx{\rdxtwo'}\termfive
+		0\leq V(\rho_0)-\varepsilon\cdot\nsteps{\mathsf{P}}(s)
 		$$
-		where $\rdxtwo'$ is the only residual of $\rdxtwo$ in $\termtwo$ and
+		and thus
 		$$
-		\termone\redlordx{\rdxtwo}\termfour\redbetardx{\rdxone/\rdxtwo}\termsix.
+		\nsteps{\mathsf{P}}(s)\leq \frac{V(\rho_0)}{\varepsilon}=\frac{V(s)}{\varepsilon}.
 		$$
-		By Lemma \ref{lemma:parallel}, $\termfive\equiv\termsix$. In particular, $\nsteps{\pslo}(\termfour)=k$ and thus by induction hypothesis $\nsteps{\pslo}(\termsix)=\nsteps{\pslo}(\termfive)\leq k$. Then $\nsteps{\pslo}(\termtwo)=1+\nsteps{\pslo}(\termfive)\leq 1+k=\nsteps{\pslo}(\termone)$.
+		
 	\end{proof}
-	\subsection{$\beta\textsf{ANF}$ Reduction and Strategies}
-	We prove in this section that if we restrict $\beta$-reduction to $\beta\mathsf{ANF}$ all reduction sequences from the same term to its normal form have the same length. This means that all strategies that reduce a redex only if its argument is in normal form are quantitatively equivalent. Clearly rightmost-innermost is one of them. An easy way to prove this result is showing that the ARS $(\Lambda, \redbetaanf)$ satisfies WDP.
-	\begin{proposition}\label{prop:diam}
-		The ARS $(\Lambda, \redbetaanf)$ satisfies the weak diamond property.
+\end{LONG}
+\begin{LONG}
+	\subsection{FPARS and Markov Chains}
+	We first recall some basic notions of probability theory and Markov chain theory. Please refer to \cite{ash_probability_1999,norris_markov_1998} for a more detailed discussion on the subject.
+	\begin{definition}[Probability space]
+		A \emph{probability space} is a triple $(\Omega, \mathcal{F},\mathbb{P})$ where $\Omega$ is the \emph{sample space}, $\mathcal{F}$ is the set of the \emph{events} and it is a $\sigma$-algebra of $\Omega$, and $\mathbb{P}$ is a \emph{probability measure} for $\mathcal{F}$ i.e. $\mathbb{P} :\mathcal{F}\rightarrow[0,1]$, $\mathbb{P}\{\Omega\}=1$ and it is countably additive: the probability of a countable disjoint union of events is given by the sum of the individual probabilities.
+	\end{definition}
+	\begin{definition}[Conditional probability]
+		Given two events $A$ and $B$ if $\mathbb{P}\{B\}\neq 0$ the \emph{conditional probability} of $A$ given $B$ is
+		$$
+		\mathbb{P}\{A|B\}=\frac{\mathbb{P}\{A\cap B\}}{\mathbb{P}\{B\}}.
+		$$
+	\end{definition}
+	\begin{definition}[Random variable]
+		Let $(\Omega, \mathcal{F},\mathbb{P})$ be a probability space. A \emph{random variable} $X$ is a function from $\Omega$ to $\mathbb{R}$ such that for each $x\in \mathbb{R}$, the set $\{X\leq x\}$:=$\{\omega\in\Omega : X(\omega)\leq x\}\in \mathcal{F}$. A random variable $X$ is \emph{discrete} if there exists a set $I$ at most countable such that $\mathbb{P}\{X\in I\}=1$.
+	\end{definition} 
+	\begin{definition}[Expected value]
+		Given a random variable $X$ on $(\Omega, \mathcal{F},\mathbb{P})$, its \emph{expected value} is
+		$$
+		\mathbb{E}[X]=\int_{\Omega}X\mathrm{d}\mathbb{P}
+		$$
+		where $\int$ is the Lebesgue integral. In the case $X$ is a discrete random variable assuming values in $I$,
+		$$
+		\mathbb{E}[X]=\sum_{i\in I}i\cdot\mathbb{P}\{X=i\}.
+		$$
+	\end{definition}
+	We give an alternative way of computing the expected value of a discrete random variable that will be useful in the remainder of this section.
+	\begin{proposition}[Telescope formula]\label{prop:alt-def}
+		Let $X$ be a random variable with values in $\mathbb{N}\cup \{+\infty\}$. Then
+		$$
+		\mathbb{E}[X]=\sum\limits_{i=1}^{\infty} \mathbb{P}\{X\geq i\}.
+		$$
 	\end{proposition}
 	\begin{proof}
-		Let us consider a term $\termone$ such that $\termone\redbetaanf\termtwo$ reducing redex $\rdxone$ and $\termone\redbetaanf\termthree$ reducing redex $\rdxtwo$. There are three possible cases.
-		\begin{itemize}
-			\item $\rdxone$ and $\rdxtwo$ are independent. Then we can consider $\termone$ as a two-hole context filled with $\rdxone$ and $\rdxtwo$ i.e. $\termone\equiv\contone[\rdxone][\rdxtwo]$. Then $\termtwo\equiv\contone[\rdxone'][\rdxtwo]$ and $\termthree\equiv\contone[\rdxone][\rdxtwo']$ where $\rdxone'$ and $\rdxtwo'$ are the reducts of $\rdxone$ and $\rdxtwo$ respectively. Then if $\termfour\equiv\contone[\rdxone'][\rdxtwo']$, $\termtwo\redbetaanf\termfour$ contracting the only residual of $\rdxtwo$ and $\termthree\redbetaanf\termfour$ contracting the only residual of $\rdxone$.
-			\item $\rdxone$ is a subterm of $\rdxtwo=(\lambda x.\termfive)\termsix$, and in particular it is a subterm of $\termfive$ since the argument $\termsix$ is in normal form. The thesis follows by the Substitution Lemma.
-			\item $\rdxtwo$ is a subterm of $\rdxone$. This case is analogous to the previous one.
-		\end{itemize}
+		Since $X$ is discrete 
+		$$
+		\mathbb{E}[X]=\sum\limits_{k=1}^{\infty} k\cdot\mathbb{P}\{X=k\} =  \sum\limits_{k=1}^{\infty} \left( \sum\limits_{i=1}^{k} 1\right) \cdot\mathbb{P}\{X=k\}.
+		$$
+		We can exchange the summations by Fubini-Tonelli theorem that yields 
+		$$
+		\mathbb{E}[X]=\sum\limits_{i=1}^{\infty} \sum\limits_{k=i}^{\infty} \mathbb{P}\{X=k\} = \sum\limits_{i=1}^{\infty} \mathbb{P}\{X\geq i\}.
+		$$
 	\end{proof}
-	\begin{corollary}\label{corollary:equiv}
-		If $\termone\redbetaanfsteps{n}\termtwo$, $\termone\redbetaanfsteps{m}\termtwo$ and $\termtwo$ is in normal form then $m=n$.
-	\end{corollary}
+	Discrete time Markov chains are a well-studied class of stochastic processes, i.e. discrete-time dynamical systems whose evolution is probabilistic. They satisfy the Markov property, which means that transitions from current state to the next one do not depend on the whole history of the process, but only on the current state.
+	\begin{definition}
+		Given a probability space $(\Omega, \mathcal{F},\mathbb{P})$, and a state space $I$ at most countable and measurable with the $\sigma$-algebra of all its subsets, a sequence of random variables $(X_n)_{n\geq 0}$ with values in $I$ is a\emph{ Markov Chain} if and only if satisfies the \emph{Markov property}, i.e. for each $n\geq 0$, for each $i_0,..,i_n,j \in I$, such that $\mathbb{P}\{X_n=i_n,...,X_0=i_0\}>0$ it holds that
+		$$
+		\mathbb{P}\{X_{n+1}=j|X_n=i_n,...,X_0=i_0\}=\mathbb{P}\{X_{n+1}=j|X_n=i_n\}=p_{{i_n}j}.
+		$$
+	\end{definition}
+	% mettere esempio random walk
+	We can completely characterise a Markov chain $\mathcal{M}$ as a tuple $(I,X_0,P)$ where $I$ is the state space, $X_0$ is the initial law and $P=(p_{ij})_{,i,j\in I}$ is the transition matrix.\\
+	The first entrance time into a state is a very useful random variable in order to study the behaviour of a Markov chain. Particularly interesting is knowing whether it is almost-surely finite and with finite expected value.
+	\begin{definition}
+		Let $\mathcal{M}=(I,X_0,P)$ be a Markov chain and $j\in I$ be a state. We call \emph{first entrance time} into $j$ the random variable with values in $\mathbb{N}\cup \{+\infty\}$
+		$$
+		T_j= \begin{cases}
+		\min\{n\geq 1|X_n=j\} & \textnormal{if }\{n\geq 1|X_n=j\}\neq \emptyset,\\
+		+\infty & \textnormal{otherwise}.
+		\end{cases}
+		$$
+	\end{definition}
+	We show now how to derive a Markov chain $\mathcal{M_P}=(I,\cdot,P)$ from an FPARS $\mathcal{P}=(S,\mathsf{P})$, i.e. we give a map $\mathsf{M}:\mathcal{P}\longmapsto\mathcal{M_P}$. First we define a relation $\equiv_\bot$ on the terms of $S$ defined for each $s,t\in S$ as
+	$$
+	s\equiv_\bot t\text{ if and only if }s,t\in\mathbf{NF}(S).
+	$$
+	Clearly $\equiv_\bot$ is an equivalence relation. We call $S_{\equiv\bot}$ the quotient set of $S$ by $\equiv_\bot$ and $\mathsf{trm}$ the equivalence class of $s$ if $s\in\mathbf{NF}(S)$. We define $\mathsf{M}$ in the following way.
+	$$
+	\mathsf{M}:(S,\mathsf{P})\longmapsto(I,\cdot,P) \text{ where}:
+	$$
+	$$
+	I=S_{\equiv\bot},\qquad\qquad
+	p_{ij}=\begin{cases}
+	1 & \text{if } i,j\in\mathbf{NF}(S),\\
+	\mathbb{P}(i\rightarrow j) & \text{otherwise}.\\	
+	\end{cases}	
+	$$
+	The mapping $\mathsf{M}$ actually maps an FPARS to a family of Markov chains, since the initial law is not specified. When we talk about $\mathcal{M_P}$ we are implicitly universally quantifying over all the initial laws, which are countable since our convention on initial configurations.\\
+	Now we prove the relationship between the AST and PAST properties of FPARSs and classical properties defined for Markov chains, in a way similar to what have been done in \cite{bournez_proving_2005,ferrer_fioriti_probabilistic_2015}.
+	\begin{remark}
+		Given an FPARS $\mathcal{P}$ and its sequence of configurations $(\rho_i)_{i\in\mathbb{N}}$, from how we have defined $\mathcal{M_P}$, follows that $|\rho_k| = \mathbb{P}\{T_\mathsf{trm}\geq k\}$.
+	\end{remark}
+	\begin{proposition}
+		An FPARS $\mathcal{P}$ is AST if and only if $\mathbb{P}\{T_{\mathsf{trm}}<+\infty\}=1$, for the Markov chain $\mathcal{M_P}$.
+	\end{proposition}
 	\begin{proof}
-		The ARS $(\Lambda, \redbetaanf)$ satisfies the diamond property by Proposition \ref{prop:diam}, and thus the thesis follows by Lemma \ref{lemma:weak}.
+		An FPARS $\mathcal{P}$ is AST if and only if $\underset{n\rightarrow +\infty}{\lim}\left|\rho_{n}\right|=0$. Since $|\rho_n| = \mathbb{P}\{T_\mathsf{trm}\geq n\}$, then $\mathbb{P}\{T_\mathsf{trm}< n\}=1-|\rho_n|$. Taking the limit at both sides, we have $\underset{n\rightarrow +\infty}{\lim} \mathbb{P}\{T_\mathsf{trm}< n\} = \mathbb{P}\{T_\mathsf{trm}< +\infty\}= \underset{n\rightarrow +\infty}{\lim} (1-|\rho_n|)=1-\underset{n\rightarrow+\infty}{\lim} |\rho_n|$. Thus $\mathbb{P}\{T_\mathsf{trm}< +\infty\}=1$ if and only if $\underset{n\rightarrow+\infty}{\lim} |\rho_n|=0.$
+	\end{proof}
+	\begin{proposition}
+		Given an FPARS $(S,\mathsf{P})$, $\rho_0=\mathbf{Dirac}(s)$,
+		where $s\in S$ and the computation $(\rho_i)_{i\in\mathbb{N}}$,
+		$$
+		\mathbb{E} [ T_{\mathsf{trm}}]=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\nsteps{\mathsf{P}}(s).
+		$$
+	\end{proposition}
+	\begin{proof}
+		By Proposition~\ref{prop:alt-def}, 
+		$$
+		\mathbb{E} [ T_{\mathsf{trm}}]=\sum\limits_{i=1}^{\infty} \mathbb{P}\{T_{\mathsf{trm}}\geq i\}=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\nsteps{\mathsf{P}}(s).
+		$$
+	\end{proof}
+	We consider now an alternative, more intuitive definition of $\nsteps{\mathsf{P}}$, in the case an FPARS is AST.
+	\begin{definition}
+		If an FPARS $\mathcal{P}$ is AST the \emph{derivation length distribution} of a sequence $(\rho_i)_{i\in\mathbb{N}}$ is the probability distribution $\derlength{P}\in\dist{\mathbb{N}}$ defined by
+		$$
+		\derlength{P}\left( i\right) =\left|\rho_i\right| -\left|\rho_{i+1}\right|.
+		$$
+	\end{definition}
+	\begin{proposition}
+		If an FPARS $\mathcal{P}$ is AST for every sequence $(\rho_i)_{i\in\mathbb{N}}$
+		$$
+		\mathbb{E}[\derlength{P}]=\nsteps{\mathsf{P}}(s).
+		$$
+	\end{proposition}
+	%	\begin{proof}[Proof. Formal algebraic argument.]
+	%		\begin{equation*}
+	%		\begin{split}
+	%		\mathbb{E}[\derlength{P}] &=  \sum\limits_{i=0}^{\infty} i\cdot\derlength{P}\left( i\right) = \sum\limits_{i=0}^{\infty} i\cdot (\left|\rho_i\right| -\left|\rho_{i+1}\right|) = \sum\limits_{i=0}^{\infty} i\cdot \left|\rho_i\right| - \sum\limits_{i=0}^{\infty} i\cdot \left|\rho_{i+1}\right| \\&= \sum\limits_{i=1}^{\infty} i\cdot \left|\rho_i\right| - \sum\limits_{i=1}^{\infty} (i-1)\cdot \left|\rho_{i}\right| = \sum\limits_{i=1}^{\infty} (i-(i-1))\cdot \left|\rho_{i}\right| = \sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\avglength{P}.
+	%		\end{split}
+	%		\end{equation*}
+	%		In particular the identity is true provided that both the left-hand side and the right-hand side converge.
+	%	\end{proof}
+	\begin{proof}
+		Let us call $s_i=\left|\rho_i\right| -\left|\rho_{i+1}\right|$. Since $\left|\rho_i\right|\geq\left|\rho_{i+1}\right|$ for each $i$, $s_i$ is a positive sequence. Let us consider the series $\sum\limits_{i=1}^{\infty} \sum\limits_{j=i}^{\infty} s_j$.
+		By Fubini's Theorem, we can exchange the two summations. This yields to
+		\begin{align*}
+		\sum\limits_{i=1}^{\infty} \sum\limits_{j=i}^{\infty} s_j &= \sum\limits_{j=1}^{\infty} \sum\limits_{i=1}^{j} s_j = \sum\limits_{j=1}^{\infty} s_j\sum\limits_{i=1}^{j} 1= \sum\limits_{j=1}^{\infty} j\cdot s_j\\
+		&= \sum\limits_{j=1}^{\infty} j\cdot (\left|\rho_j\right| -\left|\rho_{j+1}\right|) = \sum\limits_{j=0}^{\infty} j\cdot (\left|\rho_j\right| -\left|\rho_{j+1}\right|).
+		\end{align*}
+		This proves the theorem if $\sum\limits_{j=i}^{\infty} s_j=\left|\rho_i\right|$. We can split the summation as follows,
+		$$
+		\sum\limits_{j=i}^{\infty} s_j = \underbrace{\sum\limits_{j=0}^{\infty} s_j}_T - \underbrace{\sum\limits_{j=0}^{i-1} s_j}_{P_i}.
+		$$
+		In particular,
+		$$
+		P_i = \sum\limits_{j=0}^{i-1} s_j = \left|\rho_0\right| -\left|\rho_{1}\right| + \left|\rho_{1}\right| - \cdots - \left|\rho_{i-1}\right| + \left|\rho_{i-1}\right| - \left|\rho_{i}\right|=\left|\rho_0\right| -\left|\rho_{i}\right|
+		$$
+		and with the same computations
+		\begin{align*}
+		T&=\sum\limits_{j=0}^{\infty} s_j = \underset{n\rightarrow\infty}{\lim}\sum\limits_{j=0}^{n} s_j = \underset{n\rightarrow\infty}{\lim} P_{n+1} = \underset{n\rightarrow\infty}{\lim} (\left|\rho_0\right| -\left|\rho_{n+1}\right|)\\
+		&= \underset{n\rightarrow\infty}{\lim}|\rho_0|-\underset{n\rightarrow\infty}{\lim} |\rho_{n+1}| = \left|\rho_0\right|
+		\end{align*}
+		where the last step is justified by the AST property.
+		Thus,
+		$$
+		\sum\limits_{j=i}^{\infty} s_j = T - P = \left|\rho_0\right| - (\left|\rho_0\right| -\left|\rho_{i}\right|) = \left|\rho_{i}\right|.
+		$$
 	\end{proof}
 \end{LONG}
 %*****************************************

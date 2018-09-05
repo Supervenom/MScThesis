@@ -1,5 +1,5 @@
 %************************************************
-\chapter{Randomised Strategies in the $\lambda$-calculus}
+\chapter{Randomised Strategies in the $\lambda$-calculus}\label{chapter:prostra}
 %************************************************
 In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to give such probabilities. 
 \section{The Uniform Strategy}
