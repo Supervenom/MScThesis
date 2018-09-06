@@ -1,21 +1,21 @@
 %************************************************
 \chapter{Randomised Strategies in the $\lambda$-calculus}\label{chapter:prostra}
 %************************************************
-In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to give such probabilities. 
+In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex which is being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to define these numbers. 
 \section{The Uniform Strategy}
-Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the first randomised strategy thought by Prof. Prakash Panangaden, who is ispired our work, through some conversations with Prof. Dal Lago. More formally, $\psuni$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, ${\psuni=\mu\in\dist{\Lambda}}$. For each $\termtwo\in\Lambda$:
+Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the randomised strategy thought by Prakash Panangaden, who is ispired our work, through some conversations with Ugo Dal Lago. More formally, $\psuni$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, ${\psuni=\mu\in\dist{\Lambda}}$. For each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
 \frac{1}{|\rdxs{\termone}|} & \text{if }\termone\redbeta\termtwo ,\\
 0 & \text{otherwise}.\\
 \end{cases}
 $$
-where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|$ its cardinality.
+where $\rdxs{\termone}$ is the set of rexedes of $\termone$ and $|\rdxs{\termone}|$ its cardinality.
 \begin{example}
 	Let us consider a term $\termone = (\lambda x.\rdxone)\rdxtwo$
-	where $\rdxone$ and $\rdxtwo$ are innermost redexes,
-	$\rdxone\redbeta\rdxone'$ and
-	$\rdxtwo\redbeta\rdxtwo'$. The stochastic process of reduction under strategy $\psuni$ can be represented by the tree in Figure \ref{figure:unitree}. Nodes are terms and two nodes are connected by an edge if and only if there is a strictly positive probability (written in the label) of reducing the father node into the child node.
+	where one redex occurs both in $\rdxone$ and in $\rdxtwo$, and
+	$\rdxone\redbeta\termfive$ and
+	$\rdxtwo{\redbeta}\termsix$. The stochastic process of reduction under strategy $\psuni$ can be represented by the tree in Figure \ref{figure:unitree}. Nodes are terms and two nodes are connected by an edge if and only if there is a strictly positive probability (written in the label) of reducing the father node into the child node.
 \end{example}
 \begin{figure}
 	\begin{center}
@@ -29,12 +29,12 @@ where $\rdxs{\termone}$ is the set of rexes of $\termone$ and $|\rdxs{\termone}|
 					node[below]  {$\frac{1}{3}$}
 				}
 				child {
-					node[term] {$(\lambda x.\rdxone')\rdxtwo$}        
+					node[term] {$(\lambda x.\termfive)\rdxtwo$}        
 					edge from parent         
 					node[left]  {$\frac{1}{3}$}
 				}
 				child {
-					node[term] {$(\lambda x.\rdxone)\rdxtwo'$}        
+					node[term] {$(\lambda x.\rdxone)\termsix$}        
 					edge from parent         
 					node[below]  {$\frac{1}{3}$}
 				};
@@ -99,7 +99,7 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 		\label{figure:delta2}
 	\end{figure}
 \section{The Strategy $P_\varepsilon$}
-In real programming languages we would like to have a normalising strategy, or at least, since we are in probabilistic context, a positive almost-surely normalising one. For this reason we devised a new strategy for the $\lambda$-calculus $(\Lambda,\redbeta)$, more simple and traditional, since it mixes leftmost-outermost and rightmost-innermost strategies. If $\varepsilon\in[0,1]$, call $\mathsf{P}_\varepsilon$ the strategy in which the leftmost redex is reduced with probability $\varepsilon$ and the rightmost one with probability $1-\varepsilon$. Formally, given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
+In real programming languages we would like to have a normalising strategy, or at least, since we are in probabilistic context, a positive almost-surely normalising one. For this reason we devised a new strategy for the $\lambda$-calculus $(\Lambda,\redbeta)$, simpler and traditional, since it mixes leftmost-outermost and rightmost-innermost strategies. If $\varepsilon\in[0,1]$, call $\mathsf{P}_\varepsilon$ the strategy in which the leftmost redex is reduced with probability $\varepsilon$ and the rightmost one with probability $1-\varepsilon$. Formally, given a reducible term $\termone$, $\mathsf{P}_\varepsilon(\termone)=\mu$ such that for each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
 \varepsilon & \text{if }\termone\redbeta\termtwo\text{ and the }\pslo\text{-redex is reduced,}\\
@@ -115,12 +115,12 @@ $$
 	Let us consider the term $\termone=(\lambda x.y)\bm{\Omega}$ where $\bm{\Omega}=\bm{\omega\omega}$  with $\bm{\omega}=\lambda x.xx$. There are two possible representations of the development of the strategy $\mathsf{P}_\varepsilon$ for this term, one as an infinite tree (Figure \ref{figure:trees}a) and another one as a cyclic graph (Figure \ref{figure:trees}b). According to the different representations, we can compute in different ways the probability of reaching normal form and the average derivation length.
 	\begin{itemize}
 		\item
-		We start considering the strategy as an infinite tree. In this way the probability  $\mathsf{Pr}_{\mathsf{NF}}^{\termone}$ of reaching normal form from $\termone$ is obtained summing the probabilities $\mathsf{Pr}_n^{\termone}$ of reaching normal form from $\termone$ in $n$ steps. Since
+		We start considering the strategy as an infinite tree. In this way the probability  $\mathsf{Pr}_{\mathsf{NF}}^{\termone}(\varepsilon)$ of reaching normal form from $\termone$ is obtained summing the probabilities $\mathsf{Pr}_n^{\termone}(\varepsilon)$ of reaching normal form from $\termone$ in $n$ steps. Since
 		$$
 		\mathsf{Pr}_n^{\termone}(\varepsilon)=\varepsilon(1-\varepsilon)^{n-1}\,,
 		$$
 		$$
-		\mathsf{Pr}_{\mathsf{NF}}^{\termone}=\sum_{n=1}^{\infty}\mathsf{Pr}_n^{\termone}=\sum_{n=1}^{\infty}\varepsilon\left( 1-\varepsilon\right)^{n-1}=\varepsilon\frac{1}{1-(1-\varepsilon)}=1.
+		\mathsf{Pr}_{\mathsf{NF}}^{\termone}=\sum_{n=1}^{\infty}\mathsf{Pr}_n^{\termone}(\varepsilon)=\sum_{n=1}^{\infty}\varepsilon\left( 1-\varepsilon\right)^{n-1}=\frac{\varepsilon}{1-(1-\varepsilon)}=1.
 		$$
 		The average derivation length is then
 		$$
@@ -337,8 +337,9 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	\caption{The tree representing the reduction sequence of $\termone_n$.}
 	\label{figure:probtree}
 \end{figure}
-Last two results showed that strategy $\mathsf{P}_\varepsilon$ is worth studying. It is positive almost-surely normalising and there exists at least a family of terms for which it performs better, in average, than both rightmost-innermost and leftmost-outermost. In particular, several questions arise. Reductions of which terms can benefit from the use of this strategy? Then, how could we tune the parameter $\varepsilon$ in order to minimise $\explen{\mathsf{P}}(\varepsilon)$? Answering in the general case to these questions seems impossible, given classical undecidability results about the $\lambda$-calculus. However, in next Sections we try to give some answers, although in some restricted cases.\\
-Since one of the problems we have to face is an optimisation problem, we characterise the nature of the function $\explen{\cdot}(\varepsilon)$. Since it is an analytic function, it can be differentiated (infinite times). Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
+Last two results showed that strategy $\mathsf{P}_\varepsilon$ is worth studying. It is positive almost-surely normalising and there exists at least a family of terms for which it performs better, in average, than both rightmost-innermost and leftmost-outermost. In particular, several questions arise. Which kinds of terms can benefit from the use of this strategy? Then, how could we tune the parameter $\varepsilon$ so as to minimise $\explen{\mathsf{P}}(\varepsilon)$? Answering in the general case to these questions seems impossible, given classical undecidability results about the $\lambda$-calculus. However, in next Sections we try to give some answers, although in some restricted cases.\\
+Since one of the problems we have to face is an optimisation problem, we characterise the nature of the function $\explen{}(\varepsilon)$. We show that it is an analytic function, and thus that it can be differentiated (infinite times).\\
+Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $\mathbb{R}$.
 	%\item
 	%	The set of power series $\pseries{x}$ in the unknown $x$ with coeficients in $\mathbb{R}$  can be defined coinductively as the largest set closed backward with respect to the following rules.
 	%	$$

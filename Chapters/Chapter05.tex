@@ -1,20 +1,20 @@
 %************************************************
 \chapter{Further Investigations and Future Work}
 %************************************************
-We have already asserted that studying the randomised strategy $\mathsf{P}_\varepsilon$ in the scope of the full $\lambda$-calculus is hard. More precisely the following problems are conjectured undecidable.
+We have already asserted that studying the randomised strategy $\mathsf{P}_\varepsilon$ in the scope of the full $\lambda$-calculus is hard. More precisely the following problems are conjectured to be very hard.
 \begin{itemize}
-	\item Finding the class of terms $\mathcal{C}\subset\Lambda$ such that for each term $\termone\in\mathcal{C}$, there exists $0<\varepsilon<1$ such that $\explen{\termone}(\varepsilon)<\nsteps{\pslo}$ and $\explen{\termone}(\varepsilon)<\nsteps{\psri}$.
+	\item Finding a class of terms $\mathcal{C}\subset\Lambda$ such that for each term $\termone\in\mathcal{C}$, there exists $0<\varepsilon<1$ such that $\explen{\termone}(\varepsilon)<\nsteps{\pslo}(\termone)$ and $\explen{\termone}(\varepsilon)<\nsteps{\psri}(\termone)$.
 	\item Computing in closed form, for each term $\termone\in\mathcal{C}$, $\explen{\termone}(\termone)$.
 \end{itemize}
-Thus our investigations should lose some generality. In the previous Chapter we have restricted the set of terms, considering the sub-calculi $\lambda A$ and $\lambda I$. In this Chapter instead we use an experimental approach trying to find a subset of $\mathcal{C}$. In order to check if $\termone\in\mathcal{C}$, we proceed computing $\explen{\termone}(\epsilon)$ and then testing if the minimum $\mu$ is such that $0<\mu<1$. How can we determine $\explen{\termone}(\epsilon)$? Since the problem is undecidable we provide a pseudo-algorithm, that intuitively builds trees like those we have presented in the previous Chapter. Those trees were finite although the presence of infinite reduction sequences because of a \emph{blocking procedure}. When a term rewrites to itself, a self-loop is added and no child is added. This method clearly is not complete. For example we would not be able to represent in this way terms like $\termone = (\lambda x.\lambda y.y)\bm{\Delta_4}$. Instead we are able to tackle the $\bm{\Omega}$ combinator.
+Thus our investigations should lose some generality. In the previous Chapter we have restricted the set of terms, considering the sub-calculi $\lambda A$ and $\lambda I$. In this Chapter, instead, we use an experimental approach trying to find a class $\mathcal{C}$ as above. In order to check if $\termone\in\mathcal{C}$, we proceed computing $\explen{\termone}(\epsilon)$ and then testing if the minimum $\mu$ is such that $0<\mu<1$. How can we determine $\explen{\termone}(\epsilon)$? Since the problem is undecidable we provide a pseudo-algorithm, that intuitively builds trees like those we have presented in the previous Chapter. Because of the presence of infinite reduction paths, a heuristics has to be adopted in order to have a finite representation. We restricted to a particular, yet meaningful case: terms that rewrite to themselves. This way, during the construction of the tree, when a term rewrites to itself, a self-loop is added and no child is added. This method clearly is not complete. For example we would not be able to represent finitely terms like $\termone = (\lambda x.\lambda y.y)\bm{\Delta_4}$. Instead we are able to tackle the $\bm{\Omega}$ combinator.
 \section{The Tool}
-To test a large number of terms, proceeding pencil and paper would not be feasible. Thus we developed an automatic tool performing all the computations. The tool is composed of different components.
+To test a large number of terms, the use of pencil and paper would not be feasible. Thus we developed an automatic tool performing all the computations. The tool is composed of three different components.
 \begin{itemize}
 	\item An interpreter of the $\lambda$-calculus with both $\pslo$ and $\psri$ strategies. This component implements a parser, $\alpha$-conversion and the actual evaluator implementing $\beta$-reduction.
-	\item A component implementing the pseudo-algorithm building blocked trees from a term $\termone$ and then computing $\explen{\termone}(\varepsilon)$.
+	\item A component implementing the pseudo-algorithm building the tree from a term $\termone$ and then computing $\explen{\termone}(\varepsilon)$.
 	\item An analyser of $\explen{\termone}(\varepsilon)$, that plots it and computes its derivative and its minimum. 
 \end{itemize}
-There is the great difference between the first two components, dealing mainly with symbolic manipulation of terms and structures and the last one dealing with computer algebra, numerical analysis and data visualisation. For this reason first two components were implemented in \texttt{Haskell} while the last one in \texttt{Python}. In fact \texttt{Haskell} is perfect to manage inductive data structures such as $\lambda$-terms while \texttt{Python} has a rich project, \textsf{Scipy}, comprehending good libraries for computer algebra (\textsf{SymPy}), numerical analysis (\textsf{SciPy} and \textsf{NumPy}) and data visualisation (\textsf{Matplotlib}). Communication between the two languages is achieved through a common syntax for symbolic expressions.
+There is the great difference between the first two components, dealing mainly with symbolic manipulation of terms and structures and the last one dealing with computer algebra, numerical analysis and data visualisation. For this reason first two components were implemented in \texttt{Haskell} while the last one in \texttt{Python}. In fact \texttt{Haskell} is perfect to manage inductive data structures such as $\lambda$-terms while \texttt{Python} provides a library, \textsf{Scipy}, comprehending libraries for computer algebra (\textsf{SymPy}), numerical analysis (\textsf{SciPy} and \textsf{NumPy}) and data visualisation (\textsf{Matplotlib}). Communication between the two languages is achieved through a common syntax for symbolic expressions.
 \subsection{Main Data Types and Functions}
 According to the grammar defining the $\lambda$-calculus, terms are defined as:
 $$
@@ -52,12 +52,12 @@ Leftmost-outermost strategy reduces always the leftmost redex, if any, and is im
 &\qquad\texttt{|(hasRedexes y) = (App x (evalLO y))}\\
 &\qquad\texttt{|otherwise = (App x y)}
 \end{align*}
-The blocked tree for each term is represented by the following data type:
+The tree (eventually with self-loops) for each term is represented by the following data type:
 \begin{align*}
 	\texttt{data PTree = }&\texttt{PLeaf | NodeOne PTree |}\\
 	&\texttt{NodeOneCycle PTree | NodeTwo PTree PTree}
 \end{align*}
-The blocked tree is built simply considering the reduction of the term $\termone$ according to $\pslo$ and $\psri$ strategy. A \texttt{PLeaf} is created if the term is in normal form, a \texttt{NodeOne} if $\pslo$-reduct and $\psri$-reduct coincide, a \texttt{NodeTwo} if they are distinct and a \texttt{NodeCycle} if the $\psri$-reduct rewrites to itself.
+The tree is built simply considering the reduction of the term $\termone$ according to $\pslo$ and $\psri$ strategy. A \texttt{PLeaf} is created if the term is in normal form, a \texttt{NodeOne} if $\pslo$-reduct and $\psri$-reduct coincide, a \texttt{NodeTwo} if they are distinct and a \texttt{NodeCycle} if the $\psri$-reduct rewrites to itself.
 \begin{align*}
 &\texttt{buildPTree :: Term -> PTree}\\
 &\texttt{buildPTree term}\\
@@ -69,11 +69,11 @@ The blocked tree is built simply considering the reduction of the term $\termone
 &\qquad\texttt{|otherwise = NodeTwo (buildPTree (evalLO term))}\\
 &\qquad\quad\texttt{(buildPTree (evalRI term))}
 \end{align*}
-Once one has built the blocked tree for a term $\termone$, it is easy to compute $\explen{\termone}$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, then
+Once one has built the tree for a term $\termone$, it is easy to compute $\explen{\termone}$. If $\termone\redlo\termtwo$ and $\termone\redri\termthree$, then
 $$
 \explen{\termone}=1+\varepsilon\cdot\explen{\termtwo}+(1-\varepsilon)\cdot\explen{\termthree}.
 $$
-We have already proved in Example \ref{example:omega} that if $\termone\redri\termone$ and $\explen{\termtwo}(\varepsilon)=0$, then $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}$. The construction can be gereralised to arbitrary values of $\explen{\termtwo}$, yielding $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}+\explen{\termtwo}$. Clearly if $\termone$ is in normal form, then $\explen{\termone}=0$. All this ingredients allow to compute $\explen{\termone}$ inductively on the structure of the blocked tree. This is a pseudo-algorithm in that it is not assured to terminate. Diverging terms different from $\bm{\Omega}$ in fact yield to non-terminating computations. We report the code in \texttt{pseudo-Haskell}.
+We have already proved in Example \ref{example:omega} that if $\termone\redri\termone$ and $\explen{\termtwo}(\varepsilon)=0$, then $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}$. The construction can be gereralised to arbitrary values of $\explen{\termtwo}$, yielding $\explen{\termone}(\varepsilon)=\frac{1}{\varepsilon}+\explen{\termtwo}$. Clearly if $\termone$ is in normal form, then $\explen{\termone}=0$. All this ingredients allow to compute $\explen{\termone}$ inductively on the structure of the tree. This is a pseudo-algorithm in that it is not assured to terminate. Diverging terms different from $\bm{\Omega}$ in fact yield to non-terminating computations. We report the code in \texttt{pseudo-Haskell}.
 \begin{align*}
 &\texttt{bExpr :: PTree -> Expression}\\
 &\texttt{bExpr PLeaf = 0}\\
@@ -100,7 +100,8 @@ Once the tool is set, it is easy to test different terms. Our goal is to try to 
 	$$
 	\explen{\termone_n}(\varepsilon)=\frac{n+2}{\varepsilon}.
 	$$ 
-	The function is strictly decreasing. This proves the claim.
+	The function $\explen{\termone_n}$ is strictly decreasing.\\
+	This proves the claim.
 \end{proof}
 We have at this point examples of terms in and out of $\mathcal{C}$. What differences there are between them? Can they be spotted \emph{algorithmically} with \emph{low} complexity? Some considerations can be done about the different phenomena that arise in the reduction of a $\lambda$-term: namely \emph{copy} and \emph{cancellation}. In general we want that copy is done after having reduced the argument to normal form, while cancellation should anticipated as much as possible. We define in an informal manner a set of operations $\mathcal{O}$ performed by $\lambda$-terms. We attach an operation $\mathsf{O}\in\mathcal{O}$ to each term formalised with the map $\mathsf{Op}:\Lambda\rightarrow\mathcal{O}$.
 \begin{definition} Let $n\geq 0$, then $\mathcal{O}=\{\textsf{CP},\textsf{CA},\textsf{W}_n\}$ where:
