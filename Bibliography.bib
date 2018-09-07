@@ -1,24 +1,76 @@
 
-@article{landin_correspondence_1965,
-	title = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notations: Part {II}},
-	volume = {8},
-	shorttitle = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notations},
-	pages = {158--167},
-	number = {3},
-	journaltitle = {Commun. {ACM}},
-	author = {Landin, P. J.},
-	date = {1965}
+@article{girard_linear_1987,
+	title = {Linear logic},
+	volume = {50},
+	abstract = {The familiar connective of negation is broken into two operations: linear negation which is the purely negative part of negation and the modality “of course” which has the meaning of a reaffirmation. Following this basic discovery, a completely new approach to the whole area between constructive logics and programmation is initiated.},
+	pages = {1--101},
+	number = {1},
+	journaltitle = {Theoretical Computer Science},
+	author = {Girard, Jean-Yves},
+	date = {1987},
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/UBUVI3EX/Girard - 1987 - Linear logic.pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/3FVDMBUN/0304397587900454.html:text/html}
 }
 
-@article{landin_correspondence_1965-1,
-	title = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notation: Part I},
-	volume = {8},
-	shorttitle = {Correspondence Between {ALGOL} 60 and Church's Lambda-notation},
-	pages = {89--101},
-	number = {2},
+@article{backus_can_1978,
+	title = {Can Programming Be Liberated from the Von Neumann Style? A Functional Style and Its Algebra of Programs},
+	volume = {21},
+	shorttitle = {Can Programming Be Liberated from the Von Neumann Style?},
+	abstract = {Conventional programming languages are growing ever more enormous, but not stronger. Inherent defects at the most basic level cause them to be both fat and weak: their primitive word-at-a-time style of programming inherited from their common ancestor—the von Neumann computer, their close coupling of semantics to state transitions, their division of programming into a world of expressions and a world of statements, their inability to effectively use powerful combining forms for building new programs from existing ones, and their lack of useful mathematical properties for reasoning about programs.
+An alternative functional style of programming is founded on the use of combining forms for creating programs. Functional programs deal with structured data, are often nonrepetitive and nonrecursive, are hierarchically constructed, do not name their arguments, and do not require the complex machinery of procedure declarations to become generally applicable. Combining forms can use high level programs to build still higher level ones in a style not possible in conventional languages.
+Associated with the functional style of programming is an algebra of programs whose variables range over programs and whose operations are combining forms. This algebra can be used to transform programs and to solve equations whose “unknowns” are programs in much the same way one transforms equations in high school algebra. These transformations are given by algebraic laws and are carried out in the same language in which programs are written. Combining forms are chosen not only for their programming power but also for the power of their associated algebraic laws. General theorems of the algebra give the detailed behavior and termination conditions for large classes of programs.
+A new class of computing systems uses the functional programming style both in its programming language and in its state transition rules. Unlike von Neumann languages, these systems have semantics loosely coupled to states—only one state transition occurs per major computation.},
+	pages = {613--641},
+	number = {8},
 	journaltitle = {Commun. {ACM}},
-	author = {Landin, P. J.},
-	date = {1965}
+	author = {Backus, John},
+	date = {1978},
+	keywords = {algebra of programs, applicative computing systems, applicative state transition systems, combining forms, functional forms, functional programming, metacomposition, models of computing systems, program correctness, program termination, program transformation, programming languages, von Neumann computers, von Neumann languages},
+	file = {ACM Full Text PDF:/home/supervenom/Zotero/storage/55WVYGJR/Backus - 1978 - Can Programming Be Liberated from the Von Neumann .pdf:application/pdf}
+}
+
+@article{church_unsolvable_1936,
+	title = {An Unsolvable Problem of Elementary Number Theory},
+	volume = {58},
+	pages = {345--363},
+	number = {2},
+	journaltitle = {American Journal of Mathematics},
+	author = {Church, Alonzo},
+	date = {1936}
+}
+
+@inproceedings{ferrer_fioriti_probabilistic_2015,
+	title = {Probabilistic Termination: Soundness, Completeness, and Compositionality},
+	shorttitle = {Probabilistic Termination},
+	abstract = {We propose a framework to prove almost sure termination for probabilistic programs with real valued variables. It is based on ranking supermartingales, a notion analogous to ranking functions on non-probabilistic programs. The framework is proven sound and complete for a meaningful class of programs involving randomization and bounded nondeterminism. We complement this foundational insigh by a practical proof methodology, based on sound conditions that enable compositional reasoning and are amenable to a direct implementation using modern theorem provers. This is integrated in a small dependent type system, to overcome the problem that lexicographic ranking functions fail when combined with randomization. Among others, this compositional methodology enables the verification of probabilistic programs outside the complete class that admits ranking supermartingales.},
+	pages = {489--501},
+	booktitle = {Proc. of 42nd {POPL}},
+	publisher = {{ACM}},
+	author = {Ferrer Fioriti, Luis María and Hermanns, Holger},
+	date = {2015},
+	keywords = {probabilistic programs, program verification, supermartingales, termination}
+}
+
+@inproceedings{bournez_proving_2005,
+	title = {Proving Positive Almost-Sure Termination},
+	volume = {3467},
+	series = {{LNCS}},
+	abstract = {In order to extend the modeling capabilities of rewriting systems, it is rather natural to consider that the firing of rules can be subject to some probabilistic laws. Considering rewrite rules subject to probabilities leads to numerous questions about the underlying notions and results.We focus here on the problem of termination of a set of probabilistic rewrite rules. A probabilistic rewrite system is said almost surely terminating if the probability that a derivation leads to a normal form is one. Such a system is said positively almost surely terminating if furthermore the mean length of a derivation is finite. We provide several results and techniques in order to prove positive almost sure termination of a given set of probabilistic rewrite rules. All these techniques subsume classical ones for non-probabilistic systems.},
+	pages = {323--337},
+	booktitle = {Proc. of 16th {RTA}},
+	publisher = {Springer},
+	author = {Bournez, Olivier and Garnier, Florent},
+	date = {2005},
+	langid = {english}
+}
+
+@book{norris_markov_1998,
+	title = {Markov Chains},
+	abstract = {Markov chains are central to the understanding of random processes. This is not only because they pervade the applications of random processes, but also because one can calculate explicitly many quantities of interest. This textbook, aimed at advanced undergraduate or {MSc} students with some background in basic probability theory, focuses on Markov chains and quickly develops a coherent and rigorous theory whilst showing also how actually to apply it. Both discrete-time and continuous-time chains are studied. A distinguishing feature is an introduction to more advanced topics such as martingales and potentials in the established context of Markov chains. There are applications to simulation, economics, optimal control, genetics, queues and many other topics, and exercises and examples drawn both from theory and practice. It will therefore be an ideal text either for elementary courses on random processes or those that are more oriented towards applications.},
+	publisher = {Cambridge University Press},
+	author = {Norris, J. R.},
+	date = {1998},
+	langid = {english},
+	keywords = {Mathematics / Probability \& Statistics / General}
 }
 
 @article{xi_upper_1999,
@@ -33,25 +85,38 @@
 	langid = {english}
 }
 
-@article{backus_syntax_1959,
-	title = {The syntax and semantics of the proposed international algebraic language of the Zurich {ACM}-{GAMM} Conference},
-	abstract = {This paper gives a tutorial summary of the syntax and interpretation rules of the proposed international algebraic language put forward by the Zurich {ACM}-{GAMM} Conference, followed by a formal, complete presentation of the same information. Notations are presented for numbers, numerical variables, Boolean variables, relations, n-dimensional arrays, functi ons, operator s and algebraic expre s sions. Means are provided in the language for specifying assignment of values to. variables, conditional execution of statements, iterative proce\&lt;i;ures, formation of compound statements from sequences of statements, definition of new statements for arbitrary procedures, reuse and alteration of program segments. The proposed language is intended to provide convenient and concise means for expressing virtually all procedures of {numericaL} computation while employing relatively few syntactical rules and statement types.},
-	pages = {125--132},
-	journaltitle = {Proc. Int. Conf. on  Information Processing},
-	author = {Backus, John W.},
-	date = {1959},
-	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/FVE99LSV/Backus - 1959 - The syntax and semantics of the proposed internati.pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/Q9QNGTDM/790ea9d7f910ef2def2418b44a69b111d9f8ceec.html:text/html}
+@book{barendregt_lambda_1984,
+	title = {The lambda calculus: its syntax and semantics},
+	shorttitle = {The lambda calculus},
+	abstract = {The revised edition contains a new chapter which provides an elegant description of the semantics. The various classes of lambda calculus models are described in a uniform manner. Some didactical improvements have been made to this edition. An example of a simple model is given and then the general theory (of categorical models) is developed. Indications are given of those parts of the book which can be used to form a coherent course.},
+	publisher = {North-Holland},
+	author = {Barendregt, Hendrik Pieter},
+	date = {1984},
+	langid = {english},
+	keywords = {Lambda calculus, Mathematics / Calculus, Mathematics / Logic, Mathematics / Reference}
 }
 
-@article{mitschke_standardization_1979,
-	title = {The Standardization Theorem for {\textbackslash}lambda-Calculus},
-	volume = {25},
-	pages = {29--31},
-	number = {1},
-	journaltitle = {Zeitschrift für Mathematische Logik und Grundlagen der Mathematik},
-	author = {Mitschke, Gerd},
-	date = {1979},
-	langid = {german}
+@book{bremaud_markov_1999,
+	title = {Markov Chains: Gibbs Fields, Monte Carlo Simulation, and Queues},
+	shorttitle = {Markov Chains},
+	abstract = {In this book, the author begins with the elementary theory of Markov chains and very progressively brings the reader to the more advanced topics. He gives a useful review of probability that makes the book self-contained, and provides an appendix with detailed proofs of all the prerequisites from calculus, algebra, and number theory. A number of carefully chosen problems of varying difficulty are proposed at the close of each chapter, and the mathematics are slowly and carefully developed, in order to make self-study easier. The author treats the classic topics of Markov chain theory, both in discrete time and continuous time, as well as the connected topics such as finite Gibbs fields, nonhomogeneous Markov chains, discrete- time regenerative processes, Monte Carlo simulation, simulated annealing, and queuing theory. The result is an up-to-date textbook on stochastic processes. Students and researchers in operations research and electrical engineering, as well as in physics and biology, will find it very accessible and relevant.},
+	publisher = {Springer-Verlag},
+	author = {Bremaud, Pierre},
+	date = {1999},
+	langid = {english}
+}
+
+@article{zantema_strategy_2012,
+	title = {Strategy Independent Reduction Lengths in Rewriting and Binary Arithmetic},
+	volume = {82},
+	issn = {2075-2180},
+	abstract = {In this paper we give a criterion by which one can conclude that every reduction of a basic term to normal form has the same length. As a consequence, the number of steps to reach the normal form is independent of the chosen strategy. In particular this holds for {TRSs} computing addition and multiplication of natural numbers, both in unary and binary notation.},
+	pages = {69--76},
+	journaltitle = {Electronic Proceedings in Theoretical Computer Science},
+	author = {Zantema, Hans},
+	urldate = {2018-03-21},
+	date = {2012},
+	keywords = {Computer Science - Logic in Computer Science, Computer Science - Programming Languages}
 }
 
 @article{sinot_sub-lambda-calculi_2008,
@@ -66,17 +131,6 @@
 	author = {Sinot, François-Régis},
 	date = {2008},
 	keywords = {-calculus, linearity, sharing}
-}
-
-@book{barendregt_lambda_1984,
-	title = {The lambda calculus: its syntax and semantics},
-	shorttitle = {The lambda calculus},
-	abstract = {The revised edition contains a new chapter which provides an elegant description of the semantics. The various classes of lambda calculus models are described in a uniform manner. Some didactical improvements have been made to this edition. An example of a simple model is given and then the general theory (of categorical models) is developed. Indications are given of those parts of the book which can be used to form a coherent course.},
-	publisher = {North-Holland},
-	author = {Barendregt, Hendrik Pieter},
-	date = {1984},
-	langid = {english},
-	keywords = {Mathematics / Logic, Lambda calculus, Mathematics / Calculus, Mathematics / Reference}
 }
 
 @book{terese_term_2003,
@@ -105,178 +159,6 @@
 	date = {1999}
 }
 
-@book{motwani_randomized_1995,
-	title = {Randomized Algorithms},
-	abstract = {This text by two well-known experts in the field presents the basic concepts in the design and analysis of randomized algorithms at a level accessible to beginning graduate students, professionals and researchers.},
-	publisher = {Cambridge University Press},
-	author = {Motwani, Rajeev and Raghavan, Prabhakar},
-	date = {1995}
-}
-
-@book{bremaud_markov_1999,
-	title = {Markov Chains: Gibbs Fields, Monte Carlo Simulation, and Queues},
-	shorttitle = {Markov Chains},
-	abstract = {In this book, the author begins with the elementary theory of Markov chains and very progressively brings the reader to the more advanced topics. He gives a useful review of probability that makes the book self-contained, and provides an appendix with detailed proofs of all the prerequisites from calculus, algebra, and number theory. A number of carefully chosen problems of varying difficulty are proposed at the close of each chapter, and the mathematics are slowly and carefully developed, in order to make self-study easier. The author treats the classic topics of Markov chain theory, both in discrete time and continuous time, as well as the connected topics such as finite Gibbs fields, nonhomogeneous Markov chains, discrete- time regenerative processes, Monte Carlo simulation, simulated annealing, and queuing theory. The result is an up-to-date textbook on stochastic processes. Students and researchers in operations research and electrical engineering, as well as in physics and biology, will find it very accessible and relevant.},
-	publisher = {Springer-Verlag},
-	author = {Bremaud, Pierre},
-	date = {1999},
-	langid = {english}
-}
-
-@book{norris_markov_1998,
-	title = {Markov Chains},
-	abstract = {Markov chains are central to the understanding of random processes. This is not only because they pervade the applications of random processes, but also because one can calculate explicitly many quantities of interest. This textbook, aimed at advanced undergraduate or {MSc} students with some background in basic probability theory, focuses on Markov chains and quickly develops a coherent and rigorous theory whilst showing also how actually to apply it. Both discrete-time and continuous-time chains are studied. A distinguishing feature is an introduction to more advanced topics such as martingales and potentials in the established context of Markov chains. There are applications to simulation, economics, optimal control, genetics, queues and many other topics, and exercises and examples drawn both from theory and practice. It will therefore be an ideal text either for elementary courses on random processes or those that are more oriented towards applications.},
-	publisher = {Cambridge University Press},
-	author = {Norris, J. R.},
-	date = {1998},
-	langid = {english},
-	keywords = {Mathematics / Probability \& Statistics / General}
-}
-
-@article{rabin_probabilistic_1980,
-	title = {Probabilistic algorithm for testing primality},
-	volume = {12},
-	abstract = {We present a practical probabilistic algorithm for testing large numbers of arbitrary form for primality. The algorithm has the feature that when it determines a number composite then the result is always true, but when it asserts that a number is prime there is a provably small probability of error. The algorithm was used to generate large numbers asserted to be primes of arbitrary and special forms, including very large numbers asserted to be twin primes. Theoretical foundations as well as details of implementation and experimental results are given.},
-	pages = {128--138},
-	number = {1},
-	journaltitle = {Journal of Number Theory},
-	shortjournal = {Journal of Number Theory},
-	author = {Rabin, Michael O.},
-	date = {1980},
-	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/GTWH6N77/Rabin - 1980 - Probabilistic algorithm for testing primality.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/EBCHYXPR/0022314X80900840.html:text/html}
-}
-
-@article{de_bruijn_lambda_1972,
-	title = {Lambda calculus notation with nameless dummies, a tool for automatic formula manipulation, with application to the Church-Rosser theorem},
-	volume = {75},
-	abstract = {In ordinary lambda calculus the occurrences of a bound variable are made recognizable by the use of one and the same (otherwise irrelevant) name at all occurrences. This convention is known to cause considerable trouble in cases of substitution. In the present paper a different notational system is developed, where occurrences of variables are indicated by integers giving the “distance” to the binding λ instead of a name attached to that λ. The system is claimed to be efficient for automatic formula manipulation as well as for metalingual discussion. As an example the most essential part of a proof of the Church-Rosser theorem is presented in this namefree calculus.},
-	pages = {381--392},
-	number = {5},
-	journaltitle = {Indagationes Mathematicae (Proceedings)},
-	shortjournal = {Indagationes Mathematicae (Proceedings)},
-	author = {de Bruijn, N. G},
-	date = {1972},
-	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/LNMXKRMM/de Bruijn - 1972 - Lambda calculus notation with nameless dummies, a .pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/5CLST2AW/1385725872900340.html:text/html}
-}
-
-@inproceedings{goldreich_how_1984,
-	title = {How To Construct Random Functions},
-	abstract = {This paper develops a constructive theory of randomness for functions based on computational complexity. We present a deterministic polynomial-time algorithm that transforms pairs (g,r), where g is any one-way (in a very weak sense) function and r is a random k-bit string, to polynomial-time computable functions f/sub r/:1,..., 2/sup k /spl I.oarr/ 1, ..., 2/sup k/. These f/sub r/'s cannot be distinguished from random functions by any probabilistic polynomial time algorithm that asks and receives the value of a function at arguments of its choice. The result has applications in cryptography, random constructions and complexity theory.},
-	eventtitle = {25th Annual Symposium on Foundations of Computer Science, 1984.},
-	pages = {464--479},
-	booktitle = {25th Annual Symposium on Foundations of Computer Science, 1984.},
-	author = {Goldreich, O. and Goldwasser, S. and Micali, S.},
-	date = {1984-10},
-	keywords = {Polynomials, Computational complexity, Cryptography, Indexing, Reflection},
-	file = {IEEE Xplore Abstract Record:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/EFGDMDNT/715949.html:text/html}
-}
-
-@inproceedings{goodman_church:_2008,
-	title = {Church: A Language for Generative Models},
-	shorttitle = {Church},
-	abstract = {Formal languages for probabilistic modeling enable re-use, modularity, and descriptive clarity, and can foster generic inference techniques. We introduce Church, a universal language for describing stochastic generative processes. Church is based on the Lisp model of lambda calculus, containing a pure Lisp as its deterministic subset. The semantics of Church is defined in terms of evaluation histories and conditional distributions on such histories. Church also includes a novel language construct, the stochastic memoizer, which enables simple description of many complex non-parametric models. We illustrate language features through several examples, including: a generalized Bayes net in which parameters cluster over trials, infinite {PCFGs}, planning by inference, and various non-parametric clustering models. Finally, we show how to implement query on any Church program, exactly and approximately, using Monte Carlo techniques.},
-	pages = {220--229},
-	booktitle = {Proceedings of the 24th Conference on Uncertainty in Artificial Intelligence},
-	publisher = {{AUAI} Press},
-	author = {Goodman, Noah D. and Mansinghka, Vikash K. and Roy, Daniel and Bonawitz, Keith and Tenenbaum, Joshua B.},
-	date = {2008}
-}
-
-@article{church_unsolvable_1936,
-	title = {An Unsolvable Problem of Elementary Number Theory},
-	volume = {58},
-	pages = {345--363},
-	number = {2},
-	journaltitle = {American Journal of Mathematics},
-	author = {Church, Alonzo},
-	date = {1936}
-}
-
-@article{dal_lago_invariant_2005,
-	title = {An Invariant Cost Model for the Lambda Calculus},
-	abstract = {We define a new cost model for the call-by-value lambda-calculus satisfying the invariance thesis. That is, under the proposed cost model, Turing machines and the call-by-value lambda-calculus can simulate each other within a polynomial time overhead. The model only relies on combinatorial properties of usual beta-reduction, without any reference to a specific machine or evaluator. In particular, the cost of a single beta reduction is proportional to the difference between the size of the redex and the size of the reduct. In this way, the total cost of normalizing a lambda term will take into account the size of all intermediate results (as well as the number of steps to normal form).},
-	journaltitle = {{arXiv}:cs/0511045},
-	author = {Dal Lago, Ugo and Martini, Simone},
-	date = {2005},
-	keywords = {Computer Science - Computational Complexity, Computer Science - Logic in Computer Science, F.4.1},
-	file = {arXiv\:cs/0511045 PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/L5BUHRGJ/Lago e Martini - 2005 - An Invariant Cost Model for the Lambda Calculus.pdf:application/pdf;arXiv.org Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/TQF38K77/0511045.html:text/html}
-}
-
-@inproceedings{wood_new_2014,
-	title = {A New Approach to Probabilistic Programming Inference},
-	abstract = {We introduce and demonstrate a new approach to inference in expressive probabilistic programming languages based on particle Markov chain Monte Carlo. Our approach is easy to implement and to paral...},
-	pages = {1024--1032},
-	booktitle = {Artificial Intelligence and Statistics},
-	author = {Wood, Frank and Meent, Jan Willem and Mansinghka, Vikash},
-	date = {2014},
-	langid = {english},
-	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/S4RUK3DJ/Wood et al. - 2014 - A New Approach to Probabilistic Programming Infere.pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/QG47TELQ/wood14.html:text/html}
-}
-
-@inproceedings{borgstrom_lambda-calculus_2016,
-	title = {A Lambda-calculus Foundation for Universal Probabilistic Programming},
-	abstract = {We develop the operational semantics of an untyped probabilistic λ-calculus with continuous distributions, and both hard and soft constraints,as a foundation for universal probabilistic programming languages such as Church, Anglican, and Venture. Our first contribution is to adapt the classic operational semantics of λ-calculus to a continuous setting via creating a measure space on terms and defining step-indexed approximations. We prove equivalence of big-step and small-step formulations of this distribution-based semantics. To move closer to inference techniques, we also define the sampling-based semantics of a term as a function from a trace of random samples to a value. We show that the distribution induced by integration over the space of traces equals the distribution-based semantics. Our second contribution is to formalize the implementation technique of trace Markov chain Monte Carlo ({MCMC}) for our calculus and to show its correctness. A key step is defining sufficient conditions for the distribution induced by trace {MCMC} to converge to the distribution-based semantics. To the best of our knowledge, this is the first rigorous correctness proof for trace {MCMC} for a higher-order functional language, or for a language with soft constraints.},
-	pages = {33--46},
-	booktitle = {Proc. of the 21st {ICFP}},
-	author = {Borgström, Johannes and Dal Lago, Ugo and Gordon, Andrew D. and Szymczak, Marcin},
-	date = {2016},
-	keywords = {Lambda-calculus, Machine Learning, {MCMC}, Operational Semantics, Probabilistic Programming}
-}
-
-@inproceedings{staton_semantics_2016,
-	title = {Semantics for Probabilistic Programming: Higher-order Functions, Continuous Distributions, and Soft Constraints},
-	shorttitle = {Semantics for Probabilistic Programming},
-	abstract = {We study the semantic foundation of expressive probabilistic programming languages, that support higher-order functions, continuous distributions, and soft constraints (such as Anglican, Church, and Venture). We define a metalanguage (an idealised version of Anglican) for probabilistic computation with the above features, develop both operational and denotational semantics, and prove soundness, adequacy, and termination. This involves measure theory, stochastic labelled transition systems, and functor categories, but admits intuitive computational readings, one of which views sampled random variables as dynamically allocated read-only variables. We apply our semantics to validate nontrivial equations underlying the correctness of certain compiler optimisations and inference algorithms such as sequential Monte Carlo simulation. The language enables defining probability distributions on higher-order functions, and we study their properties.},
-	pages = {525--534},
-	booktitle = {Proceedings of the 31st {LICS}},
-	publisher = {{ACM}},
-	author = {Staton, Sam and Yang, Hongseok and Wood, Frank and Heunen, Chris and Kammar, Ohad},
-	date = {2016},
-	file = {ACM Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/VQJJ5FCL/Staton et al. - 2016 - Semantics for Probabilistic Programming Higher-or.pdf:application/pdf}
-}
-
-@online{noauthor_notitle_nodate,
-	url = {https://www.mimuw.edu.pl/tlca/tlca.html},
-	urldate = {2018-08-17},
-	file = {:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/A328MQM2/tlca.html:text/html}
-}
-
-@online{noauthor_rta_nodate,
-	title = {{RTA}},
-	url = {http://rewriting.loria.fr/rta/},
-	urldate = {2018-08-17},
-	file = {RTA:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/DJHBZV9Q/rta.html:text/html}
-}
-
-@article{dal_lago_randomised_2018,
-	title = {On Randomised Strategies in the {\textbackslash}lambda-Calculus (Long Version)},
-	url = {Available at: http://arxiv.org/abs/1805.03934},
-	abstract = {In this work we introduce randomised reduction strategies, a notion already studied in the context of abstract reduction systems, for the \${\textbackslash}textbackslashlambda\$-calculus. We develop a simple framework that allows us to prove if a probabilistic strategy is positive almost-surely normalising. Then we propose a simple example of probabilistic strategy for the \${\textbackslash}textbackslashlambda\$-calculus that has such a property and we show why it is non-trivial with respect to classical deterministic strategies such as leftmost-outermost or rightmost-innermost. We conclude studying this strategy for two classical sub-\${\textbackslash}textbackslashlambda\$-calculi, namely those in which duplication and erasure are syntactically forbidden.},
-	author = {Dal Lago, Ugo and Vanoni, Gabriele},
-	urldate = {2018-05-28},
-	date = {2018},
-	keywords = {Computer Science - Logic in Computer Science}
-}
-
-@book{klop_combinatory_1980,
-	title = {Combinatory Reduction Systems},
-	publisher = {Mathematisch Centrum},
-	author = {Klop, J. W.},
-	date = {1980}
-}
-
-@inproceedings{bournez_probabilistic_2002,
-	title = {Probabilistic Rewrite Strategies. Applications to {ELAN}},
-	volume = {2378},
-	series = {{LNCS}},
-	abstract = {Recently rule based languages focussed on the use of rewriting as a modeling tool which results in making specifications executable. To extend the modeling capabilities of rule based languages, we explore the possibility of making the rule applications subject to probabilistic choices.},
-	pages = {252--266},
-	booktitle = {Proc. of 13th {RTA}},
-	publisher = {Springer},
-	author = {Bournez, Olivier and Kirchner, Claude},
-	date = {2002}
-}
-
 @book{curry_combinatory_1958,
 	title = {Combinatory Logic},
 	publisher = {North-Holland},
@@ -298,143 +180,186 @@
 	langid = {english}
 }
 
-@article{zantema_strategy_2012,
-	title = {Strategy Independent Reduction Lengths in Rewriting and Binary Arithmetic},
-	volume = {82},
-	issn = {2075-2180},
-	abstract = {In this paper we give a criterion by which one can conclude that every reduction of a basic term to normal form has the same length. As a consequence, the number of steps to reach the normal form is independent of the chosen strategy. In particular this holds for {TRSs} computing addition and multiplication of natural numbers, both in unary and binary notation.},
-	pages = {69--76},
-	journaltitle = {Electronic Proceedings in Theoretical Computer Science},
-	author = {Zantema, Hans},
-	urldate = {2018-03-21},
-	date = {2012},
-	keywords = {Computer Science - Logic in Computer Science, Computer Science - Programming Languages}
+@book{motwani_randomized_1995,
+	title = {Randomized Algorithms},
+	abstract = {This text by two well-known experts in the field presents the basic concepts in the design and analysis of randomized algorithms at a level accessible to beginning graduate students, professionals and researchers.},
+	publisher = {Cambridge University Press},
+	author = {Motwani, Rajeev and Raghavan, Prabhakar},
+	date = {1995}
 }
 
-@inproceedings{ferrer_fioriti_probabilistic_2015,
-	title = {Probabilistic Termination: Soundness, Completeness, and Compositionality},
-	shorttitle = {Probabilistic Termination},
-	abstract = {We propose a framework to prove almost sure termination for probabilistic programs with real valued variables. It is based on ranking supermartingales, a notion analogous to ranking functions on non-probabilistic programs. The framework is proven sound and complete for a meaningful class of programs involving randomization and bounded nondeterminism. We complement this foundational insigh by a practical proof methodology, based on sound conditions that enable compositional reasoning and are amenable to a direct implementation using modern theorem provers. This is integrated in a small dependent type system, to overcome the problem that lexicographic ranking functions fail when combined with randomization. Among others, this compositional methodology enables the verification of probabilistic programs outside the complete class that admits ranking supermartingales.},
-	pages = {489--501},
-	booktitle = {Proc. of 42nd {POPL}},
-	publisher = {{ACM}},
-	author = {Ferrer Fioriti, Luis María and Hermanns, Holger},
-	date = {2015},
-	keywords = {probabilistic programs, program verification, supermartingales, termination}
-}
-
-@inproceedings{bournez_proving_2005,
-	title = {Proving Positive Almost-Sure Termination},
-	volume = {3467},
+@inproceedings{bournez_probabilistic_2002,
+	title = {Probabilistic Rewrite Strategies. Applications to {ELAN}},
+	volume = {2378},
 	series = {{LNCS}},
-	abstract = {In order to extend the modeling capabilities of rewriting systems, it is rather natural to consider that the firing of rules can be subject to some probabilistic laws. Considering rewrite rules subject to probabilities leads to numerous questions about the underlying notions and results.We focus here on the problem of termination of a set of probabilistic rewrite rules. A probabilistic rewrite system is said almost surely terminating if the probability that a derivation leads to a normal form is one. Such a system is said positively almost surely terminating if furthermore the mean length of a derivation is finite. We provide several results and techniques in order to prove positive almost sure termination of a given set of probabilistic rewrite rules. All these techniques subsume classical ones for non-probabilistic systems.},
-	pages = {323--337},
-	booktitle = {Proc. of 16th {RTA}},
+	abstract = {Recently rule based languages focussed on the use of rewriting as a modeling tool which results in making specifications executable. To extend the modeling capabilities of rule based languages, we explore the possibility of making the rule applications subject to probabilistic choices.},
+	pages = {252--266},
+	booktitle = {Proc. of 13th {RTA}},
 	publisher = {Springer},
-	author = {Bournez, Olivier and Garnier, Florent},
-	date = {2005},
-	langid = {english}
+	author = {Bournez, Olivier and Kirchner, Claude},
+	date = {2002}
 }
 
-@article{rabin_probabilistic_1963,
-	title = {Probabilistic automata},
-	volume = {6},
-	pages = {230--245},
-	number = {3},
-	journaltitle = {Information and Control},
-	shortjournal = {Information and Control},
-	author = {Rabin, Michael O.},
-	date = {1963},
-	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/VYAU49YY/Rabin - 1963 - Probabilistic automata.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/JG2LYSIH/S0019995863902900.html:text/html}
+@article{dal_lago_randomised_2018,
+	title = {On Randomised Strategies in the {\textbackslash}lambda-Calculus (Long Version)},
+	url = {Available at: http://arxiv.org/abs/1805.03934},
+	abstract = {In this work we introduce randomised reduction strategies, a notion already studied in the context of abstract reduction systems, for the \${\textbackslash}textbackslashlambda\$-calculus. We develop a simple framework that allows us to prove if a probabilistic strategy is positive almost-surely normalising. Then we propose a simple example of probabilistic strategy for the \${\textbackslash}textbackslashlambda\$-calculus that has such a property and we show why it is non-trivial with respect to classical deterministic strategies such as leftmost-outermost or rightmost-innermost. We conclude studying this strategy for two classical sub-\${\textbackslash}textbackslashlambda\$-calculi, namely those in which duplication and erasure are syntactically forbidden.},
+	author = {Dal Lago, Ugo and Vanoni, Gabriele},
+	urldate = {2018-05-28},
+	date = {2018},
+	keywords = {Computer Science - Logic in Computer Science}
 }
 
-@article{church_set_1932,
-	title = {A Set of Postulates for the Foundation of Logic},
-	volume = {33},
-	pages = {346--366},
-	number = {2},
-	journaltitle = {Annals of Mathematics},
-	author = {Church, Alonzo},
-	date = {1932}
-}
-
-@article{kleene_inconsistency_1935,
-	title = {The Inconsistency of Certain Formal Logics},
-	volume = {36},
-	pages = {630--636},
-	number = {3},
-	journaltitle = {Annals of Mathematics},
-	author = {Kleene, S. C. and Rosser, J. B.},
-	date = {1935}
-}
-
-@article{church_note_1936,
-	title = {A Note on the Entscheidungsproblem},
-	volume = {1},
-	pages = {40--41},
+@article{mitschke_standardization_1979,
+	title = {The Standardization Theorem for {\textbackslash}lambda-Calculus},
+	volume = {25},
+	pages = {29--31},
 	number = {1},
-	journaltitle = {Journal of Symbolic Logic},
-	author = {Church, Alonzo},
-	date = {1936}
+	journaltitle = {Zeitschrift für Mathematische Logik und Grundlagen der Mathematik},
+	author = {Mitschke, Gerd},
+	date = {1979},
+	langid = {german}
 }
 
-@article{turing_computability_1937,
-	title = {Computability and \${\textbackslash}lambda\$-Definability},
-	volume = {2},
-	issn = {0022-4812, 1943-5886},
-	pages = {153--163},
-	number = {4},
-	journaltitle = {Journal of Symbolic Logic},
-	shortjournal = {J. Symbolic Logic},
-	author = {Turing, A. M.},
-	date = {1937},
-	file = {Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/NRZS4HXV/1183383711.html:text/html}
+@book{klop_combinatory_1980,
+	title = {Combinatory Reduction Systems},
+	publisher = {Mathematisch Centrum},
+	author = {Klop, J. W.},
+	date = {1980}
 }
 
-@article{kleene_$lambda$-definability_1936,
-	title = {\${\textbackslash}lambda\$-definability and recursiveness},
-	volume = {2},
-	pages = {340--353},
+@online{noauthor_rta_nodate,
+	title = {{RTA}},
+	url = {http://rewriting.loria.fr/rta/},
+	urldate = {2018-08-17},
+	file = {RTA:/home/supervenom/Zotero/storage/DJHBZV9Q/rta.html:text/html}
+}
+
+@online{noauthor_notitle_nodate,
+	url = {https://www.mimuw.edu.pl/tlca/tlca.html},
+	urldate = {2018-08-17},
+	file = {:/home/supervenom/Zotero/storage/A328MQM2/tlca.html:text/html}
+}
+
+@article{backus_syntax_1959,
+	title = {The syntax and semantics of the proposed international algebraic language of the Zurich {ACM}-{GAMM} Conference},
+	abstract = {This paper gives a tutorial summary of the syntax and interpretation rules of the proposed international algebraic language put forward by the Zurich {ACM}-{GAMM} Conference, followed by a formal, complete presentation of the same information. Notations are presented for numbers, numerical variables, Boolean variables, relations, n-dimensional arrays, functi ons, operator s and algebraic expre s sions. Means are provided in the language for specifying assignment of values to. variables, conditional execution of statements, iterative proce\&lt;i;ures, formation of compound statements from sequences of statements, definition of new statements for arbitrary procedures, reuse and alteration of program segments. The proposed language is intended to provide convenient and concise means for expressing virtually all procedures of {numericaL} computation while employing relatively few syntactical rules and statement types.},
+	pages = {125--132},
+	journaltitle = {Proc. Int. Conf. on  Information Processing},
+	author = {Backus, John W.},
+	date = {1959},
+	file = {Full Text PDF:/home/supervenom/Zotero/storage/FVE99LSV/Backus - 1959 - The syntax and semantics of the proposed internati.pdf:application/pdf;Snapshot:/home/supervenom/Zotero/storage/Q9QNGTDM/790ea9d7f910ef2def2418b44a69b111d9f8ceec.html:text/html}
+}
+
+@article{dal_lago_invariant_2005,
+	title = {An Invariant Cost Model for the Lambda Calculus},
+	abstract = {We define a new cost model for the call-by-value lambda-calculus satisfying the invariance thesis. That is, under the proposed cost model, Turing machines and the call-by-value lambda-calculus can simulate each other within a polynomial time overhead. The model only relies on combinatorial properties of usual beta-reduction, without any reference to a specific machine or evaluator. In particular, the cost of a single beta reduction is proportional to the difference between the size of the redex and the size of the reduct. In this way, the total cost of normalizing a lambda term will take into account the size of all intermediate results (as well as the number of steps to normal form).},
+	journaltitle = {{arXiv}:cs/0511045},
+	author = {Dal Lago, Ugo and Martini, Simone},
+	date = {2005},
+	keywords = {Computer Science - Logic in Computer Science, F.4.1, Computer Science - Computational Complexity},
+	file = {arXiv\:cs/0511045 PDF:/home/supervenom/Zotero/storage/L5BUHRGJ/Lago e Martini - 2005 - An Invariant Cost Model for the Lambda Calculus.pdf:application/pdf;arXiv.org Snapshot:/home/supervenom/Zotero/storage/TQF38K77/0511045.html:text/html}
+}
+
+@article{de_bruijn_lambda_1972,
+	title = {Lambda calculus notation with nameless dummies, a tool for automatic formula manipulation, with application to the Church-Rosser theorem},
+	volume = {75},
+	abstract = {In ordinary lambda calculus the occurrences of a bound variable are made recognizable by the use of one and the same (otherwise irrelevant) name at all occurrences. This convention is known to cause considerable trouble in cases of substitution. In the present paper a different notational system is developed, where occurrences of variables are indicated by integers giving the “distance” to the binding λ instead of a name attached to that λ. The system is claimed to be efficient for automatic formula manipulation as well as for metalingual discussion. As an example the most essential part of a proof of the Church-Rosser theorem is presented in this namefree calculus.},
+	pages = {381--392},
+	number = {5},
+	journaltitle = {Indagationes Mathematicae (Proceedings)},
+	author = {de Bruijn, N. G},
+	date = {1972},
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/LNMXKRMM/de Bruijn - 1972 - Lambda calculus notation with nameless dummies, a .pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/5CLST2AW/1385725872900340.html:text/html}
+}
+
+@article{rabin_probabilistic_1980,
+	title = {Probabilistic algorithm for testing primality},
+	volume = {12},
+	abstract = {We present a practical probabilistic algorithm for testing large numbers of arbitrary form for primality. The algorithm has the feature that when it determines a number composite then the result is always true, but when it asserts that a number is prime there is a provably small probability of error. The algorithm was used to generate large numbers asserted to be primes of arbitrary and special forms, including very large numbers asserted to be twin primes. Theoretical foundations as well as details of implementation and experimental results are given.},
+	pages = {128--138},
+	number = {1},
+	journaltitle = {Journal of Number Theory},
+	author = {Rabin, Michael O.},
+	date = {1980},
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/GTWH6N77/Rabin - 1980 - Probabilistic algorithm for testing primality.pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/EBCHYXPR/0022314X80900840.html:text/html}
+}
+
+@inproceedings{goldreich_how_1984,
+	title = {How To Construct Random Functions},
+	abstract = {This paper develops a constructive theory of randomness for functions based on computational complexity. We present a deterministic polynomial-time algorithm that transforms pairs (g,r), where g is any one-way (in a very weak sense) function and r is a random k-bit string, to polynomial-time computable functions f/sub r/:1,..., 2/sup k /spl I.oarr/ 1, ..., 2/sup k/. These f/sub r/'s cannot be distinguished from random functions by any probabilistic polynomial time algorithm that asks and receives the value of a function at arguments of its choice. The result has applications in cryptography, random constructions and complexity theory.},
+	pages = {464--479},
+	booktitle = {Proceedings of 25th {FOCS}.},
+	author = {Goldreich, O. and Goldwasser, S. and Micali, S.},
+	date = {1984},
+	keywords = {Computational complexity, Cryptography, Indexing, Polynomials, Reflection},
+	file = {IEEE Xplore Abstract Record:/home/supervenom/Zotero/storage/EFGDMDNT/715949.html:text/html}
+}
+
+@inproceedings{wood_new_2014,
+	title = {A New Approach to Probabilistic Programming Inference},
+	abstract = {We introduce and demonstrate a new approach to inference in expressive probabilistic programming languages based on particle Markov chain Monte Carlo. Our approach is easy to implement and to paral...},
+	pages = {1024--1032},
+	booktitle = {Artificial Intelligence and Statistics},
+	author = {Wood, Frank and Meent, Jan Willem and Mansinghka, Vikash},
+	date = {2014},
+	langid = {english},
+	file = {Full Text PDF:/home/supervenom/Zotero/storage/S4RUK3DJ/Wood et al. - 2014 - A New Approach to Probabilistic Programming Infere.pdf:application/pdf;Snapshot:/home/supervenom/Zotero/storage/QG47TELQ/wood14.html:text/html}
+}
+
+@inproceedings{staton_semantics_2016,
+	title = {Semantics for Probabilistic Programming: Higher-order Functions, Continuous Distributions, and Soft Constraints},
+	shorttitle = {Semantics for Probabilistic Programming},
+	abstract = {We study the semantic foundation of expressive probabilistic programming languages, that support higher-order functions, continuous distributions, and soft constraints (such as Anglican, Church, and Venture). We define a metalanguage (an idealised version of Anglican) for probabilistic computation with the above features, develop both operational and denotational semantics, and prove soundness, adequacy, and termination. This involves measure theory, stochastic labelled transition systems, and functor categories, but admits intuitive computational readings, one of which views sampled random variables as dynamically allocated read-only variables. We apply our semantics to validate nontrivial equations underlying the correctness of certain compiler optimisations and inference algorithms such as sequential Monte Carlo simulation. The language enables defining probability distributions on higher-order functions, and we study their properties.},
+	pages = {525--534},
+	booktitle = {Proceedings of the 31st {LICS}},
+	publisher = {{ACM}},
+	author = {Staton, Sam and Yang, Hongseok and Wood, Frank and Heunen, Chris and Kammar, Ohad},
+	date = {2016},
+	file = {ACM Full Text PDF:/home/supervenom/Zotero/storage/VQJJ5FCL/Staton et al. - 2016 - Semantics for Probabilistic Programming Higher-or.pdf:application/pdf}
+}
+
+@inproceedings{borgstrom_lambda-calculus_2016,
+	title = {A Lambda-calculus Foundation for Universal Probabilistic Programming},
+	abstract = {We develop the operational semantics of an untyped probabilistic λ-calculus with continuous distributions, and both hard and soft constraints,as a foundation for universal probabilistic programming languages such as Church, Anglican, and Venture. Our first contribution is to adapt the classic operational semantics of λ-calculus to a continuous setting via creating a measure space on terms and defining step-indexed approximations. We prove equivalence of big-step and small-step formulations of this distribution-based semantics. To move closer to inference techniques, we also define the sampling-based semantics of a term as a function from a trace of random samples to a value. We show that the distribution induced by integration over the space of traces equals the distribution-based semantics. Our second contribution is to formalize the implementation technique of trace Markov chain Monte Carlo ({MCMC}) for our calculus and to show its correctness. A key step is defining sufficient conditions for the distribution induced by trace {MCMC} to converge to the distribution-based semantics. To the best of our knowledge, this is the first rigorous correctness proof for trace {MCMC} for a higher-order functional language, or for a language with soft constraints.},
+	pages = {33--46},
+	booktitle = {Proc. of the 21st {ICFP}},
+	author = {Borgström, Johannes and Dal Lago, Ugo and Gordon, Andrew D. and Szymczak, Marcin},
+	date = {2016},
+	keywords = {Lambda-calculus, Machine Learning, {MCMC}, Operational Semantics, Probabilistic Programming}
+}
+
+@inproceedings{goodman_church:_2008,
+	title = {Church: A Language for Generative Models},
+	shorttitle = {Church},
+	abstract = {Formal languages for probabilistic modeling enable re-use, modularity, and descriptive clarity, and can foster generic inference techniques. We introduce Church, a universal language for describing stochastic generative processes. Church is based on the Lisp model of lambda calculus, containing a pure Lisp as its deterministic subset. The semantics of Church is defined in terms of evaluation histories and conditional distributions on such histories. Church also includes a novel language construct, the stochastic memoizer, which enables simple description of many complex non-parametric models. We illustrate language features through several examples, including: a generalized Bayes net in which parameters cluster over trials, infinite {PCFGs}, planning by inference, and various non-parametric clustering models. Finally, we show how to implement query on any Church program, exactly and approximately, using Monte Carlo techniques.},
+	pages = {220--229},
+	booktitle = {Proceedings of the 24th Conference on Uncertainty in Artificial Intelligence},
+	publisher = {{AUAI} Press},
+	author = {Goodman, Noah D. and Mansinghka, Vikash K. and Roy, Daniel and Bonawitz, Keith and Tenenbaum, Joshua B.},
+	date = {2008}
+}
+
+@article{landin_correspondence_1965,
+	title = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notation: Part I},
+	volume = {8},
+	shorttitle = {Correspondence Between {ALGOL} 60 and Church's Lambda-notation},
+	pages = {89--101},
 	number = {2},
-	journaltitle = {Duke Mathematical Journal},
-	shortjournal = {Duke Math. J.},
-	author = {Kleene, S. C.},
-	date = {1936},
-	langid = {english},
-	file = {Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/36DVZ6LH/1077489488.html:text/html}
-}
-
-@book{frege_basic_1893,
-	title = {The Basic Laws of Arithmetic: Exposition of the System},
-	shorttitle = {The Basic Laws of Arithmetic},
-	author = {Frege, Gottlob},
-	date = {1893},
-	langid = {english}
-}
-
-@article{schonfinkel_uber_1924,
-	title = {Über die Bausteine der mathematischen Logik},
-	volume = {92},
-	pages = {305--316},
-	journaltitle = {Mathematische Annalen},
-	author = {Schönfinkel, Moses},
-	date = {1924},
-	langid = {german},
-	file = {Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/IS5MKWEW/img.html:text/html}
-}
-
-@article{landin_mechanical_1964,
-	title = {The Mechanical Evaluation of Expressions},
-	volume = {6},
-	abstract = {Abstract.  This paper is a contribution to the “theory” of the activity of using computers. It shows how some forms of expression used in current programming la},
-	pages = {308--320},
-	number = {4},
-	journaltitle = {The Computer Journal},
-	shortjournal = {Comput J},
+	journaltitle = {Commun. {ACM}},
 	author = {Landin, P. J.},
-	date = {1964},
-	langid = {english},
-	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/E7LKE7AH/Landin - 1964 - The Mechanical Evaluation of Expressions.pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/7ZTLPG66/375725.html:text/html}
+	date = {1965}
+}
+
+@article{landin_correspondence_1965-1,
+	title = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notations: Part {II}},
+	volume = {8},
+	shorttitle = {A Correspondence Between {ALGOL} 60 and Church's Lambda-notations},
+	pages = {158--167},
+	number = {3},
+	journaltitle = {Commun. {ACM}},
+	author = {Landin, P. J.},
+	date = {1965}
 }
 
 @article{plotkin_call-by-name_1975,
@@ -444,22 +369,21 @@
 	pages = {125--159},
 	number = {2},
 	journaltitle = {Theoretical Computer Science},
-	shortjournal = {Theoretical Computer Science},
 	author = {Plotkin, Gordon D.},
 	date = {1975},
-	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/BLD6HJJ5/Plotkin - 1975 - Call-by-name, call-by-value and the λ-calculus.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/8XMWUJFQ/0304397575900171.html:text/html}
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/BLD6HJJ5/Plotkin - 1975 - Call-by-name, call-by-value and the λ-calculus.pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/8XMWUJFQ/0304397575900171.html:text/html}
 }
 
-@article{landin_next_1966,
-	title = {The Next 700 Programming Languages},
-	volume = {9},
-	abstract = {A family of unimplemented computing languages is described that is intended to span differences of application area by a unified framework. This framework dictates the rules about the uses of user-coined names, and the conventions about characterizing functional relationships. Within this framework the design of a specific language splits into two independent parts. One is the choice of written appearances of programs (or more generally, their physical representation). The other is the choice of the abstract entities (such as numbers, character-strings, list of them, functional relations among them) that can be referred to in the language.
-The system is biased towards “expressions” rather than “statements.” It includes a nonprocedural (purely functional) subsystem that aims to expand the class of users' needs that can be met by a single print-instruction, without sacrificing the important properties that make conventional right-hand-side expressions easy to construct and understand.},
-	pages = {157--166},
-	number = {3},
-	journaltitle = {Commun. {ACM}},
-	author = {Landin, P. J.},
-	date = {1966}
+@article{moggi_notions_1991,
+	title = {Notions of computation and monads},
+	volume = {93},
+	abstract = {The λ-calculus is considered a useful mathematical tool in the study of programming languages, since programs can be identified with λ-terms. However, if one goes further and uses βη-conversion to prove equivalence of programs, then a gross simplification is introduced (programs are identified with total functions from values to values) that may jeopardise the applicability of theoretical results. In this paper we introduce calculi, based on a categorical semantics for computations, that provide a correct basis for proving equivalence of programs for a wide range of notions of computation.},
+	pages = {55--92},
+	number = {1},
+	journaltitle = {Information and Computation},
+	author = {Moggi, Eugenio},
+	date = {1991},
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/HH7PNLA3/Moggi - 1991 - Notions of computation and monads.pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/BKKVBY7Q/0890540191900524.html:text/html}
 }
 
 @article{hindley_principal_1969,
@@ -479,18 +403,158 @@ The system is biased towards “expressions” rather than “statements.” It 
 	journaltitle = {Journal of Computer and System Sciences},
 	author = {Milner, Robin},
 	date = {1978},
-	file = {Citeseer - Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/3JE8692L/Milner - 1978 - A theory of type polymorphism in programming.pdf:application/pdf;Citeseer - Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/RSSEGEHF/summary.html:text/html}
+	file = {Citeseer - Full Text PDF:/home/supervenom/Zotero/storage/3JE8692L/Milner - 1978 - A theory of type polymorphism in programming.pdf:application/pdf;Citeseer - Snapshot:/home/supervenom/Zotero/storage/RSSEGEHF/summary.html:text/html}
 }
 
-@article{moggi_notions_1991,
-	title = {Notions of computation and monads},
-	volume = {93},
-	abstract = {The λ-calculus is considered a useful mathematical tool in the study of programming languages, since programs can be identified with λ-terms. However, if one goes further and uses βη-conversion to prove equivalence of programs, then a gross simplification is introduced (programs are identified with total functions from values to values) that may jeopardise the applicability of theoretical results. In this paper we introduce calculi, based on a categorical semantics for computations, that provide a correct basis for proving equivalence of programs for a wide range of notions of computation.},
-	pages = {55--92},
+@article{landin_next_1966,
+	title = {The Next 700 Programming Languages},
+	volume = {9},
+	abstract = {A family of unimplemented computing languages is described that is intended to span differences of application area by a unified framework. This framework dictates the rules about the uses of user-coined names, and the conventions about characterizing functional relationships. Within this framework the design of a specific language splits into two independent parts. One is the choice of written appearances of programs (or more generally, their physical representation). The other is the choice of the abstract entities (such as numbers, character-strings, list of them, functional relations among them) that can be referred to in the language.
+The system is biased towards “expressions” rather than “statements.” It includes a nonprocedural (purely functional) subsystem that aims to expand the class of users' needs that can be met by a single print-instruction, without sacrificing the important properties that make conventional right-hand-side expressions easy to construct and understand.},
+	pages = {157--166},
+	number = {3},
+	journaltitle = {Commun. {ACM}},
+	author = {Landin, P. J.},
+	date = {1966}
+}
+
+@article{landin_mechanical_1964,
+	title = {The Mechanical Evaluation of Expressions},
+	volume = {6},
+	abstract = {Abstract.  This paper is a contribution to the “theory” of the activity of using computers. It shows how some forms of expression used in current programming la},
+	pages = {308--320},
+	number = {4},
+	journaltitle = {Comput J},
+	author = {Landin, P. J.},
+	date = {1964},
+	langid = {english},
+	file = {Full Text PDF:/home/supervenom/Zotero/storage/E7LKE7AH/Landin - 1964 - The Mechanical Evaluation of Expressions.pdf:application/pdf;Snapshot:/home/supervenom/Zotero/storage/7ZTLPG66/375725.html:text/html}
+}
+
+@article{schonfinkel_uber_1924,
+	title = {Über die Bausteine der mathematischen Logik},
+	volume = {92},
+	pages = {305--316},
+	journaltitle = {Mathematische Annalen},
+	author = {Schönfinkel, Moses},
+	date = {1924},
+	langid = {german},
+	file = {Snapshot:/home/supervenom/Zotero/storage/IS5MKWEW/img.html:text/html}
+}
+
+@book{frege_basic_1893,
+	title = {The Basic Laws of Arithmetic: Exposition of the System},
+	shorttitle = {The Basic Laws of Arithmetic},
+	author = {Frege, Gottlob},
+	date = {1893},
+	langid = {english}
+}
+
+@article{kleene_$lambda$-definability_1936,
+	title = {\${\textbackslash}lambda\$-definability and recursiveness},
+	volume = {2},
+	pages = {340--353},
+	number = {2},
+	journaltitle = {Duke Math. J.},
+	author = {Kleene, S. C.},
+	date = {1936},
+	langid = {english},
+	file = {Snapshot:/home/supervenom/Zotero/storage/36DVZ6LH/1077489488.html:text/html}
+}
+
+@article{turing_computability_1937,
+	title = {Computability and \${\textbackslash}lambda\$-Definability},
+	volume = {2},
+	issn = {0022-4812, 1943-5886},
+	pages = {153--163},
+	number = {4},
+	journaltitle = {J. Symbolic Logic},
+	author = {Turing, A. M.},
+	date = {1937},
+	file = {Snapshot:/home/supervenom/Zotero/storage/NRZS4HXV/1183383711.html:text/html}
+}
+
+@article{church_note_1936,
+	title = {A Note on the Entscheidungsproblem},
+	volume = {1},
+	pages = {40--41},
 	number = {1},
-	journaltitle = {Information and Computation},
-	shortjournal = {Information and Computation},
-	author = {Moggi, Eugenio},
-	date = {1991},
-	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/HH7PNLA3/Moggi - 1991 - Notions of computation and monads.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/BKKVBY7Q/0890540191900524.html:text/html}
+	journaltitle = {Journal of Symbolic Logic},
+	author = {Church, Alonzo},
+	date = {1936}
+}
+
+@article{kleene_inconsistency_1935,
+	title = {The Inconsistency of Certain Formal Logics},
+	volume = {36},
+	pages = {630--636},
+	number = {3},
+	journaltitle = {Annals of Mathematics},
+	author = {Kleene, S. C. and Rosser, J. B.},
+	date = {1935}
+}
+
+@article{church_set_1932,
+	title = {A Set of Postulates for the Foundation of Logic},
+	volume = {33},
+	pages = {346--366},
+	number = {2},
+	journaltitle = {Annals of Mathematics},
+	author = {Church, Alonzo},
+	date = {1932}
+}
+
+@article{rabin_probabilistic_1963,
+	title = {Probabilistic automata},
+	volume = {6},
+	pages = {230--245},
+	number = {3},
+	journaltitle = {Information and Control},
+	author = {Rabin, Michael O.},
+	date = {1963},
+	file = {ScienceDirect Full Text PDF:/home/supervenom/Zotero/storage/VYAU49YY/Rabin - 1963 - Probabilistic automata.pdf:application/pdf;ScienceDirect Snapshot:/home/supervenom/Zotero/storage/JG2LYSIH/S0019995863902900.html:text/html}
+}
+
+@inproceedings{baillot_soft_2004,
+	title = {Soft lambda-Calculus: A Language for Polynomial Time Computation},
+	volume = {2987},
+	series = {{LNCS}},
+	shorttitle = {Soft lambda-Calculus},
+	abstract = {Soft linear logic ([Lafont02]) is a subsystem of linear logic characterizing the class {PTIME}. We introduce Soft lambda-calculus as a calculus typable in the intuitionistic and affine variant of this logic. We prove that the (untyped) terms of this calculus are reducible in polynomial time. We then extend the type system of Soft logic with recursive types. This allows us to consider non-standard types for representing lists. Using these datatypes we examine the concrete expressiveness of Soft lambda-calculus with the example of the insertion sort algorithm.},
+	pages = {27--41},
+	booktitle = {Proceedings of {FoSSaCS} 2004},
+	publisher = {Springer},
+	author = {Baillot, Patrick and Mogbil, Virgile},
+	editor = {Walukiewicz, Igor},
+	date = {2004},
+	langid = {english},
+	keywords = {Linear Logic, Polynomial Time, Reduction Rule, Reduction Sequence, Typing Rule},
+	file = {Springer Full Text PDF:/home/supervenom/Zotero/storage/TJH9QMI6/Baillot e Mogbil - 2004 - Soft lambda-Calculus A Language for Polynomial Ti.pdf:application/pdf}
+}
+
+@incollection{dal_lago_short_2012,
+	title = {A Short Introduction to Implicit Computational Complexity},
+	volume = {7388},
+	series = {{LNCS}},
+	abstract = {These lecture notes are meant to serve as a short introduction to implicit computational complexity for those students who have little or no knowledge of recursion theory and proof theory. They have been obtained by enriching and polishing a set of notes the author wrote for a course (on the same subject) he gave at {ESSLLI} 2010. These notes are definitely not meant to be comprehensive nor exhaustive, but on the other hand much effort has been done to keep them self-contained.},
+	pages = {89--109},
+	booktitle = {Lectures on Logic and Computation: {ESSLLI} 2010},
+	publisher = {Springer},
+	author = {Dal Lago, Ugo},
+	editor = {Bezhanishvili, Nick and Goranko, Valentin},
+	date = {2012},
+	langid = {english}
+}
+
+@article{terui_light_2007,
+	title = {Light affine lambda calculus and polynomial time strong normalization},
+	volume = {46},
+	abstract = {Light Linear Logic ({LLL}) and Intuitionistic Light Affine Logic ({ILAL}) are logics that capture polynomial time computation. It is known that every polynomial time function can be represented by a proof of these logics via the proofs-as-programs correspondence. Furthermore, there is a reduction strategy which normalizes a given proof in polynomial time. Given the latter polynomial time “weak” normalization theorem, it is natural to ask whether a “strong” form of polynomial time normalization theorem holds or not. In this paper, we introduce an untyped term calculus, called Light Affine Lambda Calculus (λ{LA}), which corresponds to {ILAL}. λ{LA} is a bi-modal λ-calculus with certain constraints, endowed with very simple reduction rules. The main property of {LALC} is the polynomial time strong normalization: any reduction strategy normalizes a given λ{LA} term in a polynomial number of reduction steps, and indeed in polynomial time. Since proofs of {ILAL} are structurally representable by terms of λ{LA}, we conclude that the same holds for {ILAL}.},
+	pages = {253--280},
+	number = {3},
+	journaltitle = {Arch. Math. Logic},
+	author = {Terui, Kazushige},
+	date = {2007},
+	langid = {english},
+	keywords = {Lambda calculus, Light logics, Polynomial time}
 }

@@ -1,9 +1,9 @@
 %************************************************
 \chapter{Abstract Probabilistic Rewriting}\label{ch:mathtest} % $\mathbb{ZNR}$
 %************************************************
-The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus into a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science: basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields.\\
+The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus into a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science: basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields.
+\section{Abstract Rewriting Theory}
 The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
-
 \begin{definition}
 	An \emph{abstract reduction system} (ARS) is a pair $(A,\rightarrow)$ where $A$ is a set with cardinality at most countable and $\rightarrow\,\subseteq A\times A$.
 \end{definition}
@@ -13,6 +13,8 @@ $A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation
 \end{definition}
 Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reconcile those paths, possibly going further with the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
 \begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
 	\centering
 	\subfloat[]{{	
 			\begin{tikzpicture}
@@ -36,6 +38,7 @@ Confluence is a desirable property because intuitively it states that no matter 
 			\draw (n) edge[->>] node[left=5pt] {} (p);
 			\draw (l) edge[->>] node[right=5pt] {} (p);
 			\end{tikzpicture}}}
+	\end{minipage}}
 	\caption{CR holds if (a) implies (b)}
 	\label{figure:confluence}
 \end{figure}
@@ -53,9 +56,10 @@ ARSs are sets endowed with a relation, and are thus
 inherently nondeterministic, if we consider rewriting as a model of a computation. The notion of reduction strategy allows us to turn reduction into a deterministic process.
 \begin{definition}[Deterministic Strategies]\label{def:determstrat}
 	Given an ARS $(A,\rightarrow)$, a \emph{deterministic reduction
-		strategy for $A$} is a function $\mathsf{S}:A\rightharpoonup A$
-	such that $\mathsf{S}(a)=a$ if $a$ is in
-	normal form and $a\rightarrow\mathsf{S}(a)$ otherwise.
+		strategy for $A$} is a partial function $\mathsf{S}:A\rightharpoonup A$
+	such that $\mathsf{S}(a)$ is defined if and only if $a$ is not in
+	normal form and $a\rightarrow\mathsf{S}(a)$ whenever $\mathsf{S}(a)$
+	is defined.
 	%$\mathsf{S}(a)\in\{b\,|\,a\rightarrow b\}$.
 \end{definition}
 \begin{definition}
@@ -71,6 +75,8 @@ $\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is \emph{normalising
 \end{definition}
 Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just one} step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from a term to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
 \begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
 	\centering
 	\subfloat[]{{	
 			\begin{tikzpicture}
@@ -95,6 +101,7 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just
 			\draw (n) edge[->] node[left=5pt] {} (p);
 			\draw (l) edge[->] node[right=5pt] {} (p);
 			\end{tikzpicture}}}
+	\end{minipage}}
 	\caption{WDP holds if (a) implies (b)}
 	\label{figure:diam}
 \end{figure}
@@ -105,7 +112,7 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just
 	The proof by induction is given with all details in \cite{dal_lago_invariant_2005}.
 \end{proof}
 \section{Probabilistic Rewriting}
-As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that allows a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, even the definition of termination is not obvious in a probabilistic setting. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{avanzini_probabilistic_2018}. However, our work exploits probabilistic rewriting in a different and novel sense and in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map terms to \emph{distributions} on terms. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
+As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that allows a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, and even the definition of termination is not obvious in a probabilistic setting. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{avanzini_probabilistic_2018}. However, our work exploits probabilistic rewriting in a different and novel sense, in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map terms to \emph{distributions} on terms. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
 \subsection{Probabilistic Abstract Reduction Systems as Strategies}
 We introduce now the framework we are going to define randomised
 strategies within. In particular, we shift the notion of ARS to the fully
@@ -123,6 +130,10 @@ state context. The first preliminary concept we need is that of a distribution.
 		distribution} over a countable set $A$ is a partial probability
 	distribution $\mu$ such that $\left|\mu\right|=1$. $\dist{A}$ denotes the set
 	of probability distributions over $A$.
+\end{definition}
+Sometimes we have to deal with \emph{deterministic} distributions. This can be done considering a distribution $\mu$ such that $|\supp{\mu}|=1$.
+\begin{definition}
+	A distribution $\mu\in\dist{S}$ is $\textbf{Dirac}$ if there exists $s\in S$ such that $\mu(s)=1$. In this case we write $\mu=\textbf{Dirac}(s)$.
 \end{definition}
 Strategies as from Definition~\ref{def:determstrat} are inherently
 deterministic: the process of picking a reduct among the many possible
@@ -424,4 +435,44 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 		$$
 	\end{proof}
 \end{LONG}
+\section{A Taxonomy of ARS}
+ARSs are well-defined mathematical objects and their definition is now well-established in the literature. If we move to the probabilistic setting, instead, definitions are not so stable. We try in this Section to make a taxonomy of the different models present in the literature, highlighting the relationships existing between them. We report in Table~\ref{table:ars} the nature of reduction relations for different kinds of ARSs and the different types of computation they can model. From these definitions one can infer how this models are related. DARSs are a special case of ARSs and the same applies to PARSs and FPARSs. Then DARSs can be seen as FPARSs where every distribution is $\textbf{Dirac}$ (the same applies to ARSs and PARSs). Another way to interpret this relationship is to imagine DARSs (respectively FPARSs) as ARSs (respectively PARSs) where a strategy to solve nondeterminism was fixed. A diagram representing these observations is sketched in Figure~\ref{figure:diagars}. 
+\begin{table}
+	\begin{tabular}{|l|l|l|}
+		\hline 
+		& \textbf{Reduction relation} & \textbf{Behavoiur}\tabularnewline
+		\hline 
+		\textbf{ARS} & $\red\subseteq A\times A$ & Nondeterministic\tabularnewline
+		\hline 
+		\textbf{DARS} & $\red:A\rightharpoonup A$ & Deterministic\tabularnewline
+		\hline 
+		\textbf{PARS} & $\red\subseteq A\times\dist{A}$ & Nondeterministic and probabilistic\tabularnewline
+		\hline 
+		\textbf{FPARS} & $\red:A\rightharpoonup\dist{A}$ & Probabilistic\tabularnewline
+		\hline 
+	\end{tabular}
+	\caption{Different kinds of ARSs.}
+	\label{table:ars}
+\end{table}
+\begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+	\centering
+	\begin{tikzpicture}
+	[node distance=20mm, auto, transform shape]
+	\node (m) at (0,0) {ARS};
+	\node (n) at (4,0) {PARS};
+	\node (l) at (0,-2) {DARS};
+	\node (p) at (4,-2) {FPARS};
+	\draw (n) edge[->] node[below] {$\textbf{Dirac}$} (m);
+	\draw (n) edge[->] node[right] {Strategy} (p);
+	\draw (p) edge[->] node[below] {$\textbf{Dirac}$} (l);
+	\draw (m) edge[->] node[left] {Strategy} (l);
+	\draw (m) edge[->,dashed,color=red] node[left] {Rand. Str.} (p);
+	\end{tikzpicture}
+\end{minipage}}
+	\caption{The diagram showing inclusion relations between different types of ARSs.}
+	\label{figure:diagars}
+\end{figure}
+The way we have introduced FPARSs, however, was different. In fact we have built FPARSs on top of ARSs, in that an FPARS transforms the nondeterministic dynamics of an ARS to a probabilistic one. This way FPARSs are obtained from ARSs fixing a \emph{randomised} strategy.
 %*****************************************

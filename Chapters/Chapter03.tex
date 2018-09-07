@@ -151,6 +151,8 @@ In other words, all strategies are qualitatively equivalent. This does \emph{not
 	Let $\bm{I}=\lambda x.x$ and $\termone=(\lambda x.xx)(\bm{II})$. Two reducts of $\termone$ are $\termtwo=(\bm{II})(\bm{II})$ and $\termthree=(\lambda x.xx)\bm{I}$. Clearly it does not exist a term $\termfour$ such that $\termtwo\redbeta\termfour$ and $\termthree\redbeta\termfour$. In fact $\termthree\redbeta\bm{II}$, while $\termtwo\redbeta(\bm{II})\bm{I}$ or $\termtwo\redbeta\bm{I}(\bm{II})$. The reduction process is sketched in Figure~\ref{figure:couterexample}.
 \end{example}
 \begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
 	\begin{center}
 		\begin{tikzpicture}
 		[node distance=20mm, auto, transform shape]
@@ -167,6 +169,7 @@ In other words, all strategies are qualitatively equivalent. This does \emph{not
 		\draw (l) edge[->] node[right=5pt] {} (r);
 		\end{tikzpicture}
 	\end{center}
+\end{minipage}}
 	\caption{All possible reduction sequences of length 2 of the term $\termone=(\lambda x.xx)(\bm{II})$. No one forms a diamond.}
 	\label{figure:couterexample}
 \end{figure}
@@ -179,7 +182,7 @@ literature. It is a very weak calculus in which variables bound by
 abstractions occur \emph{at most once} free in the abstraction's body,
 thus forbidding \emph{duplication}. The $\lambda A$-calculus is strongly
 normalising, in a very strong sense: every reduction sequence from a term
-$\termone$ has length bounded by the size of $\termone$. This fact confirms that \emph{copy} is the source of complexity in the $\lambda$-calculus. Controlling copy structurally can indeed bound the length of computations, as shown by different works \cite{} in the research area of Implicit Computational Complexity \cite{} via Linear Logic \cite{}.
+$\termone$ has length bounded by the size of $\termone$. This fact confirms that \emph{copy} is the source of complexity in the $\lambda$-calculus. Controlling copy structurally can indeed bound the length of computations, as shown by different works \cite{baillot_soft_2004,terui_light_2007} in the research area of Implicit Computational Complexity \cite{dal_lago_short_2012} via Linear Logic \cite{girard_linear_1987}.
 \section{Fundamental Meta-Theory}
 In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus. From the variety of results developed in more than 80 years, we have chosen two seminal theorems, published in the mid-30s.
 \subsection{Confluence}

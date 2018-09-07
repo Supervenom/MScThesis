@@ -533,8 +533,10 @@ the optimality of the latter strategy.
 \end{proof}
 \begin{figure}
 	\centering
+	\fbox{
+		\begin{minipage}{.96\textwidth}
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -545,7 +547,7 @@ the optimality of the latter strategy.
 			\end{tikzpicture}}}}
 	\qquad
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -556,7 +558,7 @@ the optimality of the latter strategy.
 			\end{tikzpicture}}}}
 	\qquad
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -566,7 +568,7 @@ the optimality of the latter strategy.
 			\draw (l) edge[->] node[below] {$\pslo$} (n);
 			\end{tikzpicture}}}}\\
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -579,7 +581,7 @@ the optimality of the latter strategy.
 			\end{tikzpicture}}}}
 	\qquad
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -590,7 +592,7 @@ the optimality of the latter strategy.
 			\end{tikzpicture}}}}
 	\qquad
 	\subfloat[]{{	
-			\scalebox{0.9}{\begin{tikzpicture}
+			\scalebox{0.85}{\begin{tikzpicture}
 			[node distance=20mm, auto, transform shape]
 			\node (m) at (0,0) {$\termone$};
 			\node (n) at (-1,-1) {$\termtwo$};
@@ -601,6 +603,7 @@ the optimality of the latter strategy.
 			\draw (n) edge[->] node[left=5pt] {$\mathsf{ANF}$} (p);
 			\draw (l) edge[->] node[right=5pt] {$\mathsf{ANF}$} (p);
 			\end{tikzpicture}}}}
+	\end{minipage}}
 	\caption{The diagrams with the different cases of Lemma~\ref{lemma:LObase}.}
 	\label{figure:diagramBase}
 \end{figure}
@@ -611,7 +614,10 @@ the optimality of the latter strategy.
 	By induction on $|s|+|t|$. The base case follows by Lemma~\ref{lemma:LObase}. Now suppose the statement true for $|s|+|t|\leq k-1$. We prove it for $|s|+|t|=k$. The idea is sketched in figure~\ref{figure:diagram}.  Let us consider the reductions $\termone\redbetardx{s_0}\termtwo'$ and $\termone\redbetardx{t_0}\termthree'$. By Lemma~\ref{lemma:LObase} there exist a term $\termfour'$ such that $\termtwo\redbetardx{u_0'}\termfour'$, $\termthree\redbetardx{v_0'}\termfour'$, $\#_\pslo(s_0)+\#_\pslo(u'_0)=\#_\pslo(t_0)+\#_\pslo(v_0')\leq 1$. By induction hypothesis since $\termtwo'\redbetasteps{s_{-1}}\termtwo$ and $\termtwo'\redbetasteps{u'_0}\termfour'$ there exists a term $\termfour''$ such that $\termtwo\redbetasteps{u''_0}\termfour''$, $\termfour'\redbetasteps{v''} \termfour''$, $\#_\pslo(s_{-1})+\#_\pslo(u''_0)=\#_\pslo(u'_0)+\#_\pslo(v'')$ and $|v''|\leq |s_{-1}|$. We can do the same with $\termthree'$ obtaining a term $\termfour'''$. Applying again the induction hypothesis to the reductions $\termfour'\redbetasteps{v''} \termfour''$ and $\termfour'\redbetasteps{u'''} \termfour'''$ we finally obtain a term $\termfour$ such that $\termfour''\redbetasteps{v''''} \termfour$, $\termfour'''\redbetasteps{u''''} \termfour$ and $\#_\pslo(v''')+\#_\pslo(u'''')=\#_\pslo(u''')+\#_\pslo(v'''')$. Summing up all the previous equalities and inequalities yields the result.
 \end{proof}
 \begin{figure}
-	\centering
+	
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+			\centering
 	\begin{tikzpicture}
 	[node distance=20mm, auto, transform shape]
 	\node (m) at (0,0) {$\termone$};
@@ -636,6 +642,7 @@ the optimality of the latter strategy.
 	\draw (p'') edge[->>] node {} (p);
 	\draw (p''') edge[->>] node {} (p);
 	\end{tikzpicture}
+\end{minipage}}
 	\caption{The diagram representing the idea of the proof of Lemma~\ref{lemma:LOdiamond}.}
 	\label{figure:diagram}
 \end{figure}
