@@ -111,7 +111,7 @@ We have at this point examples of terms in and out of $\mathcal{C}$. What differ
 		\item $\mathsf{W_n}$ is strategy independent reduction work that takes $n$ steps to reach normal form. It is exemplified by a term $\underbrace{\textbf{II...I}}_{n+1\text{ times}}$.
 	\end{itemize}
 \end{definition}
-What is interesting is the order in which these operations are executed. Copying some work before it was executed brings to multiplication of work. In the same way doing some reduction work that later will be cancelled is useless. Let us consider the term $\termone_n$ provided in the Proof of Proposition~\ref{prop:strict}. In Table~\ref{table:op1} the different operations are related to the different subterms of $\termone_n$. The order is left-to-right in the sense that $\textsf{O}_1\prec\mathsf{O}_2$ if the corresponding subterms are ordered that way in the linear representation of the term. We note that both leftmost and rightmost operations are not the best choice. In fact leftmost we have a copy before some work and rightmost we do some useless work.
+What is interesting is the order in which these operations are executed. Copying some work before it was executed brings to multiplication of work. In the same way, doing some reduction work that later will be cancelled is useless. Let us consider the term $\termone_n$ provided in the Proof of Proposition~\ref{prop:strict}. In Table~\ref{table:op1} the different operations are related to the different subterms of $\termone_n$. The order is left-to-right in the sense that $\textsf{O}_1\prec\mathsf{O}_2$ if the corresponding subterms are ordered that way in the linear representation of the term. We note that both leftmost and rightmost operations are not the best choice. In fact leftmost we have a copy before some work and rightmost we do some useless work.
 \begin{table}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -122,6 +122,33 @@ What is interesting is the order in which these operations are executed. Copying
 	\hline 
 \end{tabular}
 \end{center}
-\caption{Different operations in term $\termone_n$ from Proposition~\ref{prop:strict}}
+\caption{Different operations in term $\termone_n$ from Proposition~\ref{prop:strict}.}
 \label{table:op1}
 \end{table}
+Moreover, the only way to perform the cancellation operation, restricting to leftmost or rightmost reductions is going always leftmost, thus copying $\mathsf{W_1}$ $n$ times. This kind of informal reasoning certainly is not rigorous but allows to have some intuition on the nature of $\lambda$-terms. Following this idea, a term like $\termtwo_n=((\lambda y.z)\bm{\Omega})(C_n(\bm{I}y))$ should instead behave well w.r.t. to strategy $\mathsf{P}_\varepsilon$. In fact reducing leftmost we cancel some work and rightmost we reduce something that will be copied in the following. At the same time reducing always leftmost or always rightmost seems not so convenient: alternating leftmost and rightmost reductions seems better. Actually, $\termtwo$ is the $\pslo$-reduct of the term we gave in Example~\ref{example:nontr}, and maintains the same properties. Another possibility could be moving the copy operation trying to maintain the same order between the operations. This way we have a term of this form: $\termthree_n=((\lambda y.C_n)\bm{\Omega})(\bm{I}y)$. $\explen{\termthree_9}(\varepsilon)$ is reported in Figure~\ref{figure:plot2}.
+\begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+			\centering
+			\scalebox{1}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot4.pgf}\end{adjustbox}}
+			\vspace{5pt}
+		\end{minipage}}
+		\caption{The function $\explen{\termthree_9}(\varepsilon)$.}
+		\label{figure:plot2}
+	\end{figure}
+As far as it concerns the position of the minimum point, we can observe that the optimal $\varepsilon$ decreases when $n$ increases. In fact, as expected, more and more one has to copy the argument, more it is convenient to reduce it first (Figure~\ref{figure:plot3}).
+\begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+			\centering
+			\scalebox{1}{\begin{adjustbox}{clip,trim=2.5in 2in 0.5in 0.4in}\input{gfx/plot7.pgf}\end{adjustbox}}
+			\vspace{5pt}
+		\end{minipage}}
+		\caption{The function $\explen{\termthree_3}(\varepsilon)$, in green, has minimum in \texttt{0.56}. $\explen{\termthree_9}(\varepsilon)$, in blue, has minimum in \texttt{0.38}. $\explen{\termthree_{16}}(\varepsilon)$, in red, has minimum in \texttt{0.31}.}
+		\label{figure:plot3}
+	\end{figure}
+\section{Future Work}
+This thesis is the first work on randomised strategies in the $\lambda$-calculus appeared in the literature. Thus, we could only scratch the surface. A lot of interesting problems remain open and we plan to investigate more in next months. In particular different questions have been raised.
+\paragraph{Are there better randomised strategies?} After a brief account on the uniform strategy, that we classified as uninteresting since it is not PAST, we have introduced strategy $\mathsf{P}_\varepsilon$. It has been our only object of study throughout the whole work. However, one can think about other interesting strategies. For example, one could variate $\mathsf{P}_\varepsilon$ in a way such that probability $1-\varepsilon$ assigned to the $\psri$-redex is split uniformly between all redexes that have their argument in normal form. This way, the strategy looks more natural and less arbitrary. What about its performances?
+\paragraph{How to tune $\varepsilon$?} Tuning parameter $\varepsilon$ is essential to get good performances. How can we choose its value, given a generic term $\termone$? Looking for the value that minimises $\explen{\termone}$ seems infeasible, but also finding suboptimal values seems hard. In particular the algorithm looking for the value should not consume more time than the gain in performances obtained through the use of the randomised strategy.
+\paragraph{What about the real world?} Our target language was the $\lambda$-calculus. However no one programs in that language. Even restricting to functional programming languages, would our technique be useful in real world interpreters and compilers? Would real world programs benefit from our strategy? An intermediate step could be considering a simple \emph{typed} language such as \texttt{PCF} \cite{plotkin_lcf_1977}. 
