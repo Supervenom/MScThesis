@@ -5,14 +5,16 @@
 %\markboth{\spacedlowsmallcaps{Appendix}}{\spacedlowsmallcaps{Appendix}}
 \chapter{Induction Proof Principles}
 In this appendix some aspects of induction proof principles given for granted in the remainder of this thesis will be clarified, with precise definitions and formal statements.
-\begin{definition}
-	A relation $\prec$ is \emph{well-founded} on a set $X$ if for every non-empty subset $S$ of $X$, $S$ has an element $x$ such that there exists no $y$ in $X$ satisfying $y\prec x$.
+\begin{definition}\hfill
+	\begin{enumerate}
+	\item A relation $\prec$ is \emph{well-founded} on a set $X$ if for every non-empty subset $S$ of $X$, $S$ has an  element $x$ such that there exists no $y$ in $X$ satisfying $y\prec x$.
+	\item A relation $\prec$ is well-founded on a set $X$ if it contains no infinite descending chains i.e. infinite sequences $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i$ in $\mathbb{N}$.
+	\end{enumerate}
 \end{definition}
-Assuming the \emph{axiom of choice} one can prove that this definition is equivalent to the following one.
-\begin{definition}
-	A relation $\prec$ is well-founded on a set $X$ if it contains no infinite descending chains i.e. infinite sequences $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i$ in $\mathbb{N}$.
-\end{definition}
-\begin{proof}
+Assuming the \emph{axiom of choice} one can prove that the two definitions above are equivalent.
+\begin{proof}[Proof of Equivalence]
+	(1 $\Rightarrow$ 2). If there would be an infinite sequence $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i\in\mathbb{N}$, then the set $Y=\{x_i\,|\,i\in\mathbb{N}\}$ would not satisfy $1$.\\
+	(2 $\Rightarrow$ 1). If $\prec$ does not satisfy 1, then there is a non-empty subset $S$ of $X$ such that for every $x\in S$ there exists $y\in X$ such that $y\prec x$. Choose $x_0$ in $S$. Then choose $x_1$ such that $x_1\prec x_0$. Proceeding this way we can form an infinite sequence $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i$ in $\mathbb{N}$.
 \end{proof}
 Well-founded relations are interesting because they allow proofs by induction.
 \begin{proposition}
