@@ -35,5 +35,44 @@ Functional programming languages are an alternative to the classical imperative 
 	\caption{Introductory example}
 	\label{figure:intro}
 \end{figure}
-The simple example above showed that randomising a choice could improve our utility, in that case decreasing the (expected) number of steps needed to reach $A$ from $S$. This is not a new result. In 1928 John von Neumann published his Minimax Theorem \cite{}, which guarantees a rational outcome for every zero-sum game in mixed strategies, i.e. probability distributions on strategies. We are used, indeed, to play rock-scissor-paper with a randomised strategy that assigns equal probabilities to each of three possible moves. Moreover, John Nash proved the existence of Nash Equilibria in mixed strategies for the entire class of finite strategic games \cite{}. However, we are not interested in games, since our optimisation problem is single agent. In fact, we want to minimise the number of steps to normal form for a given $\lambda$-term. This quantity is not fixed because in the $\lambda$-calculus there is some nondeterminism. As in numerical expressions, one can reduce a term in different ways. A property called confluence assures that the result, i.e. the normal form, is unique (if it exists), but the number of steps taken to reach it can vary. Informally, a reduction strategy gives a rule which specifies how to reduce any term, solving this nondeterminism. Of course, we are interested in those strategies which minimise the number of steps of any term to normal form. Unfortunally these \emph{minimal} strategies do not exist, or, better, they are not computable \cite{barendregt_lambda_1984}.
+The simple example above showed that randomising a choice could improve our utility, in that case decreasing the (expected) number of steps needed to reach $A$ from $S$. This is not a new result. In 1928 John von Neumann published his Minimax Theorem \cite{}, which guarantees a rational outcome for every zero-sum game in mixed strategies, i.e. probability distributions on strategies. We are used, indeed, to play rock-scissor-paper with a randomised strategy that assigns equal probabilities to each of three possible moves. Moreover, John Nash proved the existence of Nash Equilibria in mixed strategies for the entire class of finite strategic games \cite{}. However, we are not interested in games, since our optimisation problem is single agent. In fact, we want to minimise the number of steps to normal form for a given $\lambda$-term. This quantity is not fixed because in the $\lambda$-calculus there is some nondeterminism. As in numerical expressions, one can reduce a term in different ways. A property called confluence assures that the result, i.e. the normal form, is unique (if it exists), but the number of steps taken to reach it can vary. Informally, a reduction strategy gives a rule which specifies how to reduce any term, solving this nondeterminism. Of course, we are interested in those strategies which minimise the number of steps of any term to normal form. Unfortunately these \emph{minimal} strategies do not exist, or, better, they are not computable \cite{barendregt_lambda_1984}. Hence one should look for suboptimal ones. Reduction strategies for
+the $\lambda$-calculus are typically defined according to the position
+of the contracted \emph{redex} e.g. \emph{leftmost-outermost} ($\pslo$),
+\emph{leftmost-innermost}, \emph{rightmost-innermost} ($\psri$). They have been studied a lot, since they are very linked to the study of evaluation orders in programming languages.
+In general, innermost strategies are considered more efficient, because
+programs often need to use their arguments more than once. However, rightmost-innermost is not normalising: there
+exist terms which have a normal form which, however, can be missed by
+innermost strategies. Instead, a classical result by Curry and Feys
+\cite{curry_combinatory_1958}, states that the leftmost-outermost strategy is
+\emph{normalising}, i.e., it always rewrites terms to their normal
+norm, if it exists. Thus, leftmost-outermost is slower, but
+safer. Could we get, in a sense, the best of both worlds?  All
+reduction strategies for the $\lambda$-calculus in the literature up
+to now are \emph{deterministic}, i.e. they are (partial) functions on
+(possibly shared representations of) terms. What would
+happen if the redexes to reduce were picked according to some
+probability distribution? How many steps would a term need to reach a
+normal form \emph{on the average}?
+\section{Main Contributions and Results}
+\begin{itemize}
+\item We devised a randomised strategy called $\mathsf{P}_\varepsilon$. According to this strategy a term is reduced leftmost with probability $\varepsilon$ and rightmost with probability $1-\varepsilon$. We proved that $\mathsf{P}_\varepsilon$ is positive almost-surely normalising on
+weakly normalising terms. That means that if a term $\termone$ has normal form, then the expected number of reduction steps from
+$\termone$ to its normal form with strategy $\mathsf{P}_\varepsilon$
+is finite. This is in contrast to the rightmost-innermost strategy. Rightmost-innermost, in other
+words, is the only non normalising strategy in the family
+$\{\mathsf{P}_\varepsilon\}_{0\leq\varepsilon\leq 1}$, namely $\mathsf{P}_0$. Also the uniform strategy, which reduces every redex with the same probability, does not satisfy this property. To formally define the notion of randomised strategy, we set up a mathematical framework, in the tradition of abstract rewriting theory, that we called FPARS, \emph{fully probabilistic abstract reduction system}.
+\item We prove that there exists a class of terms and
+$0<\mu<1$ for which $\mathsf{P}_\mu$ outperforms, on average, both
+$\pslo$ and $\psri$. This shows that randomisation can
+indeed be useful in this context. Thus, our strategy guarantees termination in finite expected time and good performances on some terms. This means that is non trivial and worth studying. In particular we try to capture some of the characteristics a term should have to benefit from this kind of randomisation.
+\item We prove that the expected number of reduction steps to
+normal form with strategy $\mathsf{P}_\varepsilon$, seen as a function
+on $\varepsilon$, has minimum in $0$ (respectively, at $1$) for terms
+in the sub-calculus $\lambda I$, i.e. where erasing arguments is forbidden (respectively, in $\lambda A$, i.e. where copying arguments is forbidden). This result actually is about the optimality of two deterministic strategies, namely rightmost-innermost and leftmost-outermost. However, we did not find any proof of this fact in the literature.
+\end{itemize}
+\section{Structure of the Work}
+\paragraph{Chapter 2} After a brief discussion on traditional abstract reduction systems, we introduce our notion of FPARS. We define some important properties and prove a sufficient condition for positively almost-sure termination. Then we put FPARSs and their properties in relation with traditional Markov chain theory. In the end we suggest a taxonomy of different rewriting systems present in the literature.
+\paragraph{Chapter 3} This chapter is devoted to the (meta-)theory of the $\lambda$-calculus. After a brief overview, the syntax is presented. Then, two classical results are discussed. More space is given to discuss strategies and their properties. In this section are present standard results along with some original lemmmata used in the proofs of main results of Chapter~\ref{chapter:prostra}.
+\paragraph{Chapter 4} Randomised strategies for the $\lambda$-calculus are defined and discussed in detail. Main results about $\mathsf{P}_\varepsilon$, such as positive almost-sure termination, are proved.
+\paragraph{Chapter 5} We present the automatic tool used to investigate strategy $\mathsf{P}_\varepsilon$ and some further experimental results obtained through the use of such tool. Then, we discuss some possible future directions of research about randomised strategies.
 %*****************************************

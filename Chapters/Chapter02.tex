@@ -113,7 +113,7 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just
 \end{proof}
 \section{Probabilistic Rewriting}
 As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that allows a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, and even the definition of termination is not obvious in a probabilistic setting. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{avanzini_probabilistic_2018}. However, our work exploits probabilistic rewriting in a different and novel sense, in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map terms to \emph{distributions} on terms. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
-\subsection{Probabilistic Abstract Reduction Systems as Strategies}
+\subsection{PARS as Strategies}
 We introduce now the framework we are going to define randomised
 strategies within. In particular, we shift the notion of ARS to the fully
 probabilistic case. With respect to standard Markov chain theory, our
@@ -394,7 +394,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 		\derlength{P}\left( i\right) =\left|\rho_i\right| -\left|\rho_{i+1}\right|.
 		$$
 	\end{definition}
-	\begin{proposition}
+	\begin{proposition}\label{proposition:claudio}
 		If an FPARS $\mathcal{P}$ is AST for every sequence $(\rho_i)_{i\in\mathbb{N}}$
 		$$
 		\mathbb{E}[\derlength{P}]=\nsteps{\mathsf{P}}(s).
