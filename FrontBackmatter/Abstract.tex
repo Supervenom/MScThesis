@@ -17,8 +17,7 @@ defining good strategies is particularly interesting. Finding
 \emph{minimal} strategies, i.e. strategies that minimise the number of
 steps to normal form, seems even more interesting. However, the problem
 of picking the redex leading to the reduction sequence of minimal length
-has been proven undecidable for the $\lambda$-calculus
-\cite[Section~13.5]{barendregt_lambda_1984}, \emph{the} paradigmatic
+has been proven undecidable for the $\lambda$-calculus, \emph{the} paradigmatic
 pure functional language. In the last decades several reduction
 strategies have been developed. Their importance is crucial in the
 study of evaluation orders in functional programming languages, which
@@ -28,7 +27,7 @@ their semantics. The reader can think about the differences between
 (\emph{call-by-value}). The $\lambda$-calculus is a good abstraction
 to study reduction mechanisms because of its very simple
 structure. In fact, although \emph{Turing-complete}, it can be seen as
-a rewriting system \cite{terese_term_2003}, where terms can be formed
+a rewriting system, where terms can be formed
 in only two ways, by abstraction and application, and only one
 rewriting rule, the $\beta$-rule, is present. Reduction strategies for
 the $\lambda$-calculus are typically defined according to the position
@@ -37,18 +36,13 @@ of the contracted \emph{redex} e.g. \emph{leftmost-outermost} ($\pslo$),
 In general, innermost strategies are considered more efficient, because
 programs often need to copy their arguments. However, rightmost-innermost is not normalising: there
 exist terms which have a normal form which, however, can be missed by
-innermost strategies. Instead, a classical result by Curry and Feys
-\cite{curry_combinatory_1958}, states that the leftmost-outermost strategy is
+innermost strategies. Instead, the Standardisation theorem, states that the leftmost-outermost strategy is
 \emph{normalising}, i.e., it always rewrites terms to their normal
 norm, if it exists. Thus, leftmost-outermost is slower, but
 safer. Could we get, in a sense, the best of both worlds?  All
 reduction strategies for the $\lambda$-calculus in the literature up
 to now are \emph{deterministic}, i.e. they are (partial) functions on
-(possibly shared representations of) terms. There is however some work on probabilistic term
-rewriting systems
-\cite{bournez_proving_2005,ferrer_fioriti_probabilistic_2015,avanzini_probabilistic_2018},
-in particular regarding termination, and about randomised strategies
-in the abstract~\cite{bournez_probabilistic_2002}. What would
+(possibly shared representations of) terms. What would
 happen if the redexes to reduce were picked according to some
 probability distribution? How many steps would a term need to reach a
 normal form \emph{on the average}?
@@ -102,8 +96,7 @@ di definire buone strategie è particolarmente interessante. Trovare le
 strategie \emph{minime}, cioè che minimizzino il numero di passi a forma
 normale sembra ancora più interessante. Tuttavia, il problema di scegliere il
 redex che porti alla sequenza di riduzioni di lunghezza minima è stato dimostrato
-indecidibile per il $\lambda$-calcolo
-\cite[Section~13.5]{barendregt_lambda_1984}, il
+indecidibile per il $\lambda$-calcolo, il
 linguaggio funzionale puro paradigmatico. Diverse sono state le strategie di riduzione proposte
 negli anni. La loro importanza è cruciale nello studio dell'ordine di valutazione
 nei linguaggi di programmazione funzionali, che è una delle loro principali
@@ -113,7 +106,7 @@ Si pensi alle differenze tra
 (\emph{call-by-value}). Il $\lambda$-calcolo è una buona astrazione per
 studiare i meccanismi di riduzione a causa della sua struttura molto
 semplice. Infatti, nonostante sia \emph{Turing-completo}, può essere visto
-come un sistema di riscrittura \cite{terese_term_2003}, dove i termini
+come un sistema di riscrittura, dove i termini
 possono essere formati solo in due modi, per astrazione e applicazione, e
 solo una regola di riscrittura, la $\beta$-riduzione, è presente. Le strategie
 di riduzione per il $\lambda$-calcolo sono tipicamente definite sulla base della
@@ -123,17 +116,13 @@ In generale, le strategie innermost sono considerate più efficienti, perché
 spesso i programmi hanno bisogno di copiare i loro argomenti. Tuttavia,
 righmost-innermost non è normalizzante: esistono infatti termini che hanno
 una forma normale che può essere mancata dalle strategie innermost. Al 
-contrario, un risultato classico dovuto a Curry e Feys
-\cite{curry_combinatory_1958}, afferma che la strategia leftmost-outermost è
+contrario, il teorema di standardizzazione afferma che la strategia leftmost-outermost è
 \emph{normalizzante}, cioè riscrive sempre i termini fino alla loro forma normale,
 se questa esiste. Perciò, leftmost-outermost è più lenta, ma più sicura.
 Possiamo ottenere il meglio da entrambi i mondi?  Tutte le strategie di 
 riduzione per il $\lambda$-calcolo presenti in letteratura fino ad ora sono
 \emph{deterministiche}, sono cioè funzioni (parziali) su
-(possibilmente rappresentazioni condivise di) termini. Ci sono tuttavia
-dei lavori su sistemi di riscrittura probabilistici
-\cite{bournez_proving_2005,ferrer_fioriti_probabilistic_2015,avanzini_probabilistic_2018},
-in particolare riguardo la terminazione, e su strategie randomizzate in astratto~\cite{bournez_probabilistic_2002}. Cosa accadrebbe se il redex da ridurre fosse estratto in maniera casuale da una
+(possibilmente rappresentazioni condivise di) termini. Cosa accadrebbe se il redex da ridurre fosse estratto in maniera casuale da una
 distribuzione di probabilità? In quanti passi raggiungerebbe la sua forma
 normale \emph{in media}?
 

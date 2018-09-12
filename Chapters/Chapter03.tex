@@ -2,7 +2,7 @@
 \chapter{The $\lambda$-calculus}\label{ch:lambda}
 %*****************************************
 \section{History and overview}
-$\lambda$-calculus has attracted from its birth in the thirties some of the best minds of the century. Its elegance and simplicity, together with its power have fascinated thousands of people in Logic, Computer Science, Math and Philosophy.
+$\lambda$-calculus has attracted from its birth in the thirties some of the best minds of the century. Its elegance and simplicity, together with its power have fascinated thousands of people in Logic, Computer Science, Math and Philosophy. A detailed historical survey is \cite{cardone_lambda-calculus_2009}.
 \subsection{The Birth of Computer Science}
 Alonzo Church invented the $\lambda$-calculus with the aim of providing a
 foundation for logic which would be more natural than Russell’s type theory or
@@ -23,7 +23,7 @@ $$
 $$
 This is possible in the $\lambda$-calculus because functions can return other functions (and taking functions as parameters). That means that the $\lambda$-calculus is a higher-order formalism.
 \subsection{A Programming Languages Foundation}
-The main difference between high level programming languages and low level ones is that the former are machine independent. For this reason models of high level languages should be machine-independent too. Turing machines, for example, are not suitable to describe many of the main mechanisms of programming languages, such as function calls or type systems. $\lambda$-calculus turns out to be very useful in this sense. In fact, already in the sixties, a translation between Algol 60 and the $\lambda$-calculus was given \cite{landin_correspondence_1965-1, landin_correspondence_1965}. This way, $\lambda$-calculus provided a formal semantics to a real programming language, Algol 60, the ancestor of languages such as \texttt{C} or \texttt{Pascal}. Moreover, Landin proposed an abstract machine, called \texttt{SECD} (Stack, Environment, Control, Dump) \cite{landin_mechanical_1964}, specifically devised to evaluate expressions of the $\lambda$-calculus. This seminal work opened the field of the formal study of operational semantics of programming languages, culminated with the fundamental work of Gordon Plotkin \cite{plotkin_call-by-name_1975}, which in fact used the \texttt{SECD} machine and \texttt{ISWIM}, a sugared $\lambda$-calculus proposed by Landin \cite{landin_next_1966} as a paradigmatic programming language. Concepts like call-by-name and call-by-value were indeed formalised through the use of the $\lambda$-calculus and modern functional programming languages like \texttt{Haskell} or the \texttt{ML} family were directly inspired by \texttt{ISWIM}. On the other hand, typed $\lambda$-calculi directly inspired typed programming languages. For example the Hindley-Milner type system \cite{hindley_principal_1969,milner_theory_1978}, originally devised for the $\lambda$-calculus, is the core of the type systems adopted in \texttt{Haskell} and \texttt{ML}. Moreover, the $\lambda$-calculus was the driver for the study of effetctful languages. Mechanisms to introduce impurities, such as input/output or exception handling, in pure functional languages like Haskell were first introduced in the abstract setting of the $\lambda$-calculus. Monads \cite{moggi_notions_1991} are the most notable example.
+The main difference between high level programming languages and low level ones is that the former are machine independent. For this reason models of high level languages should be machine-independent too. Turing machines, for example, are not suitable to describe many of the main mechanisms of programming languages, such as function calls or type systems. $\lambda$-calculus turns out to be very useful in this sense. In fact, already in the sixties, a translation between Algol 60 and the $\lambda$-calculus was given \cite{landin_correspondence_1965-1, landin_correspondence_1965}. This way, $\lambda$-calculus provided a formal semantics to a real programming language, Algol 60, the ancestor of languages such as \texttt{C} or \texttt{Pascal}. Moreover, Landin proposed an abstract machine, called \texttt{SECD} (Stack, Environment, Control, Dump) \cite{landin_mechanical_1964}, specifically devised to evaluate expressions of the $\lambda$-calculus. This seminal work opened the field of the formal study of operational semantics of programming languages, culminated with the fundamental work of Gordon Plotkin \cite{plotkin_call-by-name_1975}, which in fact used the \texttt{SECD} machine and \texttt{ISWIM}, a sugared $\lambda$-calculus proposed by Landin \cite{landin_next_1966} as a paradigmatic programming language. Concepts like call-by-name and call-by-value were indeed formalised through the use of the $\lambda$-calculus and modern functional programming languages like \texttt{Haskell} or the \texttt{ML} family were directly inspired by \texttt{ISWIM}. On the other hand, typed $\lambda$-calculi directly inspired typed programming languages. For example the Hindley-Milner type system \cite{hindley_principal_1969,milner_theory_1978}, originally devised for the $\lambda$-calculus, is the core of the type systems adopted in \texttt{Haskell} and \texttt{ML}. Moreover, the $\lambda$-calculus was the driver for the study of effetctful languages. Mechanisms to introduce impurities, such as input/output or exception handling, in pure functional languages like \texttt{Haskell} were first introduced in the abstract setting of the $\lambda$-calculus. Monads \cite{moggi_notions_1991} are the most notable example.
 \section{The Syntax}
 We now define a specific ARS, the $\lambda$-calculus. We start defining the set of its terms. As usual in theoretical computer science terms are inductively defined by a context-free grammar \cite{backus_syntax_1959}.
 \begin{definition}
@@ -186,7 +186,7 @@ $\termone$ has length bounded by the size of $\termone$. This fact confirms that
 \section{Fundamental Meta-Theory}
 In this section we report some fundamental results in the meta-theory of the $\lambda$-calculus. From the variety of results developed in more than 80 years, we have chosen two seminal theorems, published in the mid-30s.
 \subsection{Confluence}
-Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a normal form, then it is unique, independently from the reduction path followed. As we have seen in the Section devoted to Abstract Rewriting, uniqueness of normal form is an easy corollary of confluence. The first proof of confluence is due to Church and Rosser \cite{} in the early days of the $\lambda$-calculus, but many others appeared later. The standard proof of this result is due to Tait and Martin-Löf \cite[Section~3.2]{barendregt_lambda_1984}, based on the notion of parallel reduction. Barendregt in his monograph presents also three other proofs, one more direct \cite[Section~11.1]{barendregt_lambda_1984}, one based on the notion of development \cite[Section~11.2]{barendregt_lambda_1984} and one based on the labeled $\lambda$-calculus \cite[Section~14.2]{barendregt_lambda_1984} (originally presented in \cite{}). Because of the importance of this result, the above proofs were further simplified in \cite{}. Church-Rosser theorem was also object of interest for people interested in formalised mathematics and interactive theorem provers as witnessed by various papers containing different formalisations written for different theorem provers \cite{}.
+Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a normal form, then it is unique, independently from the reduction path followed. As we have seen in the Section devoted to Abstract Rewriting, uniqueness of normal form is an easy corollary of confluence. The first proof of confluence is due to Church and Rosser \cite{church_properties_1936} in the early days of the $\lambda$-calculus, but many others appeared later. The standard proof of this result is due to Tait and Martin-Löf \cite[Section~3.2]{barendregt_lambda_1984}, based on the notion of parallel reduction. Barendregt in his monograph presents also three other proofs, one more direct \cite[Section~11.1]{barendregt_lambda_1984}, one based on the notion of development \cite[Section~11.2]{barendregt_lambda_1984} and one based on the labeled $\lambda$-calculus \cite[Section~14.2]{barendregt_lambda_1984} (originally presented in \cite{levy_reductions_1978}). Because of the importance of this result, the Tait-Martin-Löf proof was further simplified in \cite{takahashi_parallel_1995} and other subsequent works. Church-Rosser theorem was also object of interest for people interested in formalised mathematics and interactive theorem provers as witnessed by various papers containing different formalisations written for different theorem provers \cite{shankar_mechanical_1988,huet_residual_1994}.
 \begin{theorem}[Church-Rosser]
 	The relation $\redbeta$ on $\Lambda$ is confluent.
 \end{theorem}
@@ -196,7 +196,7 @@ Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a
 \subsection{Expressiveness}
 The $\lambda$-calculus, as we have defined it, in the previous section, turns out to be a Turing-complete formalism. This means that we should be able to use it as a programming language. We are not going to discuss in detail all the encodings, we just limit to a few illuminating examples. For a complete treatment, the interested reader can refer to \cite{barendregt_lambda_1984}.
 \paragraph{Integers}
-Integer numbers can be encoded as $\lambda$ terms in the following way. They are named Church numerals because this was the original encoding provided by Church \cite{}. In particular, for each $n\geq 0$:
+Integer numbers can be encoded as $\lambda$ terms in the following way. They are named Church numerals because this was the original encoding provided by Church \cite{church_set_1933}. In particular, for each $n\geq 0$:
 $$
 \lceil n\rceil=\lambda f.\lambda x.(f^nx)
 $$
@@ -245,15 +245,15 @@ Actually, one does not need full $\lambda$-calculus to have a Turing-complete la
 \end{theorem}
 \section{Strategies}
 We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. A we have already pointed out, one could ask if a minimal reduction strategy exists, and in that case if it is computable. With minimal we intend leading to normal form, if there is one, in the minimum number of $\beta$-steps.
-\begin{proposition}[\cite{barendregt_1976}]
+\begin{proposition}[\cite{barendregt_notes_1976}]
 	There exists a minimal strategy for the $\lambda$-calculus.
 \end{proposition}
 This is a trivial result. A less trivial one is the following.
-\begin{theorem}[\cite{barendregt_1976}]
+\begin{theorem}[\cite{barendregt_notes_1976}]
 	There exists no recursive minimal strategy for the $\lambda$-calculus.
 \end{theorem}
 This latter negative result can be strengthened in the following sense.
-\begin{theorem}[\cite{kathail}]
+\begin{theorem}[\cite{kathail_optimal_1990}]
 	For any $k>0$, there is no recursive reduction strategy that can reduce any $\lambda$-term to normal form (if any) in no more than $k\cdot m$ steps, where $m$ is the minimum number of $\beta$-steps needed to reduce the term.
 \end{theorem}
 Since there is no hope to devise strategies that are good in any context, we start defining two classical strategies and then reporting some results about them.
@@ -271,7 +271,7 @@ Since there is no hope to devise strategies that are good in any context, we sta
 	$\termone\redbeta\termtwo$ and the redex contracted in $\termone$ is
 	the \emph{rightmost} among the ones in $\termone$ (measuring the
 	position of a redex by its beginning). Again, if
-	$\psri(\termone)=\termtwo$, we write $\termtwo\redri\termtwo$.
+	$\psri(\termone)=\termtwo$, we write $\termone\redri\termtwo$.
 \end{definition}
 \begin{example}\label{example:canc}
 	Let $\bm{\omega}=\lambda x.xx$ and

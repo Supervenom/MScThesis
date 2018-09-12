@@ -525,8 +525,13 @@ the optimality of the latter strategy.
 	\end{proof}
 \end{LONG}
 \section{Monotonicity Results for $P_\varepsilon$}
+In this Section we are going to prove an even stronger result for $\mathsf{P}_\varepsilon$ in the case of the $\lambda A$ calculus. In fact, for each term $\termone\in\Lambda_A$, $\explen{M}$ is monotonically decreasing.
+\begin{notation}
+	In this section we will consider only leftmost and $\textsf{ANF}$ reductions. Thus a reduction sequence $\sigma:\termone\redbetared{}\termtwo$ is described completely by a string $s$ on the alphabet $\{\pslo,\textsf{ANF}\}$. In this case we write $\termone\redbetared{s}\termtwo$. As usual, $|s|$ represents the length of $s$, $\#_\pslo(s)$ the number of $\pslo$ symbols in $s$ and $\#_\textsf{ANF}(s)$ the number of $\textsf{ANF}$ ones. With $s_n$ we indicate the $n$th symbol of $s$ and with $s_{-n}$ the substring obtained from $s$ deleting the first $n$ symbols.
+\end{notation}
+We need some preliminary technical results.
 \begin{lemma}\label{lemma:LObase}
-	If $\termone\redbetasteps{s}\termtwo$, $\termone\redbetasteps{t}\termthree$ and $|s|=|t|=1$, then there exists a term $\termfour$ such that $\termtwo\redbetasteps{u}\termfour$, $\termthree\redbetasteps{v}\termfour$, with $|u|,|v|\leq 1$ and $\#_\pslo(s)+\#_\pslo(u)=\#_\pslo(t)+\#_\pslo(v)$.
+	If $\termone\redbetared{s}\termtwo$, $\termone\redbetared{t}\termthree$ and $|s|=|t|=1$, then there exists a term $\termfour$ such that $\termtwo\redbetared{u}\termfour$, $\termthree\redbetared{v}\termfour$, with $|u|,|v|\leq 1$ and $\#_\pslo(s)+\#_\pslo(u)=\#_\pslo(t)+\#_\pslo(v)$.
 \end{lemma}
 \begin{proof}
 	The proof is easy considering the cases in Figure~\ref{figure:diagramBase}.
@@ -608,10 +613,10 @@ the optimality of the latter strategy.
 	\label{figure:diagramBase}
 \end{figure}
 \begin{lemma}\label{lemma:LOdiamond}
-	If $\termone\redbetasteps{s}\termtwo$ and $\termone\redbetasteps{t}\termthree$ where $s,t\in\{\pslo,\mathsf{ANF}\}^*$ then there exist a term $\termfour$ such that $\termtwo\redbetasteps{u}\termfour$, $\termthree\redbetasteps{v}\termfour$, $\#_\pslo(s)+\#_\pslo(u)=\#_\pslo(t)+\#_\pslo(v)$, $|v|\leq |s|$ and $|u|\leq |t|$.
+	If $\termone\redbetared{s}\termtwo$ and $\termone\redbetared{t}\termthree$ where $s,t\in\{\pslo,\mathsf{ANF}\}^*$ then there exist a term $\termfour$ such that $\termtwo\redbetared{u}\termfour$, $\termthree\redbetared{v}\termfour$, $\#_\pslo(s)+\#_\pslo(u)=\#_\pslo(t)+\#_\pslo(v)$, $|v|\leq |s|$ and $|u|\leq |t|$.
 \end{lemma}
 \begin{proof}
-	By induction on $|s|+|t|$. The base case follows by Lemma~\ref{lemma:LObase}. Now suppose the statement true for $|s|+|t|\leq k-1$. We prove it for $|s|+|t|=k$. The idea is sketched in figure~\ref{figure:diagram}.  Let us consider the reductions $\termone\redbetardx{s_0}\termtwo'$ and $\termone\redbetardx{t_0}\termthree'$. By Lemma~\ref{lemma:LObase} there exist a term $\termfour'$ such that $\termtwo\redbetardx{u_0'}\termfour'$, $\termthree\redbetardx{v_0'}\termfour'$, $\#_\pslo(s_0)+\#_\pslo(u'_0)=\#_\pslo(t_0)+\#_\pslo(v_0')\leq 1$. By induction hypothesis since $\termtwo'\redbetasteps{s_{-1}}\termtwo$ and $\termtwo'\redbetasteps{u'_0}\termfour'$ there exists a term $\termfour''$ such that $\termtwo\redbetasteps{u''_0}\termfour''$, $\termfour'\redbetasteps{v''} \termfour''$, $\#_\pslo(s_{-1})+\#_\pslo(u''_0)=\#_\pslo(u'_0)+\#_\pslo(v'')$ and $|v''|\leq |s_{-1}|$. We can do the same with $\termthree'$ obtaining a term $\termfour'''$. Applying again the induction hypothesis to the reductions $\termfour'\redbetasteps{v''} \termfour''$ and $\termfour'\redbetasteps{u'''} \termfour'''$ we finally obtain a term $\termfour$ such that $\termfour''\redbetasteps{v''''} \termfour$, $\termfour'''\redbetasteps{u''''} \termfour$ and $\#_\pslo(v''')+\#_\pslo(u'''')=\#_\pslo(u''')+\#_\pslo(v'''')$. Summing up all the previous equalities and inequalities yields the result.
+	By induction on $|s|+|t|$. The base case follows by Lemma~\ref{lemma:LObase}. Now suppose the statement true for $|s|+|t|\leq k-1$. We prove it for $|s|+|t|=k$. The idea is to apply induction hypothesis in the three squares of figure~\ref{figure:diagram}.  Let us consider the reductions $\termone\redbetardx{s_0}\termtwo'$ and $\termone\redbetardx{t_0}\termthree'$. By Lemma~\ref{lemma:LObase} there exist a term $\termfour'$ such that $\termtwo\redbetardx{u_0'}\termfour'$, $\termthree\redbetardx{v_0'}\termfour'$, $\#_\pslo(s_0)+\#_\pslo(u'_0)=\#_\pslo(t_0)+\#_\pslo(v_0')\leq 1$. By induction hypothesis since $\termtwo'\redbetared{s_{-1}}\termtwo$ and $\termtwo'\redbetardx{u'_0}\termfour'$ there exists a term $\termfour''$ such that $\termtwo\redbetared{u''_0}\termfour''$, $\termfour'\redbetared{v''} \termfour''$, $\#_\pslo(s_{-1})+\#_\pslo(u''_0)=\#_\pslo(u'_0)+\#_\pslo(v'')$ and $|v''|\leq |s_{-1}|$. We can do the same with $\termthree'$ obtaining a term $\termfour'''$. Applying again the induction hypothesis to the reductions $\termfour'\redbetared{v''} \termfour''$ and $\termfour'\redbetared{u'''} \termfour'''$ we finally obtain a term $\termfour$ such that $\termfour''\redbetared{v''''} \termfour$, $\termfour'''\redbetared{u''''} \termfour$ and $\#_\pslo(v''')+\#_\pslo(u'''')=\#_\pslo(u''')+\#_\pslo(v'''')$. Summing up all the previous equalities and inequalities yields the result.
 \end{proof}
 \begin{figure}
 	
@@ -646,24 +651,26 @@ the optimality of the latter strategy.
 	\caption{The diagram representing the idea of the proof of Lemma~\ref{lemma:LOdiamond}.}
 	\label{figure:diagram}
 \end{figure}
+All the above lemmata were needed to prove the following Corollary. Intuitively it states that, restricting to $\lambda A$, performing an $\pslo$-step is always better than performing an $\textsf{ANF}$ one.
 \begin{corollary}\label{corollary:nfstring}
-	If $\termone\in\Lambda_I$, $\termone\redbetasteps{\pslo\cdot s}\termtwo$, $\termone\redbetasteps{\mathsf{ANF}\cdot s}\termthree$, and $\termthree$ is in normal form, then $\termtwo$ is in normal form.
+	For each $\termone\in\Lambda_A$, and $s\in\{\pslo,\mathsf{ANF}\}^*$, if $\termone\redbetared{\mathsf{ANF}\cdot s}\termthree$, and $\termthree$ is in normal form, then there exists a prefix of $s$, $t\in\{\pslo,\mathsf{ANF}\}^*$ such that $\termone\redbetared{\pslo\cdot t}\termtwo$, where $\termtwo$ is in normal form.
 \end{corollary}
 \begin{proof}
-	By contraddiction suppose $\termtwo$ is not in normal form. By Lemma~\ref{lemma:LOdiamond} there exists a term $\termfour$ such that $\termtwo\redbetasteps{u}\termfour$, $\termthree\redbetasteps{v}\termfour$, and $\#_\pslo(\pslo\cdot s)+\#_\pslo(u)=\#_\pslo(\mathsf{ANF}\cdot s)+\#_\pslo(v)$. But since $\termthree$ is in normal form $|v|=0$. Thus after simple algebra the equality becomes $1+ \#_\pslo(s)+\#_\pslo(u)=\#_\pslo(s)$ i.e. $1+\#_\pslo(u)=0$, which is a contraddiction.
+	By contradiction suppose $\termtwo$ is not in normal form. By Lemma~\ref{lemma:LOdiamond} there exists a term $\termfour$ such that $\termtwo\redbetared{u}\termfour$, $\termthree\redbetared{v}\termfour$, and $\#_\pslo(\pslo\cdot s)+\#_\pslo(u)=\#_\pslo(\mathsf{ANF}\cdot s)+\#_\pslo(v)$. But since $\termthree$ is in normal form $|v|=0$. Thus after simple algebra the equality becomes $1+ \#_\pslo(s)+\#_\pslo(u)=\#_\pslo(s)$ i.e. $1+\#_\pslo(u)=0$, which is a contradiction.
 \end{proof}
+We are now ready to prove the main result. Since we want to prove monotonicity of a real-valued function, studying its derivative seems natural.
 \begin{proposition}
-	For every probabilistic strategy $\mathsf{S}\in\psparamtwo{\varepsilon}$ if $\termone\in\Lambda_{\leq 1}$ then $\nsteps{\varepsilon}(\termone)$ is monotonically decreasing. 
+	For each term $\termone\in\Lambda_A$, $\explen{M}$ is monotonically decreasing.
 \end{proposition}
 \begin{proof}
-	By induction on the maximum number of steps of $\termone$ to normal form.\\
-	$\termone\redlo\termtwo$ with probability $\varepsilon$ and $\termone\redbetaanf\termthree$ with probability $1-\varepsilon$. Thus
+	We prove the claim by induction on the maximum number of steps of $\termone$ to normal form. Since we are reducing under strategy $\mathsf{P}_\varepsilon$, $\termone\redlo\termtwo$ with probability $\varepsilon$ and $\termone\redbetaanf\termthree$ with probability $1-\varepsilon$. Thus,
 	$$
-	\nsteps{\varepsilon}(\termone) = \varepsilon\cdot\nsteps{\varepsilon}(\termtwo) + (1-\varepsilon)\cdot \nsteps{\varepsilon}(\termthree) + 1.
+	\explen{\termone}(\varepsilon) = \varepsilon\cdot\explen{\termtwo}(\varepsilon) + (1-\varepsilon)\cdot \explen{\termthree}(\varepsilon) + 1.
 	$$
-	Differentiating with respect to $\varepsilon$ we have
-	$$
-	\nsteps{\varepsilon}'(\termone) = \nsteps{\varepsilon}(\termtwo) + \varepsilon\cdot\nsteps{\varepsilon}'(\termtwo) -\nsteps{\varepsilon}(\termthree) + (1-\varepsilon)\cdot \nsteps{\varepsilon}'(\termthree).
-	$$
+	Differentiating with respect to $\varepsilon$ we have:
+	\begin{align*}
+		\explen{\termone}'(\varepsilon) &= \explen{\termtwo}(\varepsilon) + \varepsilon\cdot\explen{\termtwo}'(\varepsilon)\\
+		&-\explen{\termthree}(\varepsilon) + (1-\varepsilon)\cdot \explen{\termthree}'(\varepsilon).
+	\end{align*}
 	The thesis follows by Corollary~\ref{corollary:nfstring} and induction hypothesis.
 \end{proof}

@@ -1,17 +1,21 @@
 %************************************************
 \chapter{Abstract Probabilistic Rewriting}\label{ch:mathtest} % $\mathbb{ZNR}$
 %************************************************
-The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus into a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science: basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rta_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_notitle_nodate}, just to remark the strong connection between the two fields.
+The $\lambda$-calculus is essentially a rewrite system. Thus, before introducing it, we present some fundamentals of rewriting theory. This way we can insert the $\lambda$-calculus into a more general setting, allowing a deeper and often simpler analysis. Rewriting is crucial in computer science: basically any computation can be seen as a process of rewriting. In fact, digital computers work through formal manipulation of symbols, in a purely syntactic way. Rewriting theory was born together with logic, but now it has an independent status, as shown by the annual International Conference on Rewriting Techniques and Applications (RTA) \cite{noauthor_rewriting_nodate}, now part of the International Conference on Formal Structures for Computation and Deduction along with the  International Conference on Typed Lambda Calculi and Applications \cite{noauthor_typed_nodate}, just to remark the strong connection between the two fields.
 \section{Abstract Rewriting Theory}
 The basic object of investigation of rewriting theory is the abstract reduction (or rewrite) system. 
-\begin{definition}
+\begin{definition}[ARS]
 	An \emph{abstract reduction system} (ARS) is a pair $(A,\rightarrow)$ where $A$ is a set with cardinality at most countable and $\rightarrow\,\subseteq A\times A$.
 \end{definition}
-$A$ is the set of \emph{terms} and $\rightarrow$ is the \emph{reduction relation}. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. An important characteristic of ARSs is that $\red$ is not in general a (partial) function. This means that a term can be rewritten to more than one term, i.e. the rewriting process is not deterministic. We call an ARS $(A,\rightarrow)$ \emph{deterministic} (DARS) if $\red$ is a partial function. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite, then $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of terms in normal form of $A$. A term $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. A term $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them. However, it is worth mentioning here a very important property, namely confluence.
-\begin{definition}
+$A$ is the set of \emph{objects} and $\rightarrow$ is the \emph{reduction relation}. Abstract rewriting describes rewriting dynamics independently of the nature of the objects, without taking their structure into account. If $(a,b)\in\,\rightarrow$ for $a,b\in A$, we write $a\rightarrow b$ and intuitively this means that ``$a$ can be rewritten in $b$''. An important characteristic of ARSs is that $\red$ is not in general a (partial) function. This means that an object can be rewritten to more than one object, i.e. the rewriting process is not deterministic. We call an ARS $(A,\rightarrow)$ \emph{deterministic} (DARS) if $\red$ is a partial function.
+\begin{example}
+	The behavior of a Turing Machine $\mathcal{M}$ can be described as an ARS $\mathcal{A}=(A,\rightarrow)$. $A$ is the set of all possible configurations of $\mathcal{M}$ and $a\red b$ if and only if $\mathcal{M}$ from the configuration $a$ moves to configuration $b$. If $\mathcal{M}$ is a \emph{deterministic} Turing machine, then $\mathcal{A}$ is a DARS, otherwise it is an ARS.
+\end{example}
+We need to give some notations and definitions that will be useful in the remainder of the work. $\twoheadrightarrow$ is the reflexive and transitive closure of $\rightarrow$. A \emph{reduction sequence} is a finite or infinite sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots$. If $\sigma$ is finite, then $|\sigma|$ is the \emph{length} of $\sigma$. Since rewriting is a model of computation, we are interested in defining termination. We say that $a\in A$ is in \emph{normal form} if there exist no $b\in A$ such that $a\rightarrow b$. We call $\mathbf{NF}(A)$ the set of objects in normal form of $A$. An object $a$ is \emph{(weakly) normalising} if there exists a reduction sequence such that $a\twoheadrightarrow b$ and $b$ is in normal form. An object $a$ is \emph{strongly normalising} if every reduction sequence from $a$ is finite.  A lot of interesting properties can be defined for ARSs. The interested reader can refer to the two main monographs on the subject \cite{terese_term_2003,baader_term_1999} for a complete account on them. However, it is worth mentioning here a very important property, namely confluence.
+\begin{definition}[Confluence]
 	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ is \emph{confluent} or \emph{Church-Rosser} (CR), if for each $a\in A$ such that $a\twoheadrightarrow b$ and $a\twoheadrightarrow c$, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$.
 \end{definition}
-Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reconcile those paths, possibly going further with the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
+Confluence is a desirable property because intuitively it states that no matter the reduction path followed, one can always reconcile those paths, possibly going further along the reductions (Figure \ref{figure:confluence}). In particular confluence is sufficient for an ARS to satisfy the unique normal form property, we are defining below.
 \begin{figure}
 	\fbox{
 		\begin{minipage}{.96\textwidth}
@@ -42,16 +46,34 @@ Confluence is a desirable property because intuitively it states that no matter 
 	\caption{CR holds if (a) implies (b)}
 	\label{figure:confluence}
 \end{figure}
-\begin{definition}
+\begin{definition}(UN)
 	Let $(A,\rightarrow)$ be an ARS. $\rightarrow$ has the \emph{unique normal form property} (UN) if for each $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, and $b,c\in\mathbf{NF}(A)$, then $b= c$.
 \end{definition}
-Uniqueness of normal form is a key aspect when we are dealing with ARSs. In fact, typically, we want that a given term always terminates in the same result, although possibly following different paths.
+Uniqueness of normal form is a key aspect when we are dealing with ARSs. In fact, typically, we want that a given object always terminates in the same result, although possibly following different paths.
 \begin{proposition}
 	Let $(A,\rightarrow)$ be an ARS. If $\rightarrow$ is confluent then $\rightarrow$ has the unique normal form property.
 \end{proposition}
 \begin{proof}
-	By contradiction, let us consider an ARS $(A,\rightarrow)$ such that $\rightarrow$ is confluent but does not satisfy UN. Then there exist $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, $b,c\in\mathbf{NF}(A)$ and $b\not\equiv c$. Since $\rightarrow$ is confluent, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$. Since both $b$ and $c$ are in normal form this would imply $d\equiv b\equiv c$ but this is impossible since $b$ and $c$ are different normal forms.
+	By contradiction, let us consider an ARS $(A,\rightarrow)$ such that $\rightarrow$ is confluent but does not satisfy UN. Then there exist $a,b,c\in A$, such that $a\twoheadrightarrow b$, $a\twoheadrightarrow c$, $b,c\in\mathbf{NF}(A)$ and $b\neq c$. Since $\rightarrow$ is confluent, there exists $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$. Since both $b$ and $c$ are in normal form this would imply $d= b= c$ but this is impossible since $b$ and $c$ are different normal forms.
 \end{proof}
+The converse is not true in general, as witnessed by the following counterexample, sketched in Figure~\ref{figure:counterexample2} Let us consider an ARS $(A,\rightarrow)$, where $A=\{a,b,c\}$ and $\red=\{(a,b),(a,c),(b,b)\}$. $A$ trivially satisfies UN since there is only one normal form, namely $c$. However $A$ does not satisfy confluence: $a\red b$ and $a\red c$, but there is no $d\in A$ such that $b\twoheadrightarrow d$ and $c\twoheadrightarrow d$.\\
+\begin{figure}
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+			\centering
+				\begin{tikzpicture}
+				[node distance=20mm, auto, transform shape]
+				\node (m) at (0,0) {$a$};
+				\node (n) at (-1,-1) {$b$};
+				\node (l) at (1,-1) {$c$};
+				\draw (m) edge[->] node[left=5pt] {} (n);
+				\draw (m) edge[->] node[right=5pt] {} (l);
+				\path[-] (n) edge [loop left] node {} ();
+				\end{tikzpicture}
+		\end{minipage}}
+		\caption{An ARS witnessing that UN does not imply confluence.}
+		\label{figure:counterexample2}
+	\end{figure}
 ARSs are sets endowed with a relation, and are thus
 inherently nondeterministic, if we consider rewriting as a model of a computation. The notion of reduction strategy allows us to turn reduction into a deterministic process.
 \begin{definition}[Deterministic Strategies]\label{def:determstrat}
@@ -63,17 +85,17 @@ inherently nondeterministic, if we consider rewriting as a model of a computatio
 	%$\mathsf{S}(a)\in\{b\,|\,a\rightarrow b\}$.
 \end{definition}
 \begin{definition}
-	A reduction sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is \emph{under strategy} $\mathsf{S}$ if $\mathsf{S}(a_i)=a_{i+1}$ for each $0\leq i<n$.
+	A finite reduction sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is \emph{under strategy} $\mathsf{S}$ if $\mathsf{S}(a_i)=a_{i+1}$ for each $0\leq i<n$. An infinite reduction sequence $\sigma:a_0\rightarrow a_1\rightarrow\cdots a_i\rightarrow\cdots$ is under strategy $\mathsf{S}$ if $\mathsf{S}(a_i)=a_{i+1}$ for each $i\geq 0$.
 \end{definition}
 If $\sigma:a_0\rightarrow a_1\rightarrow\cdots\rightarrow a_n$ is a
 reduction sequence under strategy $\mathsf{S}$ and $a_n$ is in normal
 form, we write $\nsteps{\mathsf{S}}(a_0)=n=|\sigma|$. If
 $\sigma:a_0\rightarrow a_1\rightarrow\cdots$ is infinite, we say that
-$\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is \emph{normalising} if for each weakly normalising term $a$, $\nsteps{\mathsf{S}}(a)<+\infty$. Reductions to normal form of the same term under different strategies can be of different lengths, and in particular some of them can be infinite. However, under particular conditions, all strategies are equivalent.
-\begin{definition}
-	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} (WDP) if and only if for each term $a\in A$, if $a\red b$ and $a\red c$, then either $b=c$ or there exists a term $d\in A$ such that $b\red d$ and $c\red d$. 
+$\nsteps{\mathsf{S}}(a_0)=+\infty$. A strategy $\mathsf{S}$ is \emph{normalising} if for each weakly normalising object $a$, $\nsteps{\mathsf{S}}(a)<+\infty$. Reductions to normal form of the same object under different strategies can be of different lengths, and in particular some of them can be infinite. However, under particular conditions, all strategies are equivalent.
+\begin{definition}[WDP]
+	An ARS $(A,\red)$ satisfies the \emph{(weak) diamond property} (WDP) if and only if for each $a\in A$, if $a\red b$ and $a\red c$, then either $b=c$ or there exists $d\in A$ such that $b\red d$ and $c\red d$. 
 \end{definition}
-Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just one} step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from a term to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
+Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just one} step, forming a diamond (Figure \ref{figure:diam}). This very strong property is sufficient to state that all reduction sequences from an object to its normal form have the \emph{same} length, i.e. no matter the strategy chosen to select the reduct.
 \begin{figure}
 	\fbox{
 		\begin{minipage}{.96\textwidth}
@@ -106,13 +128,14 @@ Intuitively an ARS satisfies the WDP if we can close every diagram in \emph{just
 	\label{figure:diam}
 \end{figure}
 \begin{lemma}[]\label{lemma:weak}
-	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each term $a\in A$ that has a normal form, all reduction sequences from $a$ to its normal form have the same length.
+	If an ARS $(A,\red)$ satisfies the weak diamond property, then for each $a\in A$ that has a normal form, $\nsteps{\mathsf{S}}(a)=\nsteps{\mathsf{T}}(a)$, for each $\mathsf{S},\mathsf{T}$ strategies.
 \end{lemma}
 \begin{proof}
-	The proof by induction is given with all details in \cite{dal_lago_invariant_2005}.
+	We prove that if an ARS satisfies WDP, then for each $a\in A$, the length of every reduction sequence from $a$ to its normal form, if any, is the same. This immediately implies the independence from the strategy. The proof is taken from \cite{zantema_strategy_2012}.
+	Let us consider an object $a\in A$ which has normal form $n$. We prove the claim by induction on the number $k$ of steps of a reduction sequence from $\sigma:a\twoheadrightarrow^k n$. If $k=0$, $a$ is in normal form, and the lemma holds. Let us consider that the lemma holds for $k\leq h-1$. We prove it for $k=h$. We can split the reduction sequence $\sigma$ as $a\red b\twoheadrightarrow^{h-1} n$. Moreover, there exists $c,\,j$ such that $a\twoheadrightarrow^j c$. Since $c$ is arbitrarily chosen proving the lemma is equivalent to prove that if $c\twoheadrightarrow^l n$, then $j+l=h$. The case $j=0$ is trivial. If $j>0$, we consider the reduction $a\red d\twoheadrightarrow^{j-1}c$. If $d=b$, the claim holds by the induction hypothesis. Otherwise, by WDP, there exist $e$, such that $b\red e$ and $d\red e$. By induction hypothesis $e\twoheadrightarrow^{h-2} n$ and thus $d\twoheadrightarrow^{h-1}n$. Hence, we can apply the induction hypothesis to $d$. This way, every reduction from $d$ to $n$ has length $h-1$ and thus $j+l=h$.
 \end{proof}
 \section{Probabilistic Rewriting}
-As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that allows a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, and even the definition of termination is not obvious in a probabilistic setting. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{avanzini_probabilistic_2018}. However, our work exploits probabilistic rewriting in a different and novel sense, in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map terms to \emph{distributions} on terms. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
+As we have already pointed out, rewriting theory is now a well-established field of theoretical computer science. Methods from this area have been applied to a variety of problems, such as program transformation and optimisation and formal verification of protocols. Traditionally, rewriting is a nondeterministic model and strategies are the technical tool that enables a deterministic rewriting. However, in recent years, more and more attention has been given to \emph{probabilistic computation}. Actually, stochastic models and computer science are linked from the early days of both these disciplines. Already in 1963, Micheal Rabin proposed his model of probabilistic automata \cite{rabin_probabilistic_1963} and in the seventies the first examples of randomised algorithms were given again by Rabin, e.g.the Miller-Rabin primality test \cite{rabin_probabilistic_1980}. Later, in the eighties, cryptography acquired the status of formal science through the use of probability theory \cite{goldreich_how_1984}. Nowadays machine learning is one of the main tools used in artificial intelligence and it is very rooted in statistics and stochastic inference methods. Programming language community was thus challenged to create easy, flexible and powerful \emph{probabilistic programming languages} with primitive operators such us the \emph{sample} from a distribution \cite{goodman_church:_2008,wood_new_2014}. However, the study of their semantics is not trivial \cite{staton_semantics_2016}, and even the definition of termination is not obvious in a probabilistic setting \cite{ferrer_fioriti_probabilistic_2015}. Probabilistic rewriting is one of the tools developed to model  probabilistic functional programming languages \cite{,bournez_probabilistic_2002,bournez_proving_2005}. However, our work exploits probabilistic rewriting in a different and novel sense, in the realm of the $\lambda$-calculus. In fact our calculus remains deterministic, in that there is not a \emph{choice} operator like in \cite{borgstrom_lambda-calculus_2016}. What becomes stochastic is the choice of the redex to reduce, namely the strategy. Strategies this way map objects to \emph{distributions} on objects. We start defining probabilistic abstract rewriting, while in Chapter~\ref{chapter:prostra} we analyse the $\lambda$-calculus equipped with randomised strategies.
 \subsection{PARS as Strategies}
 We introduce now the framework we are going to define randomised
 strategies within. In particular, we shift the notion of ARS to the fully
@@ -122,7 +145,7 @@ state context. The first preliminary concept we need is that of a distribution.
 \begin{definition}[Distribution]
 	A \emph{partial probability distribution} over a countable set $A$
 	is a mapping $\rho:A\rightarrow\left[0,1\right]$ such that
-	$\left|\rho\right|\leq 1$ where
+	$\left|\rho\right|\leq 1$, where
 	$\left|\rho\right|=\underset{a\in A}{\sum}\rho\left(a\right)$. We denote the set of partial probability distributions over $A$
 	by $\pdist{A}$. The \emph{support} of a partial distribution
 	$\rho\in\pdist{A}$ is the set $\supp{\rho}=\left\lbrace a \in A \, |
@@ -132,9 +155,14 @@ state context. The first preliminary concept we need is that of a distribution.
 	of probability distributions over $A$.
 \end{definition}
 Sometimes we have to deal with \emph{deterministic} distributions. This can be done considering a distribution $\mu$ such that $|\supp{\mu}|=1$.
-\begin{definition}
+\begin{definition}[Dirac Distribution]
 	A distribution $\mu\in\dist{S}$ is $\textbf{Dirac}$ if there exists $s\in S$ such that $\mu(s)=1$. In this case we write $\mu=\textbf{Dirac}(s)$.
 \end{definition}
+The easiest way to generalise ARS in a probabilistic context is to change the nature of the reduction relation.
+\begin{definition}[PARS]
+	A \emph{probabilistic abstract reduction system} (PARS) is a pair $(S,\rightarrow)$ where $S$ is a set with cardinality at most countable and $\rightarrow\,\subseteq S\times \dist{S}$.
+\end{definition}
+This way, objects do not reduce anymore to other objects, but to probability distributions. The rewriting process becomes both nondeterministic and stochastic. This dynamics has been formalised in \cite{avanzini_probabilistic_2018}. However, we are not interested in this kind of model. In fact, we want to rule out nondeterminism from the process. We would like to create a model that is \emph{fully probabilistic}. Moreover, we want to define a randomised strategy for a given ARS, i.e. our model should be built on top of a pre-existent ARS.
 Strategies as from Definition~\ref{def:determstrat} are inherently
 deterministic: the process of picking a reduct among the many possible
 ones can only have \emph{one} outcome. But what if this process becomes
@@ -143,7 +171,7 @@ ones can only have \emph{one} outcome. But what if this process becomes
 	Given an ARS $(S,\rightarrow)$, a
 	\emph{randomised reduction strategy $\mathsf{P}$ for $(S,\rightarrow)$}
 	is a partial function such that if $s\in S$ is in normal form, then
-	$\mathsf{P}(s)=\bot$, otherwise $\mathsf{P}(s)=\mu\in\dist{S}$, and
+	$\mathsf{P}(s)$ is undefined, otherwise $\mathsf{P}(s)=\mu\in\dist{S}$, and
 	$\supp{\mu}\subseteq\{t\,|\,s\rightarrow t\}$.
 	%\emph{fully probabilistic abstract
 	%  reduction system (FPARS) for $(S,\rightarrow)$} is a pair $\left(
@@ -226,10 +254,10 @@ Termination is a crucial problem in rewriting theory. Since we are in
 a probabilistic context, distinct such notions are
 possible. We define in our setting two classical termination
 properties.  
-\begin{definition}
+\begin{definition}[AST]
 	An FPARS is \emph{almost-surely terminating} (AST) if for each initial configuration $\rho_0$, the computation $(\rho_i)_{i\in\mathbb{N}}$, is such that $\underset{n\rightarrow +\infty}{\lim}\left|\rho_{n}\right|=0$.
 \end{definition}
-\begin{definition}
+\begin{definition}[PAST]
 	An FPARS $(S,\mathsf{P})$ is \emph{positive almost-surely terminating} (PAST) if for each $s \in S$,
 	$\nsteps{\mathsf{P}}(s)< +\infty$.
 	In this case we say that $\mathsf{P}$ is a \emph{positive almost-surely normalising} strategy.
@@ -241,7 +269,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 \begin{notation}
 	For $\varepsilon>0$ we write $x>_{\varepsilon}y$ if and only if $x\geq y+\varepsilon$. This order is well-founded on real numbers with a lower bound.
 \end{notation}
-\begin{definition}
+\begin{definition}[Lyapunov Function]
 	Given an FPARS $\left( S,\mathsf{P}\right)$, we define a function $V:S\rightarrow\mathbb{R}$ as Lyapunov if:
 	\begin{varitemize}
 		\item
@@ -290,19 +318,19 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 \begin{LONG}
 	\subsection{FPARS and Markov Chains}
 	We first recall some basic notions of probability theory and Markov chain theory. Please refer to \cite{ash_probability_1999,norris_markov_1998} for a more detailed discussion on the subject.
-	\begin{definition}[Probability space]
+	\begin{definition}[Probability Space]
 		A \emph{probability space} is a triple $(\Omega, \mathcal{F},\mathbb{P})$ where $\Omega$ is the \emph{sample space}, $\mathcal{F}$ is the set of the \emph{events} and it is a $\sigma$-algebra of $\Omega$, and $\mathbb{P}$ is a \emph{probability measure} for $\mathcal{F}$ i.e. $\mathbb{P} :\mathcal{F}\rightarrow[0,1]$, $\mathbb{P}\{\Omega\}=1$ and it is countably additive: the probability of a countable disjoint union of events is given by the sum of the individual probabilities.
 	\end{definition}
-	\begin{definition}[Conditional probability]
+	\begin{definition}[Conditional Probability]
 		Given two events $A$ and $B$ if $\mathbb{P}\{B\}\neq 0$ the \emph{conditional probability} of $A$ given $B$ is
 		$$
 		\mathbb{P}\{A|B\}=\frac{\mathbb{P}\{A\cap B\}}{\mathbb{P}\{B\}}.
 		$$
 	\end{definition}
-	\begin{definition}[Random variable]
+	\begin{definition}[Random Variable]
 		Let $(\Omega, \mathcal{F},\mathbb{P})$ be a probability space. A \emph{random variable} $X$ is a function from $\Omega$ to $\mathbb{R}$ such that for each $x\in \mathbb{R}$, the set $\{X\leq x\}$:=$\{\omega\in\Omega : X(\omega)\leq x\}\in \mathcal{F}$. A random variable $X$ is \emph{discrete} if there exists a set $I$ at most countable such that $\mathbb{P}\{X\in I\}=1$.
 	\end{definition} 
-	\begin{definition}[Expected value]
+	\begin{definition}[Expected Value]
 		Given a random variable $X$ on $(\Omega, \mathcal{F},\mathbb{P})$, its \emph{expected value} is
 		$$
 		\mathbb{E}[X]=\int_{\Omega}X\mathrm{d}\mathbb{P}
@@ -313,7 +341,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 		$$
 	\end{definition}
 	We give an alternative way of computing the expected value of a discrete random variable that will be useful in the remainder of this section.
-	\begin{proposition}[Telescope formula]\label{prop:alt-def}
+	\begin{proposition}[Telescope Formula]\label{prop:alt-def}
 		Let $X$ be a random variable with values in $\mathbb{N}\cup \{+\infty\}$. Then
 		$$
 		\mathbb{E}[X]=\sum\limits_{i=1}^{\infty} \mathbb{P}\{X\geq i\}.
@@ -330,7 +358,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 		$$
 	\end{proof}
 	Discrete time Markov chains are a well-studied class of stochastic processes, i.e. discrete-time dynamical systems whose evolution is probabilistic. They satisfy the Markov property, which means that transitions from current state to the next one do not depend on the whole history of the process, but only on the current state.
-	\begin{definition}
+	\begin{definition}[Markov Property]
 		Given a probability space $(\Omega, \mathcal{F},\mathbb{P})$, and a state space $I$ at most countable and measurable with the $\sigma$-algebra of all its subsets, a sequence of random variables $(X_n)_{n\geq 0}$ with values in $I$ is a\emph{ Markov Chain} if and only if satisfies the \emph{Markov property}, i.e. for each $n\geq 0$, for each $i_0,..,i_n,j \in I$, such that $\mathbb{P}\{X_n=i_n,...,X_0=i_0\}>0$ it holds that
 		$$
 		\mathbb{P}\{X_{n+1}=j|X_n=i_n,...,X_0=i_0\}=\mathbb{P}\{X_{n+1}=j|X_n=i_n\}=p_{{i_n}j}.
@@ -339,7 +367,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 	% mettere esempio random walk
 	We can completely characterise a Markov chain $\mathcal{M}$ as a tuple $(I,X_0,P)$ where $I$ is the state space, $X_0$ is the initial law and $P=(p_{ij})_{,i,j\in I}$ is the transition matrix.\\
 	The first entrance time into a state is a very useful random variable in order to study the behaviour of a Markov chain. Particularly interesting is knowing whether it is almost-surely finite and with finite expected value.
-	\begin{definition}
+	\begin{definition}[First Entrance Time]
 		Let $\mathcal{M}=(I,X_0,P)$ be a Markov chain and $j\in I$ be a state. We call \emph{first entrance time} into $j$ the random variable with values in $\mathbb{N}\cup \{+\infty\}$
 		$$
 		T_j= \begin{cases}
@@ -348,7 +376,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 		\end{cases}
 		$$
 	\end{definition}
-	We show now how to derive a Markov chain $\mathcal{M_P}=(I,\cdot,P)$ from an FPARS $\mathcal{P}=(S,\mathsf{P})$, i.e. we give a map $\mathsf{M}:\mathcal{P}\longmapsto\mathcal{M_P}$. First we define a relation $\equiv_\bot$ on the terms of $S$ defined for each $s,t\in S$ as
+	We show now how to derive a Markov chain $\mathcal{M_P}=(I,\cdot,P)$ from an FPARS $\mathcal{P}=(S,\mathsf{P})$, i.e. we give a map $\mathsf{M}:\mathcal{P}\longmapsto\mathcal{M_P}$. First we define a relation $\equiv_\bot$ on the elements of $S$ defined for each $s,t\in S$ as
 	$$
 	s\equiv_\bot t\text{ if and only if }s,t\in\mathbf{NF}(S).
 	$$
@@ -436,7 +464,7 @@ It is well-known from Markov chain literature that AST does not imply PAST e.g. 
 	\end{proof}
 \end{LONG}
 \section{A Taxonomy of ARS}
-ARSs are well-defined mathematical objects and their definition is now well-established in the literature. If we move to the probabilistic setting, instead, definitions are not so stable. We try in this Section to make a taxonomy of the different models present in the literature, highlighting the relationships existing between them. We report in Table~\ref{table:ars} the nature of reduction relations for different kinds of ARSs and the different types of computation they can model. From these definitions one can infer how this models are related. DARSs are a special case of ARSs and the same applies to PARSs and FPARSs. Then DARSs can be seen as FPARSs where every distribution is $\textbf{Dirac}$ (the same applies to ARSs and PARSs). Another way to interpret this relationship is to imagine DARSs (respectively FPARSs) as ARSs (respectively PARSs) where a strategy to solve nondeterminism was fixed. A diagram representing these observations is sketched in Figure~\ref{figure:diagars}. 
+ARSs are well-defined mathematical objects and their definition is now well-established in the literature. If we move to the probabilistic setting, instead, definitions are not so stable. We try in this Section to make a taxonomy of the different models in the literature, highlighting the relationships existing between them. We report in Table~\ref{table:ars} the nature of reduction relations for different kinds of ARSs and the different types of computation they can model. From these definitions one can infer how this models are related. DARSs are a special case of ARSs and the same applies to PARSs and FPARSs. Then DARSs can be seen as FPARSs where every distribution is $\textbf{Dirac}$ (the same applies to ARSs and PARSs). Another way to interpret this relationship is to imagine DARSs (respectively FPARSs) as ARSs (respectively PARSs) where a strategy to solve nondeterminism was fixed. A diagram representing these observations is sketched in Figure~\ref{figure:diagars}. 
 \begin{table}
 	\begin{tabular}{|l|l|l|}
 		\hline 
@@ -471,7 +499,7 @@ ARSs are well-defined mathematical objects and their definition is now well-esta
 	\draw (m) edge[->,dashed,color=red] node[left] {Rand. Str.} (p);
 	\end{tikzpicture}
 \end{minipage}}
-	\caption{The diagram showing inclusion relations between different types of ARSs.}
+	\caption{The diagram showing the relations between different types of ARSs.}
 	\label{figure:diagars}
 \end{figure}
 The way we have introduced FPARSs, however, was different. In fact we have built FPARSs on top of ARSs, in that an FPARS transforms the nondeterministic dynamics of an ARS to a probabilistic one. This way FPARSs are obtained from ARSs fixing a \emph{randomised} strategy.

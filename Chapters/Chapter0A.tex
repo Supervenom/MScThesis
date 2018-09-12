@@ -7,7 +7,7 @@
 In this appendix some aspects of induction proof principles given for granted in the remainder of this thesis will be clarified, with precise definitions and formal statements.
 \begin{definition}\hfill
 	\begin{enumerate}
-	\item A relation $\prec$ is \emph{well-founded} on a set $X$ if for every non-empty subset $S$ of $X$, $S$ has an  element $x$ such that there exists no $y$ in $X$ satisfying $y\prec x$.
+	\item A relation $\prec$ is \emph{well-founded} on a set $X$ if for every non-empty subset $S$ of $X$, $S$ has an  element $x$ such that there exists no $y$ in $S$ satisfying $y\prec x$.
 	\item A relation $\prec$ is well-founded on a set $X$ if it contains no infinite descending chains i.e. infinite sequences $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i$ in $\mathbb{N}$.
 	\end{enumerate}
 \end{definition}
@@ -19,9 +19,10 @@ Assuming the \emph{axiom of choice} one can prove that the two definitions above
 Well-founded relations are interesting because they allow proofs by induction.
 \begin{proposition}
 	Let $(X,\prec)$ be a set endowed with a well-founded relation and $\mathbf{P}$ a property on the elements of $X$. If for each $x\in X$ it holds that: 
-	\begin{center} if $\mathbf{P}(y)$ holds  for each $y\prec x$ then $\mathbf{P}(x)$\end{center}
+	\begin{center} if $\mathbf{P}(y)$ holds  for each $y\prec x$, then $\mathbf{P}(x)$\end{center}
 	then $\mathbf{P}(x)$ holds for every $x\in X$.
 \end{proposition}
 \begin{proof}
+	Otherwise, the set $Y=\{x\in X\,|\,\mathbf{P}(x)\textrm{ does not hold}\}\neq\emptyset$. $X$ is well-founded, thus there exists $y\in Y$ such that $y\prec x$ for each $x\in Y$. Hence $\mathbf{P}(y)$ does not hold, but for each $z\prec y$, $\mathbf{P}(z)$ holds, contradicting the hypothesis.
 \end{proof}
 
