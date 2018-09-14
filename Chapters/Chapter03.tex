@@ -3,12 +3,12 @@
 %*****************************************
 \section{History and overview}
 $\lambda$-calculus has attracted from its birth in the thirties some of the best minds of the century. Its elegance and simplicity, together with its power have fascinated thousands of people in Logic, Computer Science, Math and Philosophy. A detailed historical survey is \cite{cardone_lambda-calculus_2009}.
-\subsection{The Birth of Computer Science}
+\paragraph{The Birth of Computer Science.}
 Alonzo Church invented the $\lambda$-calculus with the aim of providing a
 foundation for logic which would be more natural than Russell’s type theory or
 Zermelo’s set theory \cite{church_set_1932}. Church's system was a type-free logic with
 unrestricted quantification but without the law of excluded middle. However very soon his system was proved inconsistent by Kleene and Rosser \cite{kleene_inconsistency_1935}. Abandoned the foundational aspects, the system restricted to the functional part, i.e. without logic, turned out to be very interesting. It allowed the very first proof of non-decidability of a problem (the convertibility problem) \cite{church_unsolvable_1936} and soon after the negative answer to the \textit{Entscheidungsproblem} \cite{church_note_1936}. After the proofs of equivalence between the $\lambda$-calculus and Turing machines \cite{turing_computability_1937}, and between the $\lambda$-calculus and the partial recursive functions \cite{kleene_$lambda$-definability_1936}, Church's Thesis could be stated: $\lambda$-definability captures the intuitive notion of effective calculability.
-\subsection{Functions as Rules}
+\paragraph{Functions as Rules.}
 In $\lambda$-calculus, unlike set theory, functions are first-class citizens. Moreover, unlike set theory, functions are defined intentionally, i.e. through the rule that allows to pass from the argument to the result. This way computing a function becomes a rewriting process. $\lambda$-notation serves to this goal. Computing a function means to substitute the argument in the body where there are occurrences of the binded variable. In a $\lambda$-calculus extended with the $+$ operator and natural numbers one could write the following:
 $$
 \lambda x. x+x+x
@@ -22,7 +22,7 @@ $$
 ((\lambda x.(\lambda y.x+y))a)b\red(\lambda y.a+y)b\red a+b.
 $$
 This is possible in the $\lambda$-calculus because functions can return other functions (and taking functions as parameters). That means that the $\lambda$-calculus is a higher-order formalism.
-\subsection{A Programming Languages Foundation}
+\paragraph{A Programming Languages Foundation.}
 The main difference between high level programming languages and low level ones is that the former are machine independent. For this reason models of high level languages should be machine-independent too. Turing machines, for example, are not suitable to describe many of the main mechanisms of programming languages, such as function calls or type systems. $\lambda$-calculus turns out to be very useful in this sense. In fact, already in the sixties, a translation between Algol 60 and the $\lambda$-calculus was given \cite{landin_correspondence_1965-1, landin_correspondence_1965}. This way, $\lambda$-calculus provided a formal semantics to a real programming language, Algol 60, the ancestor of languages such as \texttt{C} or \texttt{Pascal}. Moreover, Landin proposed an abstract machine, called \texttt{SECD} (Stack, Environment, Control, Dump) \cite{landin_mechanical_1964}, specifically devised to evaluate expressions of the $\lambda$-calculus. This seminal work opened the field of the formal study of operational semantics of programming languages, culminated with the fundamental work of Gordon Plotkin \cite{plotkin_call-by-name_1975}, which in fact used the \texttt{SECD} machine and \texttt{ISWIM}, a sugared $\lambda$-calculus proposed by Landin \cite{landin_next_1966} as a paradigmatic programming language. Concepts like call-by-name and call-by-value were indeed formalised through the use of the $\lambda$-calculus and modern functional programming languages like \texttt{Haskell} or the \texttt{ML} family were directly inspired by \texttt{ISWIM}. On the other hand, typed $\lambda$-calculi directly inspired typed programming languages. For example the Hindley-Milner type system \cite{hindley_principal_1969,milner_theory_1978}, originally devised for the $\lambda$-calculus, is the core of the type systems adopted in \texttt{Haskell} and \texttt{ML}. Moreover, the $\lambda$-calculus was the driver for the study of effetctful languages. Mechanisms to introduce impurities, such as input/output or exception handling, in pure functional languages like \texttt{Haskell} were first introduced in the abstract setting of the $\lambda$-calculus. Monads \cite{moggi_notions_1991} are the most notable example.
 \section{The Syntax}
 We now define a specific ARS, the $\lambda$-calculus. We start defining the set of its terms. As usual in theoretical computer science terms are inductively defined by a context-free grammar \cite{backus_syntax_1959}.
@@ -195,7 +195,7 @@ Classical $\lambda$-calculus is deterministic, in that if a $\lambda$-term has a
 \end{corollary}
 \subsection{Expressiveness}
 The $\lambda$-calculus, as we have defined it, in the previous section, turns out to be a Turing-complete formalism. This means that we should be able to use it as a programming language. We are not going to discuss in detail all the encodings, we just limit to a few illuminating examples. For a complete treatment, the interested reader can refer to \cite{barendregt_lambda_1984}.
-\paragraph{Integers}
+\paragraph{Integers.}
 Integer numbers can be encoded as $\lambda$ terms in the following way. They are named Church numerals because this was the original encoding provided by Church \cite{church_set_1933}. In particular, for each $n\geq 0$:
 $$
 \lceil n\rceil=\lambda f.\lambda x.(f^nx)
@@ -210,7 +210,7 @@ For example,
 	\item $\lceil one\rceil=\lambda f.\lambda x.(fx)$
 	\item $\lceil two\rceil=\lambda f.\lambda x.(f(fx))$
 \end{itemize}
-\paragraph{Arithmetics}
+\paragraph{Arithmetics.}
 Once defined numerals, one wants to use them. We give here combinators for addition, multiplication and exponentiation:
 \begin{itemize}
 	\item $\mathbf{A}=\lambda x.\lambda y.\lambda p.\lambda q.(xp(ypq))$,
@@ -226,7 +226,7 @@ Once defined numerals, one wants to use them. We give here combinators for addit
 	\end{itemize}
 \end{proposition}
 The reader can note how easy the whole process is w.r.t other Turing-complete formalisms, such as Turing machines. Sketching a single-tape Turing machine performing multiplication would not be in fact an easy task at all.
-\paragraph{$\lambda$-definability}
+\paragraph{$\lambda$-definability.}
 Besides basic arithmetical operations one could show how to encode in the $\lambda$-calculus all partial recursive functions. 
 \begin{definition}
 	A partial function $f:\mathbb{N}^m\rightarrow\mathbb{N}$ is \emph{$\lambda$-definable} if there exists a $\lambda$-term $\mathbf{F}$ such that for each $n_1\cdots n_m\in\mathbb{N}$,
@@ -235,7 +235,8 @@ Besides basic arithmetical operations one could show how to encode in the $\lamb
 		\item If $f(n_1\cdots n_m)$ is undefined, then $\mathbf{F}$  has no normal form.
 	\end{enumerate}
 \end{definition}
-Since one can prove that it is possible to encode in the $\lambda$-calculus the so-called initial functions, together with composition, projection, minimisation and primitive recursion operators, the $\lambda$-calculus is a Turing-complete language, characterising our intuitive notion of computability.
+It is easy to see that \emph{initial functions}, i.e. projections, successor and zero can be encoded as $\lambda$-terms. Composition is also natural since $\lambda$-calculus is a formalism based on functions. One way to tackle primitive recursion is the use of a \emph{fixed point combinator}, i.e. a $\lambda$-term $\mathbf{Y}$, such that for each term $\termone$, $\termone(\mathbf{Y}\termone)\redbetared{}\mathbf{Y}\termone$. Again thanks to the use of a fixed point combinator one can encode functions defined by minimisation. 
+Since one can also prove that all $\lambda$-definable functions are partial recursive, the $\lambda$-calculus turns out to be a Turing-complete language, characterising, by Church's Thesis, our intuitive notion of computability.
 \begin{theorem}
 	A function is $\lambda$-definable if and only if it is partial recursive.
 \end{theorem}
@@ -244,19 +245,19 @@ Actually, one does not need full $\lambda$-calculus to have a Turing-complete la
 	The set $\{\termone\in\Lambda\,|\,\termone\textrm{ has normal form}\}$ is recursively enumerable, but not recursive.
 \end{theorem}
 \section{Strategies}
-We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. A we have already pointed out, one could ask if a minimal reduction strategy exists, and in that case if it is computable. With minimal we intend leading to normal form, if there is one, in the minimum number of $\beta$-steps.
+We have already defined what a reduction strategy is, in the abstract. Now we are going to report some results regarding some concrete strategies for the $\lambda$-calculus. Typically, strategies are defined giving the position of the redex to be reduced. Different strategies can lead to completely different reduction sequences and thus to completely different computations. Some, for example, can be non-terminating, while others can terminate in just one step, though starting from the same term. Investigation of reduction strategies is an active field in the programming language community because of the great impact they have on performances. As we have already pointed out, one could ask if there exists a \emph{minimal} reduction strategy, i.e. a strategy leading to normal form, if there is one, in the minimum number of $\beta$-steps. In case of a positive answer, is such a strategy \emph{computable}?
 \begin{proposition}[\cite{barendregt_notes_1976}]
 	There exists a minimal strategy for the $\lambda$-calculus.
 \end{proposition}
 This is a trivial result. A less trivial one is the following.
-\begin{theorem}[\cite{barendregt_notes_1976}]
+\begin{theorem}[\cite{barendregt_notes_1976}]\label{theorem:imp}
 	There exists no recursive minimal strategy for the $\lambda$-calculus.
 \end{theorem}
 This latter negative result can be strengthened in the following sense.
 \begin{theorem}[\cite{kathail_optimal_1990}]
 	For any $k>0$, there is no recursive reduction strategy that can reduce any $\lambda$-term to normal form (if any) in no more than $k\cdot m$ steps, where $m$ is the minimum number of $\beta$-steps needed to reduce the term.
 \end{theorem}
-Since there is no hope to devise strategies that are good in any context, we start defining two classical strategies and then reporting some results about them.
+Since there is no hope to devise strategies that are good in any context, we start defining two classical strategies and then reporting some results about them. At the end of this Chapter a section is devoted to a brief overview on Optimal Reduction (optimal in a sense that will be clarified later).
 \begin{definition}
 	\emph{Leftmost-outermost} $(\pslo)$ is a deterministic reduction
 	strategy in which $\pslo(\termone)=\termtwo$ if and only if
@@ -320,7 +321,7 @@ Since there is no hope to devise strategies that are good in any context, we sta
 		The residual relation is transitive.
 	\end{definition}
 	\subsection{Standard Sequences and Leftmost Strategies}
-	Through the concept of residual it is possible to define what a standard reduction sequence is. Standard reduction sequences are important because a fundamental theorem in the theory of the $\lambda$-calculus, the Standardisation Theorem, states that every reduction sequence can be standardised, yielding as a corollary that leftmost-outermost strategy is normalising. We show step-by-step how to derive this result, although omitting the proofs, that however can be found in the references.  
+	Through the concept of residual it is possible to define what a standard reduction sequence is. Standard reduction sequences are important because a fundamental theorem in the theory of the $\lambda$-calculus, the Standardisation Theorem, states that every reduction sequence can be standardised, yielding as a corollary that leftmost-outermost strategy is normalising. We show step-by-step how to derive this result, although omitting the proofs, that however can be found in the references contained in this Section.  
 	\begin{definition}
 		A reduction sequence $\sigma:\termone\redbetardx{\rdxone_1}\termone_1\redbetardx{\rdxone_2}\cdots\termone_n=\termtwo$ is \emph{standard} if for all $1\leq i<j$ and for all $1\leq j\leq n$, $\rdxone_j$ is not the residual of some redex to the left of $\rdxone_i$.
 	\end{definition}
@@ -382,5 +383,10 @@ We conclude the analysis of leftmost-outermost strategy stating and proving a qu
 	\begin{proof}
 		The ARS $(\Lambda, \redbetaanf)$ satisfies the diamond property by Proposition \ref{prop:diam}, and thus the thesis follows by Lemma \ref{lemma:weak}.
 	\end{proof}
+	\subsection{Optimal Reduction Strategies}
+	Theorem~\ref{theorem:imp} states the impossibility to devise an effective minimal strategy. Thus, optimality should be achieved in another way and since ``optimality and computability cannot be both achieved at the same time, the trick consists in a change of granularity'' \cite{terese_term_2003}. Around thirty years ago, indeed, Jean-Jacques Lévy introduced the notion of \emph{optimal reduction}, where optimal roughly means without duplication of reduction work and without any useless computation \cite{levy_reductions_1978}. He proved that such a strategy exists and is effective but he was not able to provide an actual implementation. After more than ten years, Lamping \cite{lamping_algorithm_1990} and Kathail \cite{kathail_optimal_1990} indipendently proposed the first algorithms to actually implement optimal reductions in the sense of Lévy. Lamping's algorithm implemented optimal reductions by means of the so-called \emph{sharing graphs} with some \emph{rewriting rules} sound with respect to Lévy specification. The algorithm captured the interest of the community, that began to work trying to simplify and better understand it. The research on this topic took different directions.
+	\paragraph{Mathematical Foundations of Optimal Reduction.}Lamping proposed his algorithm for optimal reductions in the same years Girard published his works on \emph{Linear Logic} \cite{girard_linear_1987} and \emph{Geometry of Interaction} \cite{girard_geometry_1989}. Soon it became clear that there was a strong connection between these two fields \cite{gonthier_geometry_1992}. This strong connection allowed to achieve at least two important goals. Firstly, Geometry of Interaction provided an elegant mathematical framework suitable to better understand optimal reductions and to improve and simplify Lamping's method. Secondly, graphs similar to Lamping's were a concrete representation of the Geometry of Interaction. Moreover Asperti rephrased the correspondence between Linear Logic and optimal reductions in a categorical perspective in \cite{asperti_linear_1995}, going another step further in the understanding of the subject, and further simplifying the algorithm.
+	\paragraph{Cost Models and Efficiency of the $\lambda$-calculus.}Since the birth of computational complexity theory, Turing Machines were tipically used to define complexity classes \cite{hartmanis_computational_1965}. This is reasonable, since this abstract model of computation reflects quite well actual hardware. However, higher-order functional programming languages, such as \texttt{Haskell} or \texttt{Caml}, subsume a model of computation more akin to the $\lambda$-calculus than to the Turing Machines. Thus, the study of the computational complexity of programs written in these languages is not easy using the standard machinery of complexity theory. This way, it becomes interesting to study the computational complexity of the $\beta$-rule itself, the only computational mechanism of the $\lambda$-calculus. In particular a single $\beta$-reduction step can correspond to many moves of a Turing Machine implementing it, i.e. $\beta$-reduction is in general not \emph{atomic}. A recent result \cite{accattoli_leftmost-outermost_2016}, however, proved that the $\lambda$-calculus equipped with a leftmost-outermost evaluation strategy can be simulated by a Turing Machine with only a polynomial overhead in time, i.e. the number of $\beta$-steps to normal form \emph{is} a reasonable measure of the complexity of a $\lambda$-term. Leftmost-outermost, however, is well-known to be far from efficiency in general. And what about optimal reduction in the sense of Lévy? Is this strategy efficient? There is no definite answer to this question. Optimal reductions in fact are \emph{optimal} with respect to the number of parallel $\beta$-reductions, which however was proved \emph{not} to be a reasonable cost model \cite{asperti_parallel_2001}. But this tell us nothing about efficiency. The only results in the literature are partial, i.e. restricted to some classes of $\lambda$-terms, and all of them are positive. In \cite{baillot_light_2011} the authors proved that $\lambda$-terms with known bounded complexity, polynomial and elementary time, were normalized via sharing graphs with a cost respectively polynomial and elementary. More recently in \cite{guerrini_is_2017} this result has been generalized to arbitrary reductions and a clear bound on the sharing overhead was given. \cite{asperti_about_2017} is an updated short survey on the subject.
+	\paragraph{Optimal Implementation of Functional Languages.}Soon after the publication of Lamping's algorithm, researchers tried to extend his method to real functional programming languages, since coding everything as $\lambda$-terms is clearly infeasible. Lamping's algorithm wa sadapted to work with a larger and more flexible calculus featuring, for example inductive data types, conditionals and recursion. The \emph{Bologna Optimal Higher-Order Machine} (BOHM) was the first prototype implementation of these ideas \cite{asperti_bologna_1996}. It was written in \texttt{C} and was an interpreter for a sugared $\lambda$-calculus enriched with booleans, integers, lists and basic operations on these data types. Benchmarks in \cite{asperti_optimal_1998} showed that BOHM outperformed both \texttt{Caml Light} and \texttt{Haskell} on pure $\lambda$-terms and was comparable on typical symbolic computations. \cite{asperti_optimal_1998} contains a self-contained treatment of the whole material behind optimal reductions, from the mathematical theory to the more practical aspects of the implementation, such as garbage collection.
 \end{LONG}
 %*****************************************

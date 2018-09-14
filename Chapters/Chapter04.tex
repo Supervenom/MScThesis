@@ -56,7 +56,7 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 	|\rho_i|&=|\rho_{i-1}|-|\rho_{i-1}|\frac{1}{i}=|\rho_{i-1}|\left( 1-\frac{1}{i}\right).
 	\end{split}
 	\end{equation*}
-	The recurrence relation in the last line can be solved analytically and yields $|\rho_i|=\frac{1}{i}$ for each $i\geq 1$. Thus $(\Lambda_\mathsf{WN},\psuni)$ is not PAST since 
+	The recurrence relation in the last line yields $|\rho_i|=\frac{1}{i}$ for each $i\geq 1$. Thus $(\Lambda_\mathsf{WN},\psuni)$ is not PAST since 
 	$$
 	\nsteps{\psuni}(\termone)=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\sum\limits_{i=1}^{\infty} \frac{1}{i}=+\infty.
 	$$
@@ -230,7 +230,9 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	\end{figure}
 \end{example}
 \begin{figure}
-	\resizebox{12cm}{!}{
+	\fbox{
+		\begin{minipage}{.96\textwidth}
+	\resizebox{11cm}{!}{
 		\tikzstyle{level 2}=[level distance=2.5cm, sibling distance=3.6cm]
 		\tikzstyle{level 3}=[level distance=2.5cm, sibling distance=3cm]
 		\begin{tikzpicture}[grow=down]
@@ -331,9 +333,10 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 			node[right]  {$1-\varepsilon$}
 		};
 		\path[-] (mm) edge [loop right] node[left] {$1-\varepsilon$} ();
-		\path[-] (f) edge [loop right] node[left] {$1-\varepsilon$} ();
-		\path[-] (g) edge [loop right] node[left] {$1-\varepsilon$} ();
+		\path[-] (f) edge [loop left] node[right] {$1-\varepsilon$} ();
+		\path[-] (g) edge [loop left] node[right] {$1-\varepsilon$} ();
 		\end{tikzpicture}}
+	\end{minipage}}
 	\caption{The tree representing the reduction sequence of $\termone_n$.}
 	\label{figure:probtree}
 \end{figure}
@@ -490,8 +493,9 @@ $n=\nsteps{\pslo}(\termone)$.
 \begin{proof}
 	Let $n=\nsteps{\pslo}(\termone)=\explen{\termone}(1)$.
 	\begin{align*}
-	\explen{\termone}(\varepsilon)&=\sum\limits_{i=1}^{\infty} |\rho_i|=\sum\limits_{i=1}^{n} |\rho_i|+\sum\limits_{i=n+1}^{\infty} |\rho_i|\overset{\textrm{Lemma \ref{lemma:min}}}{=}\sum\limits_{i=1}^{n}1+\sum\limits_{i=n+1}^{\infty} |\rho_i|\\
-	&=n+\sum\limits_{i=n+1}^{\infty}|\rho_i|=\explen{\termone}(1)+\sum\limits_{i=n+1}^{\infty}|\rho_i|\geq \explen{\termone}(1).
+	\explen{\termone}(\varepsilon)&=\sum\limits_{i=1}^{\infty} |\rho_i|=\sum\limits_{i=1}^{n} |\rho_i|+\sum\limits_{i=n+1}^{\infty} |\rho_i|\overset{\textrm{Lemma \ref{lemma:min}}}{=}\\
+	&=\sum\limits_{i=1}^{n}1+\sum\limits_{i=n+1}^{\infty} |\rho_i|=n+\sum\limits_{i=n+1}^{\infty}|\rho_i|\\
+	&=\explen{\termone}(1)+\sum\limits_{i=n+1}^{\infty}|\rho_i|\geq \explen{\termone}(1).
 	\end{align*}
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -609,7 +613,7 @@ We need some preliminary technical results.
 			\draw (l) edge[->] node[right=5pt] {$\mathsf{ANF}$} (p);
 			\end{tikzpicture}}}}
 	\end{minipage}}
-	\caption{The diagrams with the different cases of Lemma~\ref{lemma:LObase}.}
+	\caption{The diagrams representing the different cases of Lemma~\ref{lemma:LObase}.}
 	\label{figure:diagramBase}
 \end{figure}
 \begin{lemma}\label{lemma:LOdiamond}

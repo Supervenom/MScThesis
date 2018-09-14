@@ -1,4 +1,14 @@
 
+@inproceedings{lamping_algorithm_1990,
+	title = {An Algorithm for Optimal Lambda Calculus Reduction},
+	abstract = {We present an algorithm for lambda expression reduction that avoids any copying that could later cause duplication of work. It is optimal in the sense defined by Lévy. The basis of the algorithm is a graphical representation of the kinds of commonality that can arise from substitutions; the idea can be adapted to represent other kinds of expressions besides lambda expressions. The algorithm is also well suited to parallel implementations, consisting of a fixed set of local graph rewrite rules.},
+	pages = {16--30},
+	booktitle = {Proceedings of the 17th {POPL}},
+	publisher = {{ACM}},
+	author = {Lamping, John},
+	date = {1990}
+}
+
 @thesis{levy_reductions_1978,
 	title = {Réductions correctes et optimales dans le lambda-calcul},
 	institution = {Université Paris 7},
@@ -7,12 +17,66 @@
 	date = {1978}
 }
 
+@article{asperti_parallel_2001,
+	title = {Parallel Beta Reduction Is Not Elementary Recursive},
+	volume = {170},
+	abstract = {We analyze the inherent complexity of implementing Lévy's notion of optimal evaluation for the λ-calculus, where similar redexes are contracted in one step via so-called parallel β-reduction. Optimal evaluation was finally realized by Lamping, who introduced a beautiful graph reduction technology for sharing evaluation contexts dual to the sharing of values. His pioneering insights have been modified and improved in subsequent implementations of optimal reduction. We prove that the cost of parallel β-reduction is not bounded by any Kalmár-elementary recursive function. Not only do we establish that the parallel β-step cannot be a unit-cost operation, we demonstrate that the time complexity of implementing a sequence of n parallel β-steps is not bounded as O(2n), O(22n), O(222n), or in general, O(Kl(n)), where Kl(n) is a fixed stack of l 2's with an n on top. A key insight, essential to the establishment of this non-elementary lower bound, is that any simply typed λ-term can be reduced to normal form in a number of parallel β-steps that is only polynomial in the length of the explicitly typed term. The result follows from Statman's theorem that deciding equivalence of typed λ-terms is not elementary recursive. The main theorem gives a lower bound on the work that must be done by any technology that implements Lévy's notion of optimal reduction. However, in the significant case of Lamping's solution, we make some important remarks addressing how work done by β-reduction is translated into equivalent work carried out by his bookkeeping nodes. In particular, we identify the computational paradigms of superposition of values and of higher-order sharing, appealing to compelling analogies with quantum mechanics and {SIMD}-parallelism.},
+	pages = {49--80},
+	number = {1},
+	journaltitle = {Information and Computation},
+	shortjournal = {Information and Computation},
+	author = {Asperti, Andrea and Mairson, Harry G.},
+	date = {2001},
+	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/G9TCZA8W/Asperti e Mairson - 2001 - Parallel Beta Reduction Is Not Elementary Recursiv.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/ADXN3YAE/S089054010192869X.html:text/html}
+}
+
 @thesis{kathail_optimal_1990,
 	title = {Optimal Interpreters for lambda-calculus based functional languages},
 	institution = {Massachusetts Institute of Technology},
 	type = {phdthesis},
 	author = {Kathail, Vinod},
 	date = {1990}
+}
+
+@article{asperti_bologna_1996,
+	title = {The Bologna Optimal Higher-Order Machine},
+	volume = {6},
+	abstract = {The Bologna Optimal Higher-order Machine ({BOHM}) is a prototype implementation of the core of a functional language based on (a variant of) Lamping's optimal graph reduction technique (Lamping, 1990; Gonthier et al., 1992a; Asperti, 1994). The source language is a sugared λ-calculus enriched with booleans, integers, lists and basic operations on these data types (following the guidelines of Interaction Systems – Asperti and Laneve (1993b, 1994), Laneve (1993)). In this paper, we shall describe {BOHM}'s general architecture (comprising the garbage collector), and give a large set of benchmarks and experimental results.},
+	pages = {763--810},
+	number = {6},
+	journaltitle = {Journal of Functional Programming},
+	author = {Asperti, Andrea and Giovannetti, Cecilia and Naletto, Andrea},
+	date = {1996},
+	langid = {english},
+	file = {Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/9HM9ZA5Q/1F2763B0F931680F9B15BDC750BEB343.html:text/html}
+}
+
+@book{asperti_optimal_1998,
+	title = {The Optimal Implementation of Functional Programming Languages},
+	publisher = {Cambridge University Press},
+	author = {Asperti, Andrea and Guerrini, Stefano},
+	date = {1998}
+}
+
+@article{asperti_linear_1995,
+	title = {Linear Logic, Comonads And Optimal Reductions},
+	volume = {22},
+	abstract = {The paper discusses, in a categorical perspective, some recent works on optimal graph reduction techniques for the λ-calculus. In particular, we relate the two “brackets” in [{GAL}92a] to the two operations associated with the comonad “!” of Linear Logic. The rewriting rules can be then understood as a “local implementation” of naturality laws, that is as the broadcasting of some information from the output to the inputs of a term, following its connected structure.},
+	pages = {3--22},
+	number = {1},
+	journaltitle = {Fundam. Inf.},
+	author = {Asperti, Andrea},
+	date = {1995}
+}
+
+@inproceedings{gonthier_geometry_1992,
+	title = {The Geometry of Optimal Lambda Reduction},
+	abstract = {Lamping discovered an optimal graph-reduction implementation of the \&lgr;-calculus. Simultaneously, Girard invented the geometry of interaction, a mathematical foundation for operational semantics. In this paper, we connect and explain the geometry of interaction and Lamping's graphs. The geometry of interaction provides a suitable semantic basis for explaining and improving Lamping's system. On the other hand, graphs similar to Lamping's provide a concrete representation of the geometry of interaction. Together, they offer a new understanding of computation, as well as ideas for efficient and correct implementations.},
+	pages = {15--26},
+	booktitle = {Proceedings of the 19th {POPL}},
+	publisher = {{ACM}},
+	author = {Gonthier, Georges and Abadi, Martín and Lévy, Jean-Jacques},
+	date = {1992}
 }
 
 @article{girard_linear_1987,
@@ -26,6 +90,78 @@
 	author = {Girard, Jean-Yves},
 	date = {1987},
 	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/UBUVI3EX/Girard - 1987 - Linear logic.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/3FVDMBUN/0304397587900454.html:text/html}
+}
+
+@incollection{girard_geometry_1989,
+	title = {Geometry of Interaction 1: Interpretation of System F},
+	volume = {127},
+	shorttitle = {Geometry of Interaction 1},
+	abstract = {This chapter describes the development of a semantics of computation free from the twin drawbacks of reductionism (that leads to static modification) and subjectivism (that leads to syntactical abuses, in other terms, bureaucracy). The new approach initiated in this chapter rests on the use of a specific C*-algebra Λ* that has the distinguished property of bearing a (non associative) inner tensor product. The chapter describes that a representative class of algorithms can be modelized by means of standard mathematics.},
+	pages = {221--260},
+	booktitle = {Studies in Logic and the Foundations of Mathematics},
+	publisher = {Elsevier},
+	author = {Girard, Jean-Yves},
+	editor = {Ferro, R. and Bonotto, C. and Valentini, S. and Zanardo, A.},
+	date = {1989},
+	file = {ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/IMIC2WS6/S0049237X08702714.html:text/html}
+}
+
+@article{accattoli_leftmost-outermost_2016,
+	title = {(Leftmost-Outermost) Beta Reduction is Invariant, Indeed},
+	volume = {Volume 12, Issue 1},
+	abstract = {Slot and van Emde Boas' weak invariance thesis states that reasonable machines can simulate each other within a polynomially overhead in time. Is lambda-calculus a reasonable machine? Is there a way to measure the computational complexity of a lambda-term? This paper presents the first complete positive answer to this long-standing problem. Moreover, our answer is completely machine-independent and based over a standard notion in the theory of lambda-calculus: the length of a leftmost-outermost derivation to normal form is an invariant cost model. Such a theorem cannot be proved by directly relating lambda-calculus with Turing machines or random access machines, because of the size explosion problem: there are terms that in a linear number of steps produce an exponentially long output. The first step towards the solution is to shift to a notion of evaluation for which the length and the size of the output are linearly related. This is done by adopting the linear substitution calculus ({LSC}), a calculus of explicit substitutions modeled after linear logic proof nets and admitting a decomposition of leftmost-outermost derivations with the desired property. Thus, the {LSC} is invariant with respect to, say, random access machines. The second step is to show that {LSC} is invariant with respect to the lambda-calculus. The size explosion problem seems to imply that this is not possible: having the same notions of normal form, evaluation in the {LSC} is exponentially longer than in the lambda-calculus. We solve such an impasse by introducing a new form of shared normal form and shared reduction, deemed useful. Useful evaluation avoids those steps that only unshare the output without contributing to beta-redexes, i.e. the steps that cause the blow-up in size. The main technical contribution of the paper is indeed the definition of useful reductions and the thorough analysis of their properties.},
+	journaltitle = {Logical Methods in Computer Science},
+	author = {Accattoli, Beniamino and Dal Lago, Ugo},
+	date = {2016},
+	langid = {english},
+	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/HJEMLXUF/Lago e Accattoli - 2016 - (Leftmost-Outermost) Beta Reduction is Invariant, .pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/RHNM64UR/1627.html:text/html}
+}
+
+@article{asperti_about_2017,
+	title = {About the efficient reduction of lambda terms},
+	abstract = {There is still a lot of confusion about "optimal" sharing in the lambda calculus, and its actual efficiency. In this article, we shall try to clarify some of these issues.},
+	journaltitle = {{arXiv}:1701.04240 [cs]},
+	author = {Asperti, Andrea},
+	date = {2017},
+	keywords = {Computer Science - Logic in Computer Science},
+	file = {arXiv\:1701.04240 PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/AQWRZCVF/Asperti - 2017 - About the efficient reduction of lambda terms.pdf:application/pdf;arXiv.org Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/8YUS5LDF/1701.html:text/html}
+}
+
+@inproceedings{guerrini_is_2017,
+	title = {Is the Optimal Implementation Inefficient? Elementarily Not},
+	volume = {84},
+	series = {{LIPIcs}},
+	pages = {17:1--17:16},
+	booktitle = {2nd {FSCD}},
+	author = {Guerrini, Stefano and Solieri, Marco},
+	editor = {Miller, Dale},
+	date = {2017},
+	keywords = {complexity, lambda-calculus, linear logic, optimality, proof nets, sharing graphs},
+	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/64CCQQMV/Guerrini e Solieri - 2017 - Is the Optimal Implementation Inefficientl Element.pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/CB3Q2MXE/7733.html:text/html}
+}
+
+@article{baillot_light_2011,
+	title = {Light logics and optimal reduction: Completeness and complexity},
+	volume = {209},
+	shorttitle = {Light logics and optimal reduction},
+	abstract = {Typing of lambda-terms in elementary and light affine logic ({EAL} and {LAL}, respectively) has been studied for two different reasons: on the one hand the evaluation of typed terms using {LAL} ({EAL}, respectively) proof-nets admits a guaranteed polynomial (elementary, respectively) bound; on the other hand these terms can also be evaluated by optimal reduction using the abstract version of Lamping’s algorithm. The first reduction is global while the second one is local and asynchronous. We prove that for {LAL} ({EAL}, respectively) typed terms, Lamping’s abstract algorithm also admits a polynomial (elementary, respectively) bound. We also give a proof of its soundness and completeness (for {EAL} and {LAL} with type fixpoints), by using a simple geometry of interaction model (context semantics).},
+	pages = {118--142},
+	number = {2},
+	journaltitle = {Information and Computation},
+	shortjournal = {Information and Computation},
+	author = {Baillot, Patrick and Coppola, Paolo and Dal Lago, Ugo},
+	date = {2011},
+	keywords = {Implicit computational complexity, Lambda calculus, Light linear logic, Linear logic, Optimal reduction, Proof-nets},
+	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/JYD3FN9Q/Baillot et al. - 2011 - Light logics and optimal reduction Completeness a.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/EZSWHN68/S0890540110001604.html:text/html}
+}
+
+@article{hartmanis_computational_1965,
+	title = {On the Computational Complexity of Algorithms},
+	volume = {117},
+	pages = {285--306},
+	journaltitle = {Transactions of the American Mathematical Society},
+	author = {Hartmanis, J. and Stearns, R. E.},
+	date = {1965}
 }
 
 @article{backus_can_1978,
@@ -84,7 +220,7 @@ A new class of computing systems uses the functional programming style both in i
 	abstract = {This paper gives a tutorial summary of the syntax and interpretation rules of the proposed international algebraic language put forward by the Zurich {ACM}-{GAMM} Conference, followed by a formal, complete presentation of the same information. Notations are presented for numbers, numerical variables, Boolean variables, relations, n-dimensional arrays, functi ons, operator s and algebraic expre s sions. Means are provided in the language for specifying assignment of values to. variables, conditional execution of statements, iterative proce\&lt;i;ures, formation of compound statements from sequences of statements, definition of new statements for arbitrary procedures, reuse and alteration of program segments. The proposed language is intended to provide convenient and concise means for expressing virtually all procedures of {numericaL} computation while employing relatively few syntactical rules and statement types.},
 	pages = {125--132},
 	journaltitle = {Proc. Int. Conf. on  Information Processing},
-	author = {Backus, John W.},
+	author = {Backus, John},
 	date = {1959},
 	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/FVE99LSV/Backus - 1959 - The syntax and semantics of the proposed internati.pdf:application/pdf;Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/Q9QNGTDM/790ea9d7f910ef2def2418b44a69b111d9f8ceec.html:text/html}
 }
@@ -103,7 +239,7 @@ A new class of computing systems uses the functional programming style both in i
 @article{sinot_sub-lambda-calculi_2008,
 	title = {Sub-{\textbackslash}lambda-calculi, Classified},
 	volume = {203},
-	series = {Proc. of 4th {TERMGRAPH}},
+	series = {Proceedings of 4th {TERMGRAPH}},
 	abstract = {When sharing is studied in the λ-calculus, some sub-calculi often pop up, for instance λI or the linear λ-calculus. In this paper, we generalise these to a large class of sub-calculi, parametrised by an arbitrary predicate on the number of occurrences of bound variables. Such a definition only makes sense when the sub-calculi are stable by β-reduction. Surprisingly, we are able to give a complete description and classification of such stable sub-calculi, in a rather algebraic way; and surprisingly again, we discover some unexpected such subcalculi. This could lead to a better understanding of the structure of the λ-calculus.},
 	pages = {123--133},
 	number = {1},
@@ -142,7 +278,7 @@ A new class of computing systems uses the functional programming style both in i
 
 @book{ash_probability_1999,
 	location = {San Diego},
-	edition = {Second},
+	edition = {2nd edition},
 	title = {Probability and Measure Theory},
 	abstract = {Probability and Measure Theory, Second Edition, is a text for a graduate-level course in probability that includes essential background topics in analysis. It provides extensive coverage of conditional probability and expectation, strong laws of large numbers, martingale theory, the central limit theorem, ergodic theory, and Brownian motion.Clear, readable {styleSolutions} to many problems presented in {textSolutions} manual for {instructorsMaterial} new to the second edition on ergodic theory, Brownian motion, and convergence theorems used in {statisticsNo} knowledge of general topology required, just basic analysis and metric {spacesEfficient} organization},
 	publisher = {Academic Press},
@@ -316,7 +452,7 @@ A new class of computing systems uses the functional programming style both in i
 	series = {{LNCS}},
 	abstract = {Recently rule based languages focussed on the use of rewriting as a modeling tool which results in making specifications executable. To extend the modeling capabilities of rule based languages, we explore the possibility of making the rule applications subject to probabilistic choices.},
 	pages = {252--266},
-	booktitle = {Proc. of 13th {RTA}},
+	booktitle = {Proceedings of 13th {RTA}},
 	publisher = {Springer},
 	author = {Bournez, Olivier and Kirchner, Claude},
 	date = {2002}
@@ -336,7 +472,7 @@ A new class of computing systems uses the functional programming style both in i
 	series = {{LNCS}},
 	abstract = {We study the termination problem for probabilistic term rewrite systems. We prove that the interpretation method is sound and complete for a strengthening of positive almost sure termination, when abstract reduction systems and term rewrite systems are considered. Two instances of the interpretation method—polynomial and matrix interpretations—are analyzed and shown to capture interesting and nontrivial examples when automated. We capture probabilistic computation in a novel way by means of multidistribution reduction sequences, thus accounting for both the nondeterminism in the choice of the redex and the probabilism intrinsic in firing each rule.},
 	pages = {132--148},
-	booktitle = {Proc. of 14th {FLOPS}},
+	booktitle = {Proceedings of 14th {FLOPS}},
 	publisher = {Springer},
 	author = {Avanzini, Martin and Dal Lago, Ugo and Yamada, Akihisa},
 	date = {2018},
@@ -359,7 +495,7 @@ A new class of computing systems uses the functional programming style both in i
 	shorttitle = {Probabilistic Termination},
 	abstract = {We propose a framework to prove almost sure termination for probabilistic programs with real valued variables. It is based on ranking supermartingales, a notion analogous to ranking functions on non-probabilistic programs. The framework is proven sound and complete for a meaningful class of programs involving randomization and bounded nondeterminism. We complement this foundational insigh by a practical proof methodology, based on sound conditions that enable compositional reasoning and are amenable to a direct implementation using modern theorem provers. This is integrated in a small dependent type system, to overcome the problem that lexicographic ranking functions fail when combined with randomization. Among others, this compositional methodology enables the verification of probabilistic programs outside the complete class that admits ranking supermartingales.},
 	pages = {489--501},
-	booktitle = {Proc. of 42nd {POPL}},
+	booktitle = {Proceedings of 42nd {POPL}},
 	publisher = {{ACM}},
 	author = {Ferrer Fioriti, Luis María and Hermanns, Holger},
 	date = {2015},
@@ -372,7 +508,7 @@ A new class of computing systems uses the functional programming style both in i
 	series = {{LNCS}},
 	abstract = {In order to extend the modeling capabilities of rewriting systems, it is rather natural to consider that the firing of rules can be subject to some probabilistic laws. Considering rewrite rules subject to probabilities leads to numerous questions about the underlying notions and results.We focus here on the problem of termination of a set of probabilistic rewrite rules. A probabilistic rewrite system is said almost surely terminating if the probability that a derivation leads to a normal form is one. Such a system is said positively almost surely terminating if furthermore the mean length of a derivation is finite. We provide several results and techniques in order to prove positive almost sure termination of a given set of probabilistic rewrite rules. All these techniques subsume classical ones for non-probabilistic systems.},
 	pages = {323--337},
-	booktitle = {Proc. of 16th {RTA}},
+	booktitle = {Proceedings of 16th {RTA}},
 	publisher = {Springer},
 	author = {Bournez, Olivier and Garnier, Florent},
 	date = {2005},
@@ -424,7 +560,6 @@ A new class of computing systems uses the functional programming style both in i
 @article{turing_computability_1937,
 	title = {Computability and \${\textbackslash}lambda\$-Definability},
 	volume = {2},
-	issn = {0022-4812, 1943-5886},
 	pages = {153--163},
 	number = {4},
 	journaltitle = {Journal of Symbolic Logic},
@@ -591,7 +726,7 @@ The system is biased towards “expressions” rather than “statements.” It 
 	number = {3},
 	journaltitle = {Theoretical Computer Science},
 	shortjournal = {Theoretical Computer Science},
-	author = {Plotkin, G. D.},
+	author = {Plotkin, Gordon D.},
 	date = {1977},
 	file = {ScienceDirect Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/224ERIUT/Plotkin - 1977 - LCF considered as a programming language.pdf:application/pdf;ScienceDirect Snapshot:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/6LXYTWLU/0304397577900445.html:text/html}
 }
@@ -638,7 +773,9 @@ The system is biased towards “expressions” rather than “statements.” It 
 
 @article{barendregt_notes_1976,
 	title = {Some notes on lambda-reduction},
+	volume = {22},
 	pages = {13--53},
+	journaltitle = {Preprint of the University of Utrecht},
 	author = {Barendregt, Hendrik Pieter and Bergstra, Jan and Klop, jan willem and Volken, Henri},
 	date = {1976},
 	file = {Full Text PDF:/home/gabriele/.zotero/zotero/fuzoq98e.default/zotero/storage/B8ZZMCKI/Barendregt et al. - 1976 - Some notes on lambda-reduction.pdf:application/pdf}
@@ -706,4 +843,13 @@ The system is biased towards “expressions” rather than “statements.” It 
 	title = {prostra-tool},
 	url = {https://github.com/Supervenom/prostra-tool},
 	author = {Vanoni, Gabriele}
+}
+
+@book{hrbacek_introduction_1999,
+	edition = {3rd edition},
+	title = {Introduction to Set Theory},
+	abstract = {Thoroughly revised, updated, expanded, and reorganized to serve as a primary text for mathematics courses, Introduction to Set Theory, Third Edition covers the basics: relations, functions, orderings, finite, countable, and uncountable sets, and cardinal and ordinal numbers. It also provides five additional self-contained chapters, consolidates the material on real numbers into a single updated chapter affording flexibility in course design, supplies end-of-section problems, with hints, of varying degrees of difficulty, includes new material on normal forms and Goodstein sequences, and adds important recent ideas including filters, ultrafilters, closed unbounded and stationary sets, and partitions.},
+	publisher = {Marcel Dekker},
+	author = {Hrbacek, Karel and Jech, Thomas},
+	date = {1999}
 }
