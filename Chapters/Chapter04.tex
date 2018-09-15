@@ -3,7 +3,7 @@
 %************************************************
 In the previous Chapter we have defined all the mathematical machinery needed for defining randomised strategies for ARSs, in the abstract. In this Chapter we focus on the $\lambda$-calculus, as defined in Chapter \ref{ch:lambda}, the target of our investigation. In deterministic strategies, the redex which is being reduced is typically chosen according to its position in the term. In randomised strategies we have more degrees of freedom. Intuitively we have to assign a probability to each redex of any term, making the sum to one. The space of possible choices is indeed very large. A first design choice could be the answer to the following question: should \emph{every} redex in a term being reduced with strictly positive probability? If the answer is yes, then one should decide how to define these numbers. 
 \section{The Uniform Strategy}
-Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the randomised strategy thought by Prakash Panangaden, who is ispired our work, through some conversations with Ugo Dal Lago. More formally, $\psuni$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, ${\psuni=\mu\in\dist{\Lambda}}$. For each $\termtwo\in\Lambda$:
+Maybe the most trivial way in which one could assign probabilities to redexes is in a \emph{uniform} way. Actually this was the randomised strategy thought by Prakash Panangaden, who is inspired our work, through some conversations with Ugo Dal Lago. More formally, $\psuni$ is a randomised reduction strategy for the ARS $(\Lambda,\redbeta)$ such that for each reducible term $\termone$, ${\psuni=\mu\in\dist{\Lambda}}$. For each $\termtwo\in\Lambda$:
 $$
 \mu(\termtwo)=\begin{cases}
 \frac{1}{|\rdxs{\termone}|} & \text{if }\termone\redbeta\termtwo ,\\
@@ -225,7 +225,7 @@ The bound we obtain on $\explen{\termone}(\varepsilon)$ from the above proof is 
 	\termthree_n = C_n\underbrace{((\lambda x.x)y)}_\termfive\qquad
 	C_n = \lambda  x.\underbrace{xx\cdots x}_{n\text{ times}}
 	$$
-	In Figure \ref{figure:probtree} the labeled graph representing all possible traces of the stochastic reduction process is sketched. After quite simple computations, i.e. taking the weighted mean of the legths of all possible paths from the root to the normal form, one can derive the following expression: 
+	In Figure \ref{figure:probtree} the labeled graph representing all possible traces of the stochastic reduction process is sketched. After quite simple computations, i.e. taking the weighted mean of the lengths of all possible paths from the root to the normal form, one can derive the following expression: 
 	$$
 	\explen{\termone_n}(\varepsilon)=(n-3)\varepsilon^3+4\varepsilon^2+\frac{2}{\varepsilon}.
 	$$
@@ -397,7 +397,7 @@ Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $
 	for each $\termone\in\Lambda$.
 \end{lemma}
 \begin{proof}
-	We prove this by induction on the lenght $\ell$ of the computation $\rho_0\rightsquigarrow\rho_1\rightsquigarrow\rho_2\rightsquigarrow\cdots\rho$. If $\ell=0$, $\rho=\rho_0$, thus $\rho(\termone)=1$ if $\rho_0=\textbf{Dirac}(\termone)$, $0$ otherwise. Now let us suppose that for computations with $\ell\leq k$, $\rho(\termone)\in \poly{\varepsilon}$. Let us consider a computation $ \rho_0\rightsquigarrow\rho_1\rightsquigarrow \rho_2\rightsquigarrow\cdots\rho_{k}\rightsquigarrow\rho$ of lenght $k+1$. $\rho(\termone)=\underset{\termtwo\in\Lambda}{\sum}\rho_{k}\left( \termtwo\right) \cdot\mathbb{P}\left(\termtwo \rightarrow \termone\right)$. Polynomials are closed with respect to addition and multiplication, thus by induction hypothesis $\rho(\termone)\in\poly{\varepsilon}$ if $\mathbb{P}(\termtwo \rightarrow \termone)\in\poly{\varepsilon}$. This is certainly true because $\mathbb{P}(\termtwo \rightarrow \termone)$ is either $0,\varepsilon,\textrm{ or }(1-\varepsilon)$ from the definition of $\mathsf{P}_{\varepsilon}$.
+	We prove this by induction on the length $\ell$ of the computation $\rho_0\rightsquigarrow\rho_1\rightsquigarrow\rho_2\rightsquigarrow\cdots\rho$. If $\ell=0$, $\rho=\rho_0$, thus $\rho(\termone)=1$ if $\rho_0=\textbf{Dirac}(\termone)$, $0$ otherwise. Now let us suppose that for computations with $\ell\leq k$, $\rho(\termone)\in \poly{\varepsilon}$. Let us consider a computation $ \rho_0\rightsquigarrow\rho_1\rightsquigarrow \rho_2\rightsquigarrow\cdots\rho_{k}\rightsquigarrow\rho$ of lenght $k+1$. $\rho(\termone)=\underset{\termtwo\in\Lambda}{\sum}\rho_{k}\left( \termtwo\right) \cdot\mathbb{P}\left(\termtwo \rightarrow \termone\right)$. Polynomials are closed with respect to addition and multiplication, thus by induction hypothesis $\rho(\termone)\in\poly{\varepsilon}$ if $\mathbb{P}(\termtwo \rightarrow \termone)\in\poly{\varepsilon}$. This is certainly true because $\mathbb{P}(\termtwo \rightarrow \termone)$ is either $0,\varepsilon,\textrm{ or }(1-\varepsilon)$ from the definition of $\mathsf{P}_{\varepsilon}$.
 \end{proof}
 \begin{theorem}
 	The function $\explen{\cdot}(\varepsilon)$ is a power series.
@@ -409,7 +409,7 @@ Call $\poly{x}$ the set of polynomials in the unknown $x$ with coefficients in $
 \section{Optimality of $P_\varepsilon$}
 As a first step in the direction of a full understanding of the nature
 of $\explen{\termone}(\varepsilon)$, we study it in the
-case $\termone$ is a term for subcalculi $\lambda A$ and
+case $\termone$ is a term for sub-calculi $\lambda A$ and
 $\lambda I$ we have previously introduced. In particular we show in the
 next two Sections that $\explen{\termone}(\varepsilon)$ has minimum
 in $\varepsilon=1$ and $\varepsilon=0$, respectively.
@@ -514,7 +514,7 @@ $n=\nsteps{\pslo}(\termone)$.
 \subsection{The Case of the $\lambda I$-calculus}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In $\lambda I$, $\pslo$ is certainly not optimal. On the other hand, $\psri$ seems to be
-quite efficient. Indeed, the argument in Section~\ref{sec:lambdaA} dualizes, and allows us to prove
+quite efficient. Indeed, the argument in Section~\ref{sec:lambdaA} dualises, and allows us to prove
 the optimality of the latter strategy.
 \begin{lemma}\label{lemma:insertion}
 	Given a term $\termone\in\Lambda_I$ and a reduction sequence $\termone\redbeta\termtwo\redbetaredanf{\sigma}\termthree$, if $\termthree$ is normal form, then for all $\beta$-$\mathsf{ANF}$-reduction sequences $\tau:\termone\redbetaredanf{}\termthree$ it holds that $|\tau|\leq |\sigma|+1$.

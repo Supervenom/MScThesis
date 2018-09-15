@@ -4,11 +4,12 @@
 % If problems with the headers: get headings in appendix etc. right
 %\markboth{\spacedlowsmallcaps{Appendix}}{\spacedlowsmallcaps{Appendix}}
 \chapter{Induction Proof Principles}
-In this appendix some aspects of induction proof principles given for granted in the remainder of this thesis will be clarified, with precise definitions and formal statements. This material is adapted from \cite{hrbacek_introduction_1999}. Computers science typically has to do with discrete structures, such as lists, trees or graphs. Proofs involving such objects are often carried out by mathematical induction. Induction is intrinsic in the definition of natural numbers. In fact it is an axiom scheme of Peano Arithmetic. Formalised in a first-order language, for each formula $\phi$ of the language:
+In this appendix some aspects of induction proof principles given for granted in the remainder of this thesis will be clarified, with precise definitions and formal statements. This material is adapted from \cite{hrbacek_introduction_1999}.\\
+Computers science typically has to do with discrete structures, such as lists, trees or graphs. Proofs involving such objects are often carried out by mathematical induction. Induction is intrinsic in the definition of natural numbers. In fact, it is an axiom scheme of Peano Arithmetic. Formalised in a first-order language, for each formula $\phi$ of the language:
 $$
 (\phi(0)\land\forall y (\phi(y)\rightarrow\phi(y+1)))\rightarrow\forall y\phi(y).
 $$
-This type of induction is well-suited to prove properties of well-ordered structures, such us lists. More complicated structures such as trees or terms defined by a grammar need, however, a different type of induction.
+This type of induction is well-suited to prove properties of well-ordered structures, which can be put in correspondence with natural numbers. More complicated structures such as trees or terms defined by a grammar need, instead, a different type of induction. We should be able to tackle their algebraic nature: well-foundedness.
 \begin{definition}\hfill
 	\begin{enumerate}
 	\item A relation $\prec$ is \emph{well-founded} on a set $X$ if for every non-empty subset $S$ of $X$, $S$ has an  element $x$ such that there exists no $y$ in $S$ satisfying $y\prec x$.
@@ -20,7 +21,7 @@ Assuming the \emph{axiom of choice} one can prove that the two definitions above
 	(1 $\Rightarrow$ 2). If there would be an infinite sequence $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i\in\mathbb{N}$, then the set $Y=\{x_i\,|\,i\in\mathbb{N}\}$ would not satisfy $1$.\\
 	(2 $\Rightarrow$ 1). If $\prec$ does not satisfy 1, then there is a non-empty subset $S$ of $X$ such that for every $x\in S$ there exists $y\in X$ such that $y\prec x$. Choose $x_0$ in $S$. Then choose $x_1$ such that $x_1\prec x_0$. Proceeding this way we can form an infinite sequence $(x_i)_{i\in\mathbb{N}}$ of elements of $X$ such that $x_{i+1}\prec x_i$ for each $i$ in $\mathbb{N}$.
 \end{proof}
-Well-founded relations are interesting because they allow proofs by induction.
+The induction proof principle can be rephrased for sets endowed with a well-founded relation, and is called well-founded or noetherian induction proof principle.
 \begin{proposition}
 	Let $(X,\prec)$ be a set endowed with a well-founded relation and $\mathbf{P}$ a property on the elements of $X$. If for each $x\in X$ it holds that: 
 	\begin{center} if $\mathbf{P}(y)$ holds  for each $y\prec x$, then $\mathbf{P}(x)$\end{center}
