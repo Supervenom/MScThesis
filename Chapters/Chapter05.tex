@@ -103,7 +103,27 @@ Once the tool is set, it is easy to test different terms. Our goal is to try to 
 	The function $\explen{\termone_n}$ is strictly decreasing.\\
 	This proves the claim.
 \end{proof}
-We have at this point examples of terms in and out of $\mathcal{C}$. What differences there are between them? Can they be spotted \emph{algorithmically} with \emph{low} complexity? Answering this question seems really hard. Hence we decided for the moment to limit ourselves in finding other terms that behave well w.r.t. strategy $\mathsf{P}_\varepsilon$. A starting point in our investigation is term $\termone_n$ from Example~\ref{example:nontr}. We look for other terms changing little by little its structure. Thanks to the automatic tool, we have an immediate feedback, so that we can try many different alternatives. Term $\termone_n$ is not strongly normalising. Is that a necessary condition? What happens if we replace the combinator $\bm{\Omega}$ in $\termone_n$ (actually in the $\pslo$-reduct of $\termone_n$), with $\mathbf{I}^m$, i.e. the identity applied to itself $m$ times? We call this term $\termtwo_{n,m}=((\lambda y.z)\bm{I}^m) (C_n(\bm{I}y))$. In Figure~\ref{figure:strnor} $\explen{\termtwo_{4,4}}(\varepsilon)$ is plotted. Also strongly normalising terms can, indeed, take advantage from randomised strategies. Moreover, this case is particularly interesting because there is a sort of symmetry. This leads to $\nsteps{\pslo}=\nsteps{\psri}=6$.
+We have at this point examples of terms in and out of $\mathcal{C}$. What differences there are between them? Can they be spotted \emph{algorithmically} with \emph{low} complexity? Answering this question seems really hard. Hence we decided for the moment to limit ourselves in finding other terms that behave well w.r.t. strategy $\mathsf{P}_\varepsilon$. A starting point in our investigation is term $\termone_n$ from Example~\ref{example:nontr}. We look for other terms changing little by little its structure. Thanks to the automatic tool, we have an immediate feedback, so that we can try many different alternatives. Term $\termone_n$ is not strongly normalising. Is that a necessary condition? What happens if we replace the combinator $\bm{\Omega}$ in $\termone_n$ (actually in the $\pslo$-reduct of $\termone_n$), with $\mathbf{I}^m$, i.e. the identity applied to itself $m$ times? We call this term $\termtwo_{n,m}=((\lambda y.z)\bm{I}^m) (C_n(\bm{I}y))$. In Figure~\ref{figure:strnor} $\explen{\termtwo_{4,4}}(\varepsilon)$ is plotted. Also strongly normalising terms can, indeed, take advantage from randomised strategies. Moreover, this case is particularly interesting because there is a sort of symmetry. This leads to $\nsteps{\pslo}(\termtwo_{4,4})=\nsteps{\psri}(\termtwo_{4,4})=6$. What about the behaviour of $\termtwo_{n,m}$ with respect to different values of $n,m$? In Table~\ref{table:optimal} results are reported. We can infer that in all non-trivial cases term $\termtwo_{n,m}$ benetifs from being reduced under strategy $\mathsf{P}_\varepsilon$ w.r.t $\pslo$ and $\psri$.
+\begin{table}
+	\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+	\hline 
+	$m\backslash n$ & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}\tabularnewline
+	\hline 
+	\textbf{1} &cost  &$\psri$  &$\psri$  &$\psri$  &$\psri$ \tabularnewline
+	\hline 
+	\textbf{2} &$\pslo$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$ \tabularnewline
+	\hline 
+	\textbf{3} &$\pslo$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$ \tabularnewline
+	\hline 
+	\textbf{4} &$\pslo$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$ \tabularnewline
+	\hline 
+	\textbf{5} &$\pslo$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$  &$\mathsf{P}_\varepsilon$ \tabularnewline
+	\hline 
+\end{tabular}
+\caption[Optimal strategies for $\termtwo_{n,m}=((\lambda y.z)\bm{I}^m) (C_n(\bm{I}y))$]{For each pair $(m,n)$ in the corrisponding cell is reported the reducion strategy that minimises the number of steps from $\termtwo_{n,m}=((\lambda y.z)\bm{I}^m) (C_n(\bm{I}y))$ to its normal form. $\mathsf{P}_\varepsilon$ has to be intended for $0<\varepsilon<1$.}
+\label{table:optimal}
+\end{table}
 \begin{figure}
 	\fbox{
 		\begin{minipage}{.96\textwidth}
@@ -114,7 +134,7 @@ We have at this point examples of terms in and out of $\mathcal{C}$. What differ
 		\caption{The function $\explen{\termtwo_{4,4}}(\varepsilon)$.}
 		\label{figure:strnor}
 	\end{figure}
-What if we move $C_n$ inside? This way we have a term of this form: $\termthree_n=((\lambda y.C_n)\bm{\Omega})(\bm{I}y)$. $\explen{\termthree_9}(\varepsilon)$ is reported in Figure~\ref{figure:plot2}.
+What if instead we rearrange $\termone_n$ moving $C_n$ inside? This way we have a term of this form: $\termthree_n=((\lambda y.C_n)\bm{\Omega})(\bm{I}y)$. $\explen{\termthree_9}(\varepsilon)$ is reported in Figure~\ref{figure:plot2}.
 \begin{figure}
 	\fbox{
 		\begin{minipage}{.96\textwidth}
@@ -136,6 +156,7 @@ What about the position of the minimum point? We can observe that the optimal $\
 		\caption[The function $\explen{\termthree_3}(\varepsilon)$.]{The function $\explen{\termthree_3}(\varepsilon)$, in green, has minimum in \texttt{0.56}. $\explen{\termthree_9}(\varepsilon)$, in blue, has minimum in \texttt{0.38}. $\explen{\termthree_{16}}(\varepsilon)$, in red, has minimum in \texttt{0.31}.}
 		\label{figure:plot3}
 	\end{figure}
+	 Of course we do not think that the topic is exhausted with these few examples. What we wanted to highlight is the hardness of the problem and the lack of formal tools to analyse it.
 \section{Future Work}
 This thesis is the first work on randomised strategies in the $\lambda$-calculus appeared in the literature. Thus, we could only scratch the surface. A lot of interesting problems remain open and we plan to investigate more in next months. In particular different questions have been raised.
 \paragraph{Are there better randomised strategies?} After a brief account on the uniform strategy, that we classified as uninteresting since it is not PAST, we have introduced strategy $\mathsf{P}_\varepsilon$. It has been our only object of study throughout the whole work. However, one can think about other interesting strategies. For example, one could vary $\mathsf{P}_\varepsilon$ in a way such that probability $1-\varepsilon$ assigned to the $\psri$-redex is split uniformly between all redexes that have their argument in normal form. This way, the strategy looks more natural and less arbitrary. What about its performances?

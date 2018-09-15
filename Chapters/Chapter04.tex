@@ -61,10 +61,16 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 	\nsteps{\psuni}(\termone)=\sum\limits_{i=1}^{\infty} \left|\rho_i\right|=\sum\limits_{i=1}^{\infty} \frac{1}{i}=+\infty.
 	$$
 \end{example}
+\tikzset{
+	itria/.style={
+		draw,dashed,shape border uses incircle,
+		isosceles triangle,shape border rotate=90,yshift=-1.27cm},
+}
 \begin{figure}
 	\begin{center}
 		\fbox{
 			\begin{minipage}{.96\textwidth}
+				\tikzstyle{level 3}=[level distance=0.5cm, sibling distance=2.5cm]
 				\begin{tikzpicture}[grow=down]
 				\node[term] {$(\lambda x.\lambda y.y)\bm{\Delta_4}$}
 				child {
@@ -81,11 +87,17 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 					}
 					child {
 						node[term] {$(\lambda x.\lambda y.y)((\bm{\Delta_4}\bm{\Delta_4})\bm{\Delta_4})$}
+						child{ node[draw=none] {}
+							{ node[itria] {$\cdots$} } 
+						}
 						edge from parent         
 						node[right]  {$\frac{1}{3}$}
 					}
 					child {
 						node[term] {$(\lambda x.\lambda y.y)(\bm{\Delta_4}(\bm{\Delta_4\Delta_4}))$}
+						child{ node[draw=none] {}
+							{ node[itria] {$\cdots$} } 
+						}
 						edge from parent         
 						node[above]  {$\frac{1}{3}$}
 					}
@@ -95,7 +107,7 @@ Although very easy to define, the uniform strategy is not easy at all to study. 
 				\end{tikzpicture}
 			\end{minipage}}
 		\end{center}
-		\caption{The tree (truncated after two steps) representing the reduction of term $\termone = (\lambda x.\lambda y.y)\bm{\Delta_4}$ under randomised strategy $\psuni$.}
+		\caption{The tree representing the reduction of term $\termone = (\lambda x.\lambda y.y)\bm{\Delta_4}$ under randomised strategy $\psuni$.}
 		\label{figure:delta2}
 	\end{figure}
 \section{The Strategy $P_\varepsilon$}
